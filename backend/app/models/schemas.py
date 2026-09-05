@@ -1,0 +1,129 @@
+from pydantic import BaseModel
+from typing import List, Optional, Any, Dict
+from datetime import datetime
+
+class DisruptionInput(BaseModel):
+    type: str
+    target: str
+    severity: str
+    duration_days: float
+
+class DisruptionAnalysis(BaseModel):
+    analysis_summary: str
+    severity_level: str
+    estimated_resolution_days: float
+
+class ImpactInput(BaseModel):
+    affected_suppliers: int
+    affected_plants: int
+    affected_materials: int
+    affected_orders: int
+    revenue_at_risk: float
+    critical_material: str
+    inventory_days_remaining: float
+
+class ImpactExplanation(BaseModel):
+    impact_narrative: str
+    critical_warnings: List[str]
+
+class RecoveryPlanInput(BaseModel):
+    id: str
+    suppliers_used: List[str]
+    cost: float
+    delay_days: float
+    risk_score: float
+
+class RecoveryRecommendation(BaseModel):
+    recommendation: str
+    best_plan_id: str
+
+class RiskAudit(BaseModel):
+    risk_summary: str
+    is_approved: bool
+
+class CounterfactualInput(BaseModel):
+    original_plan_id: str
+    failed_supplier: str
+    remaining_plans: List[RecoveryPlanInput]
+
+class CreateRecoveryPlanRequest(BaseModel):
+    disruption_id: str
+    material_id: str
+    option_id: str
+    scenario_id: Optional[str] = None
+
+class RecoveryPlanResponse(BaseModel):
+    id: str
+    disruption_id: str
+    strategy: str
+    supplier_id: str
+    total_cost: float
+    max_delay_days: float
+    blended_risk: float
+    total_sla_exposure: float
+    final_score: float
+    orders_recovered_pct: Optional[float] = None
+    status: str
+    created_at: datetime
+    details: Optional[Dict[str, Any]] = None
+
+class UpdateStatusRequest(BaseModel):
+    status: str
+
+class RecoveryPlanListResponse(BaseModel):
+    items: List[RecoveryPlanResponse]
+    total: int
+    limit: int
+    offset: int
+    has_more: bool
+    total_active: int
+    total_pending_audit: int
+    total_pending_approval: int
+    total_completed: int
+    # Sum of total_cost across all matching plans (recovery procurement cost)
+    aggregate_plan_cost: float
+    # Sum of total_sla_exposure across all matching plans (SLA penalty risk)
+    aggregate_sla_exposure: float
+    # Kept for backward compat during transition, equals aggregate_plan_cost
+    aggregate_exposure: float
+
+class ScenarioResponse(BaseModel):
+    id: str
+    name: str
+    disruption_id: str
+    strategy: str
+    supplier_id: str
+    total_cost: float
+    max_delay_days: float
+    blended_risk: float
+    total_sla_exposure: float
+    final_score: float
+    status: str
+    created_at: datetime
+    updated_at: datetime
+    details: Optional[Dict[str, Any]] = None
+
+    class Config:
+        from_attributes = True
+
+class ScenarioListResponse(BaseModel):
+    """Paginated scenario list with server-side aggregate KPIs."""
+    items: List[ScenarioResponse]
+    # Pagination metadata
+    total: int           # total matching records (after status/search filter)
+    limit: int
+    offset: int
+    has_more: bool
+    # Server-computed aggregate KPIs (over ALL matching records, not just current page)
+    total_active: int    # READY + SIMULATING
+    total_simulating: int
+    total_ready: int
+    total_selected: int
+    aggregate_sla_exposure: float  # sum of sla_exposure for READY+SIMULATING records
+
+class GenerateScenariosRequest(BaseModel):
+    disruption_id: str
+    material_id: str
+
+class UpdateScenarioStatusRequest(BaseModel):
+    status: str

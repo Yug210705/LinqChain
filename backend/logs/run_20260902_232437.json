@@ -1,0 +1,145 @@
+{
+  "run_id": "run_20260902_232437",
+  "timestamp": "2026-09-02T23:24:43.458560",
+  "material_id": "MAT-008",
+  "sap_input_data": {
+    "material_id": "MAT-008",
+    "shortage_quantity": 5000,
+    "existing_inventory": 100,
+    "suppliers": [
+      {
+        "id": "SUP-A",
+        "capacity": 10000,
+        "unit_cost": 210.0,
+        "lead_time_days": 8.0,
+        "risk_score": 0.31
+      },
+      {
+        "id": "SUP-B",
+        "capacity": 6000,
+        "unit_cost": 140.0,
+        "lead_time_days": 3.0,
+        "risk_score": 0.14
+      },
+      {
+        "id": "SUP-C",
+        "capacity": 8000,
+        "unit_cost": 90.0,
+        "lead_time_days": 5.0,
+        "risk_score": 0.22
+      }
+    ],
+    "affected_orders": [
+      {
+        "id": "ORD-001",
+        "revenue_at_risk": 2000000.0,
+        "sla_penalty": 150000.0
+      },
+      {
+        "id": "ORD-002",
+        "revenue_at_risk": 1800000.0,
+        "sla_penalty": 100000.0
+      }
+    ]
+  },
+  "ranked_plans": [
+    {
+      "id": "PLAN-SUP-C",
+      "suppliers_used": [
+        "SUP-C"
+      ],
+      "total_cost": 450000.0,
+      "max_delay_days": 5.0,
+      "blended_risk": 0.22,
+      "total_sla_exposure": 0.0,
+      "final_score": 722000.0
+    },
+    {
+      "id": "PLAN-SUP-B-SUP-C",
+      "suppliers_used": [
+        "SUP-B",
+        "SUP-C"
+      ],
+      "total_cost": 575000.0,
+      "max_delay_days": 5.0,
+      "blended_risk": 0.18,
+      "total_sla_exposure": 0.0,
+      "final_score": 843000.0
+    },
+    {
+      "id": "PLAN-SUP-B",
+      "suppliers_used": [
+        "SUP-B"
+      ],
+      "total_cost": 700000.0,
+      "max_delay_days": 3.0,
+      "blended_risk": 0.14,
+      "total_sla_exposure": 0.0,
+      "final_score": 864000.0
+    },
+    {
+      "id": "PLAN-SUP-A-SUP-C",
+      "suppliers_used": [
+        "SUP-A",
+        "SUP-C"
+      ],
+      "total_cost": 750000.0,
+      "max_delay_days": 8.0,
+      "blended_risk": 0.265,
+      "total_sla_exposure": 250000.0,
+      "final_score": 1426500.0
+    },
+    {
+      "id": "PLAN-SUP-A-SUP-B",
+      "suppliers_used": [
+        "SUP-A",
+        "SUP-B"
+      ],
+      "total_cost": 875000.0,
+      "max_delay_days": 8.0,
+      "blended_risk": 0.225,
+      "total_sla_exposure": 250000.0,
+      "final_score": 1547500.0
+    },
+    {
+      "id": "PLAN-SUP-A",
+      "suppliers_used": [
+        "SUP-A"
+      ],
+      "total_cost": 1050000.0,
+      "max_delay_days": 8.0,
+      "blended_risk": 0.31,
+      "total_sla_exposure": 250000.0,
+      "final_score": 1731000.0
+    }
+  ],
+  "recommended_plan": {
+    "id": "PLAN-SUP-C",
+    "suppliers_used": [
+      "SUP-C"
+    ],
+    "total_cost": 450000.0,
+    "max_delay_days": 5.0,
+    "blended_risk": 0.22,
+    "total_sla_exposure": 0.0,
+    "final_score": 722000.0
+  },
+  "llm_explanation": "Plan PLAN-SUP-C is recommended. It utilizes suppliers SUP-C with a total cost of 450000.0. The maximum delay is 5.0 days and total SLA exposure is 0.0.",
+  "guardrail_stripped": false,
+  "agentic_retries": 0,
+  "sap_action_result": {
+    "transaction_id": "PO-452909525",
+    "status": "CONFIRMED",
+    "plan": {
+      "id": "PLAN-SUP-C",
+      "suppliers_used": [
+        "SUP-C"
+      ],
+      "total_cost": 450000.0,
+      "max_delay_days": 5.0,
+      "blended_risk": 0.22,
+      "total_sla_exposure": 0.0,
+      "final_score": 722000.0
+    }
+  }
+}

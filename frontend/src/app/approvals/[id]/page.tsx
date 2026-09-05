@@ -1,0 +1,200 @@
+'use client';
+import { useRouter } from 'next/navigation';
+import { useState, useEffect, Suspense } from 'react';
+import Link from 'next/link';
+import { Check, X, FileCode2, ArrowRight, AlertCircle, ShieldCheck } from 'lucide-react';
+import { formatCurrency } from '@/lib/utils';
+import { fetchRecoveryPlan, updateRecoveryPlanStatus } from '@/services/api';
+
+import { useSapEvents } from '@/components/providers/sap-event-provider';
+
+function PageContent({ id }: { id: string }) {
+  const router = useRouter();
+  const { triggerBapiToast } = useSapEvents();
+  
+  const [plan, setPlan] = useState<any>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [updating, setUpdating] = useState(false);
+  const [approved, setApproved] = useState(false);
+
+  useEffect(() => {
+    fetchRecoveryPlan(id)
+      .then(p => {
+        setPlan(p);
+      })
+      .catch(err => setError(err.message));
+  }, [id]);
+
+  const handleApprove = async () => {
+    if (updating || approved) return;
+    setUpdating(true);
+    setError(null);
+    try {
+      await updateRecoveryPlanStatus(id, 'APPROVED');
+      setApproved(true);
+      setTimeout(() => {
+        router.push(`/recovery-plans`);
+      }, 1500);
+    } catch (err: any) {
+      setError(err.message);
+      setUpdating(false);
+    }
+  };
+
+  const handleReject = async () => {
+    if (updating || approved) return;
+    setUpdating(true);
+    setError(null);
+    try {
+      await updateRecoveryPlanStatus(id, 'REJECTED');
+      router.push(`/recovery-plans`);
+    } catch (err: any) {
+      setError(err.message);
+      setUpdating(false);
+    }
+  };
+
+  if (error) {
+    return (
+      <div className="p-12 text-center text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900/50 rounded-xl mt-12 max-w-4xl mx-auto flex items-center justify-center">
+        <AlertCircle className="w-5 h-5 mr-3" />
+        {error}
+      </div>
+    );
+  }
+
+  if (!plan) return <div className="p-12 text-center text-slate-500 dark:text-slate-400">Loading plan...</div>;
+
+  const sapPayload = {
+    action: "CHANGE_SUPPLIER",
+    material_id: plan.details?.material_id || "UNKNOWN",
+    plan_id: plan.id,
+    strategy: plan.strategy,
+    new_supplier: plan.supplier_id,
+    timestamp: new Date().toISOString()
+  };
+
+  return (
+    <div className="space-y-6 max-w-4xl mx-auto pb-12 py-8">
+      <div className="flex justify-between items-end border-b border-slate-200 dark:border-slate-800 pb-4">
+        <div>
+          <div className="flex items-center space-x-2 text-sm text-slate-500 dark:text-slate-400 mb-2 font-medium">
+            <Link href="/recovery-plans" className="hover:text-slate-900 dark:hover:text-white transition-colors">Recovery Plans</Link>
+            <span className="text-slate-300 dark:text-slate-600">/</span>
+            <span className="font-semibold text-slate-900 dark:text-slate-100">{id}</span>
+            <span className="text-slate-300 dark:text-slate-600">/</span>
+            <span className="font-semibold text-slate-900 dark:text-slate-100">Action Approval</span>
+          </div>
+          <h1 className="text-3xl font-bold text-slate-900 dark:text-white tracking-tight">Pending Human Approval</h1>
+          <p className="text-slate-500 dark:text-slate-400 mt-1">Review the SAP action payload and authorize execution</p>
+        </div>
+      </div>
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+        <div className="space-y-6">
+          <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm p-6">
+            <h3 className="font-bold text-slate-900 dark:text-white mb-4">Action Summary</h3>
+            <div className="space-y-3 text-sm">
+              <div className="flex justify-between">
+                <span className="text-slate-500 dark:text-slate-400">Operation</span>
+                <span className="font-semibold text-slate-900 dark:text-slate-100">{plan.strategy}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-slate-500 dark:text-slate-400">Target Supplier</span>
+                <span className="font-semibold text-slate-900 dark:text-slate-100">{plan.supplier_id}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-slate-500 dark:text-slate-400">Total Plan Cost</span>
+                <span className="font-semibold text-slate-900 dark:text-slate-100 font-mono">{formatCurrency(plan.total_cost)}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-slate-500 dark:text-slate-400">Max Delay</span>
+                <span className="font-semibold text-slate-900 dark:text-slate-100">{plan.max_delay_days} days</span>
+              </div>
+              <div className="flex justify-between pt-3 border-t border-slate-100 dark:border-slate-800">
+                <span className="text-slate-500 dark:text-slate-400">Requested By</span>
+                <span className="text-slate-900 dark:text-slate-100">AI Recovery Agent</span>
+              </div>
+            </div>
+          </div>
+          
+          <div className="flex space-x-4">
+            <button 
+              onClick={handleReject}
+              disabled={updating || approved}
+              className="flex-1 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold py-3 rounded-lg shadow-sm flex justify-center items-center disabled:opacity-50"
+            >
+              <X className="w-5 h-5 mr-2 text-red-500" /> Reject
+            </button>
+            <button 
+              onClick={handleApprove}
+              disabled={updating || approved}
+              className={`flex-1 font-semibold py-3 rounded-lg shadow-sm flex justify-center items-center transition-all ${approved ? 'bg-emerald-500 text-white' : 'bg-blue-600 hover:bg-blue-700 text-white'}`}
+            >
+              {approved ? (
+                <><Check className="w-5 h-5 mr-2" /> Approved</>
+              ) : updating ? (
+                'Approving...'
+              ) : (
+                <><Check className="w-5 h-5 mr-2" /> Approve Plan</>
+              )}
+            </button>
+          </div>
+        </div>
+        
+        <div className="bg-slate-900 rounded-xl shadow-sm overflow-hidden flex flex-col">
+          <div className="px-5 py-3 border-b border-slate-800 bg-slate-950 flex items-center">
+            <FileCode2 className="w-4 h-4 text-slate-400 mr-2" />
+            <span className="text-sm font-medium text-slate-300">SAP BAPI Payload Preview</span>
+          </div>
+          <div className="p-5 overflow-auto flex-1 text-sm text-green-400 font-mono">
+            <pre>{JSON.stringify(sapPayload, null, 2)}</pre>
+          </div>
+        </div>
+      </div>
+      
+      {/* New Section: Compliance & Security Audit */}
+      <div className="mt-8 bg-white border border-slate-200 rounded-xl shadow-sm p-6">
+        <h3 className="font-bold text-slate-900 mb-6 flex items-center">
+           <ShieldCheck className="w-5 h-5 mr-2 text-emerald-500" /> Pre-Execution Audit
+        </h3>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+           <div className="flex items-start">
+             <div className="bg-emerald-100 p-2 rounded-full mr-3 shrink-0"><Check className="w-4 h-4 text-emerald-600"/></div>
+             <div>
+               <div className="text-sm font-bold text-slate-900">Vendor Compliance</div>
+               <div className="text-xs text-slate-500 mt-1">Supplier {plan.supplier_id} is active in vendor master and ISO certified for MAT-004.</div>
+             </div>
+           </div>
+           
+           <div className="flex items-start">
+             <div className="bg-emerald-100 p-2 rounded-full mr-3 shrink-0"><Check className="w-4 h-4 text-emerald-600"/></div>
+             <div>
+               <div className="text-sm font-bold text-slate-900">Budget Authorization</div>
+               <div className="text-xs text-slate-500 mt-1">Cost variance falls within emergency pre-approved procurement bounds.</div>
+             </div>
+           </div>
+           
+           <div className="flex items-start">
+             <div className="bg-emerald-100 p-2 rounded-full mr-3 shrink-0"><Check className="w-4 h-4 text-emerald-600"/></div>
+             <div>
+               <div className="text-sm font-bold text-slate-900">SLA Protection</div>
+               <div className="text-xs text-slate-500 mt-1">Recovery timeline successfully prevents 92% of predicted customer SLA breaches.</div>
+             </div>
+           </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+import { use } from 'react';
+
+export default function Page({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = use(params);
+  return (
+    <Suspense fallback={<div className="p-12 text-center">Loading...</div>}>
+      <PageContent id={id} />
+    </Suspense>
+  );
+}

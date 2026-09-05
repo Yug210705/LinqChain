@@ -1,0 +1,94 @@
+{
+  "run_id": "run_20260905_083720",
+  "timestamp": "2026-09-05T08:37:25.735183",
+  "material_id": "MAT-12",
+  "sap_input_data": {
+    "material_id": "MAT-12",
+    "shortage_quantity": 655,
+    "existing_inventory": 100,
+    "suppliers": [
+      {
+        "id": "SUP-007",
+        "capacity": 322,
+        "unit_cost": 291.69424395404684,
+        "lead_time_days": 2.0,
+        "risk_score": 0.24
+      },
+      {
+        "id": "SUP-010",
+        "capacity": 655,
+        "unit_cost": 375.2479023876367,
+        "lead_time_days": 2.0,
+        "risk_score": 0.35
+      }
+    ],
+    "affected_orders": [
+      {
+        "id": "ORD-001",
+        "revenue_at_risk": 2000000.0,
+        "sla_penalty": 150000.0
+      },
+      {
+        "id": "ORD-002",
+        "revenue_at_risk": 1800000.0,
+        "sla_penalty": 100000.0
+      }
+    ]
+  },
+  "ranked_plans": [
+    {
+      "id": "PLAN-SUP-007-SUP-010",
+      "suppliers_used": [
+        "SUP-007",
+        "SUP-010"
+      ],
+      "total_cost": 218465.32975611815,
+      "max_delay_days": 2.0,
+      "blended_risk": 0.295,
+      "total_sla_exposure": 0.0,
+      "final_score": 347965.3297561181
+    },
+    {
+      "id": "PLAN-SUP-010",
+      "suppliers_used": [
+        "SUP-010"
+      ],
+      "total_cost": 245787.37606390205,
+      "max_delay_days": 2.0,
+      "blended_risk": 0.35,
+      "total_sla_exposure": 0.0,
+      "final_score": 380787.37606390205
+    }
+  ],
+  "recommended_plan": {
+    "id": "PLAN-SUP-007-SUP-010",
+    "suppliers_used": [
+      "SUP-007",
+      "SUP-010"
+    ],
+    "total_cost": 218465.32975611815,
+    "max_delay_days": 2.0,
+    "blended_risk": 0.295,
+    "total_sla_exposure": 0.0,
+    "final_score": 347965.3297561181
+  },
+  "llm_explanation": "Plan PLAN-SUP-007-SUP-010 is recommended. It utilizes suppliers SUP-007, SUP-010 with a total cost of 218465.32975611815. The maximum delay is 2.0 days and total SLA exposure is 0.0.",
+  "guardrail_stripped": false,
+  "agentic_retries": 0,
+  "sap_action_result": {
+    "transaction_id": "PO-453930468",
+    "status": "CONFIRMED",
+    "plan": {
+      "id": "PLAN-SUP-007-SUP-010",
+      "suppliers_used": [
+        "SUP-007",
+        "SUP-010"
+      ],
+      "total_cost": 218465.32975611815,
+      "max_delay_days": 2.0,
+      "blended_risk": 0.295,
+      "total_sla_exposure": 0.0,
+      "final_score": 347965.3297561181
+    }
+  }
+}

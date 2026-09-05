@@ -1,0 +1,27 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Secrets
+.env
+.env.*
+
+# Databases (HANA is the source of truth; local sqlite is a dev fallback)
+*.db
+
+# Node / Frontend
+node_modules/
+.next/
+dist/
+*.tsbuildinfo
+*.log
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db

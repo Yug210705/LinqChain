@@ -1,0 +1,15 @@
+fastapi
+uvicorn
+sqlalchemy
+sqlalchemy-hana
+hdbcli
+pydantic
+pydantic-settings
+networkx
+scipy
+pytest
+httpx
+openai
+structlog
+python-dotenv
+sse-starlette
