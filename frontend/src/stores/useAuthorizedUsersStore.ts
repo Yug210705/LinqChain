@@ -223,6 +223,24 @@ export const useAuthorizedUsersStore = create<AuthorizedUsersState>((set, get) =
     if (!match) {
       match = DEFAULT_AUTHORIZED_USERS.find((u) => u.email.trim().toLowerCase() === cleanEmail);
     }
+
+    // Dynamic self-service authorization: Allow any valid email to explore the platform as Operator
+    if (!match && cleanEmail.includes('@')) {
+      const dynamicUser: AuthorizedUser = {
+        id: `auth-usr-${Date.now()}`,
+        email: cleanEmail,
+        display_name: cleanEmail.split('@')[0].replace('.', ' ').replace(/\b\w/g, (c) => c.toUpperCase()) || 'Operator User',
+        authorized_portal: 'OPERATOR',
+        role: 'OPERATOR',
+        organization: 'Enterprise Operations',
+        job_title: 'Supply Chain Operations Lead',
+        is_active: true,
+        created_at: new Date().toISOString(),
+        last_login: new Date().toISOString(),
+      };
+      return dynamicUser;
+    }
+
     return match;
   },
 
