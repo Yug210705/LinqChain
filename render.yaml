@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: linqchain-backend
+    runtime: python
+    rootDir: backend
+    buildCommand: "pip install --upgrade pip && pip install -r requirements.txt && python seed_scenarios_and_plans.py"
+    startCommand: "uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.0
+      - key: ENVIRONMENT
+        value: development
+      - key: RESILIENCE_SQLITE
+        value: "1"
+      - key: ALLOWED_ORIGINS
+        value: "https://linqchain.vercel.app,http://localhost:3000"
