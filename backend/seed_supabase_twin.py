@@ -3,7 +3,8 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv()
-from app.core.database import SessionLocal, engine
+import app.models  # Ensure all SQLAlchemy models are registered
+from app.core.database import SessionLocal, engine, Base
 from app.models import (
     Supplier, Material, SupplierMaterial, Plant, Product,
     ProductMaterial, Order, Inventory, Port, TransportRoute, Disruption
@@ -11,6 +12,7 @@ from app.models import (
 from app.models.db_models import RecoveryPlanRecord, ScenarioRecord
 
 def seed_twin():
+    Base.metadata.create_all(bind=engine)
     db = SessionLocal()
     random.seed(42)
     print("Seeding full Digital Twin dataset to Supabase Cloud...")

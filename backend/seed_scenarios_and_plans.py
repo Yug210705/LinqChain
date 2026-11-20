@@ -5,17 +5,38 @@ from datetime import datetime, timezone
 from dotenv import load_dotenv
 
 load_dotenv()
-from app.core.database import SessionLocal, engine
+import app.models  # Ensure all SQLAlchemy models are registered
+from app.core.database import SessionLocal, engine, Base
 from app.models.db_models import RecoveryPlanRecord, ScenarioRecord
+from app.models import Supplier
+from seed_supabase_twin import seed_twin
 
 def seed_plans():
-    db = SessionLocal()
-    print("Seeding initial Scenarios and Recovery Plans to Supabase...")
+    # 1. Ensure all database tables exist before querying or deleting
+    Base.metadata.create_all(bind=engine)
 
-    # Clear existing if any
-    db.query(RecoveryPlanRecord).delete()
-    db.query(ScenarioRecord).delete()
-    db.commit()
+    # 2. If the database is completely fresh, seed the base digital twin topology
+    db = SessionLocal()
+    try:
+        if db.query(Supplier).count() == 0:
+            print("Fresh database detected — seeding base Digital Twin (Suppliers, Ports, Routes, Orders)...")
+            db.close()
+            seed_twin()
+            db = SessionLocal()
+    except Exception as e:
+        print(f"Digital Twin check note: {e}")
+        db.rollback()
+
+    print("Seeding initial Scenarios and Recovery Plans...")
+
+    # Clear existing if any (wrapped safely)
+    try:
+        db.query(RecoveryPlanRecord).delete()
+        db.query(ScenarioRecord).delete()
+        db.commit()
+    except Exception as e:
+        print(f"Warning clearing previous scenarios/plans: {e}")
+        db.rollback()
 
     disruption_id = "SIM-DISRUPT-001"
 

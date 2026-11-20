@@ -14,3 +14,4 @@ services:
         value: "1"
       - key: ALLOWED_ORIGINS
         value: "https://linqchain.vercel.app,http://localhost:3000"
+
