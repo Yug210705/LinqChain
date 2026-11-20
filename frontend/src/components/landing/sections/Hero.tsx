@@ -35,14 +35,14 @@ export default function Hero() {
   return (
     <section className="relative min-h-[100vh] w-full flex flex-col items-center justify-start pt-24 sm:pt-32 md:pt-40 pb-16 md:pb-20 overflow-hidden bg-transparent">
       
-      {/* Dynamic Lighting Orbs with Framer Motion floating effect */}
+      {/* Dynamic Lighting Orbs with Framer Motion floating effect (Desktop Only for 60fps mobile performance) */}
       <motion.div 
         animate={{ 
           scale: [1, 1.15, 1],
           opacity: [0.5, 0.7, 0.5],
         }}
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-brand/20 rounded-[100%] blur-[120px] pointer-events-none" 
+        className="hidden md:block absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-brand/20 rounded-[100%] blur-[120px] pointer-events-none" 
       />
       <motion.div 
         animate={{ 
@@ -50,7 +50,7 @@ export default function Hero() {
           opacity: [0.3, 0.5, 0.3],
         }}
         transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-        className="absolute top-1/3 left-1/4 w-[400px] h-[400px] bg-white/5 rounded-[100%] blur-[100px] pointer-events-none" 
+        className="hidden md:block absolute top-1/3 left-1/4 w-[400px] h-[400px] bg-white/5 rounded-[100%] blur-[100px] pointer-events-none" 
       />
 
       {/* Grid Overlay for Tech Vibe */}

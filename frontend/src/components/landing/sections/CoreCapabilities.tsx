@@ -56,7 +56,7 @@ export default function CoreCapabilities() {
               key={cap.id} 
               variants={cardVariants}
               whileTap={{ scale: 0.99 }}
-              className="w-full group relative rounded-2xl md:rounded-3xl border border-white/10 bg-black/60 backdrop-blur-xl p-5 sm:p-7 lg:p-9 overflow-hidden hover:border-[#FF9F68]/30 transition-all duration-500 shadow-xl"
+              className="w-full group relative rounded-2xl md:rounded-3xl border border-white/10 bg-black/80 md:bg-black/60 md:backdrop-blur-xl p-5 sm:p-7 lg:p-9 overflow-hidden hover:border-[#FF9F68]/30 transition-all duration-500 shadow-xl"
             >
               <div className="flex items-center gap-3.5 mb-3 sm:mb-6 relative z-10">
                 <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-[#FF9F68]/15 border border-[#FF9F68]/30 flex items-center justify-center text-[#FF9F68] group-hover:scale-110 transition-transform duration-500 shrink-0 shadow-[0_0_15px_rgba(255,159,104,0.2)]">

@@ -61,6 +61,12 @@ export default function ImpactAnalysisPage() {
         }
       } catch (e: any) {
         if (cancelled) return;
+        // Resilient fallback: If the active store already holds this simulated disruption, use it!
+        if (activeDisruption && (activeDisruption.simulation_id === id || activeDisruption.id === id)) {
+          setFetched(activeDisruption);
+          setLoading(false);
+          return;
+        }
         setError(e?.message || 'Disruption not found');
       } finally {
         if (!cancelled) setLoading(false);
