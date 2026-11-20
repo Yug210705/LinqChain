@@ -8,17 +8,17 @@ export function ActiveDisruptions() {
   const { activeDisruption } = useSimulationStore();
 
   return (
-    <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm h-full flex flex-col overflow-hidden">
-      <div className="p-4 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center bg-white dark:bg-[#111827]">
+    <div className="bg-white dark:bg-[#1c1c1e] border border-slate-200 dark:border-neutral-800 rounded-xl shadow-sm h-full flex flex-col overflow-hidden">
+      <div className="p-4 border-b border-slate-100 dark:border-neutral-800 flex justify-between items-center bg-white dark:bg-[#1c1c1e]">
         <h3 className="font-bold text-slate-900 dark:text-white">Active Disruptions</h3>
-        <Link href="/disruptions" className="text-blue-600 dark:text-blue-400 text-xs font-bold hover:underline">View all</Link>
+        <Link href="/disruptions" className="text-blue-600 dark:text-amber-400 text-xs font-bold hover:underline">View all</Link>
       </div>
       
       <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-slate-50/50 dark:bg-transparent custom-scrollbar">
         {activeDisruption && (
           <Link 
             href={`/disruptions/${activeDisruption.simulation_id}`}
-            className="block bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-lg p-3 hover:shadow-md transition-shadow relative overflow-hidden"
+            className="block bg-white dark:bg-[#1c1c1e] border border-slate-200 dark:border-neutral-800 rounded-lg p-3 hover:shadow-md transition-shadow relative overflow-hidden"
           >
             <div className="absolute left-0 top-0 bottom-0 w-1 bg-red-500"></div>
             <div className="flex justify-between items-start ml-2">
@@ -26,9 +26,9 @@ export function ActiveDisruptions() {
                 <AlertTriangle className="w-5 h-5 text-red-500 mr-3 shrink-0 mt-0.5" />
                 <div className="min-w-0 flex-1">
                   <h4 className="font-bold text-slate-900 dark:text-white text-[13px] leading-snug truncate" title={`${activeDisruption.disruption.affected_entity_id} ${activeDisruption.disruption.disruption_type}`}>
-                    {activeDisruption.disruption.affected_entity_id} <span className="font-medium text-slate-600 dark:text-slate-400">{activeDisruption.disruption.disruption_type}</span>
+                    {activeDisruption.disruption.affected_entity_id} <span className="font-medium text-slate-600 dark:text-neutral-400">{activeDisruption.disruption.disruption_type}</span>
                   </h4>
-                  <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1 truncate">
+                  <p className="text-[11px] text-slate-500 dark:text-neutral-400 mt-1 truncate">
                     {activeDisruption.disruption.severity * 100}% capacity loss • {activeDisruption.disruption.duration_days} days
                   </p>
                 </div>
@@ -47,7 +47,7 @@ export function ActiveDisruptions() {
           <>
             <button 
               onClick={() => alert("This is a historical disruption record. To see the full interactive analysis view, please run a live simulation from the top right button.")}
-              className="block w-full text-left bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-lg p-3 relative overflow-hidden opacity-90 hover:shadow-md transition-shadow cursor-pointer"
+              className="block w-full text-left bg-white dark:bg-[#1c1c1e] border border-slate-200 dark:border-neutral-800 rounded-lg p-3 relative overflow-hidden opacity-90 hover:shadow-md transition-shadow cursor-pointer"
             >
               <div className="absolute left-0 top-0 bottom-0 w-1 bg-amber-500"></div>
               <div className="flex justify-between items-start ml-2">
@@ -55,9 +55,9 @@ export function ActiveDisruptions() {
                   <AlertTriangle className="w-5 h-5 text-amber-500 mr-3 shrink-0 mt-0.5" />
                   <div className="min-w-0 flex-1">
                     <h4 className="font-bold text-slate-900 dark:text-white text-[13px] leading-snug truncate" title="Port of Shanghai Closure">
-                      Port of Shanghai <span className="font-medium text-slate-600 dark:text-slate-400">Closure</span>
+                      Port of Shanghai <span className="font-medium text-slate-600 dark:text-neutral-400">Closure</span>
                     </h4>
-                    <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1 truncate">
+                    <p className="text-[11px] text-slate-500 dark:text-neutral-400 mt-1 truncate">
                       Port Closure • 7 days
                     </p>
                   </div>
@@ -73,7 +73,7 @@ export function ActiveDisruptions() {
 
             <button 
               onClick={() => alert("This is a historical disruption record. To see the full interactive analysis view, please run a live simulation from the top right button.")}
-              className="block w-full text-left bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-lg p-3 relative overflow-hidden opacity-80 hover:shadow-md transition-shadow cursor-pointer"
+              className="block w-full text-left bg-white dark:bg-[#1c1c1e] border border-slate-200 dark:border-neutral-800 rounded-lg p-3 relative overflow-hidden opacity-80 hover:shadow-md transition-shadow cursor-pointer"
             >
               <div className="absolute left-0 top-0 bottom-0 w-1 bg-yellow-500"></div>
               <div className="flex justify-between items-start ml-2">
@@ -81,9 +81,9 @@ export function ActiveDisruptions() {
                   <AlertTriangle className="w-5 h-5 text-yellow-500 mr-3 shrink-0 mt-0.5" />
                   <div className="min-w-0 flex-1">
                     <h4 className="font-bold text-slate-900 dark:text-white text-[13px] leading-snug truncate" title="MAT-004 Quality Issue">
-                      MAT-004 <span className="font-medium text-slate-600 dark:text-slate-400">Quality Issue</span>
+                      MAT-004 <span className="font-medium text-slate-600 dark:text-neutral-400">Quality Issue</span>
                     </h4>
-                    <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1 truncate">
+                    <p className="text-[11px] text-slate-500 dark:text-neutral-400 mt-1 truncate">
                       Quality Deviation • 5 days
                     </p>
                   </div>

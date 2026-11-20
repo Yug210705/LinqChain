@@ -43,14 +43,14 @@ export function RevenueExposureChart() {
   const numericTotal = parseFloat(totalCr) || 1;
 
   return (
-    <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm p-4 flex flex-col h-[280px]">
+    <div className="bg-white dark:bg-[#1c1c1e] border border-slate-200 dark:border-neutral-800 rounded-xl shadow-sm p-4 flex flex-col h-[280px]">
       <h3 className="font-bold text-slate-900 dark:text-white mb-2">Revenue Exposure</h3>
       
       {activeDisruption && chartData.length > 0 ? (
         <>
           <div className="mb-2">
             <div className="text-3xl font-extrabold text-slate-900 dark:text-white">₹{totalCr} Cr</div>
-            <div className="text-xs text-slate-500 dark:text-slate-400">At risk</div>
+            <div className="text-xs text-slate-500 dark:text-neutral-400">At risk</div>
           </div>
           
           <div className="flex-1 flex items-center mt-2">
@@ -77,8 +77,8 @@ export function RevenueExposureChart() {
               {chartData.map((item, idx) => (
                 <div key={idx} className="flex items-center text-[10px]">
                   <div className="w-2 h-2 rounded-full mr-2 shrink-0" style={{ backgroundColor: item.color }}></div>
-                  <span className="font-bold text-slate-900 dark:text-slate-200 w-14 truncate" title={item.name}>{item.name}</span>
-                  <span className="text-slate-500 dark:text-slate-400">
+                  <span className="font-bold text-slate-900 dark:text-neutral-200 w-14 truncate" title={item.name}>{item.name}</span>
+                  <span className="text-slate-500 dark:text-neutral-400">
                     ₹{item.value.toFixed(1)} Cr ({Math.round((item.value / numericTotal) * 100)}%)
                   </span>
                 </div>

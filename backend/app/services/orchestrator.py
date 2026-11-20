@@ -175,7 +175,7 @@ async def execute_sap_action(plan_dict: dict):
 
 async def run_recovery_pipeline(material_id: str, inject_failure: str = None) -> AuditLog:
     """
-    Runs the 6-step Resilience OS pipeline.
+    Runs the 6-step LinqChain pipeline.
     inject_failure can be 'sap', 'llm', or 'guardrails' for chaos testing.
     """
     run_id = f"run_{datetime.utcnow().strftime('%Y%m%d_%H%M%S')}"

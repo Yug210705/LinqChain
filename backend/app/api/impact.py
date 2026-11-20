@@ -9,6 +9,7 @@ from app.core.database import get_db
 from app.core.runtime import cache_drop as _cache_drop
 from app.core.runtime import cached as _cached
 from app.core.runtime import _graph_payload
+from app.core.auth import require_permission
 from app.schemas import DisruptionRequest, DisruptionResponse, MultiDisruptionRequest
 from app.services.impact_service import (
     analyze_vulnerabilities,
@@ -22,7 +23,7 @@ router = APIRouter(tags=["Impact Engine"])
 
 
 @router.post("/api/disruptions/simulate", response_model=DisruptionResponse, summary="Simulate Supply Chain Disruption (Deterministic)")
-def simulate(req: DisruptionRequest, db: Session = Depends(get_db)):
+def simulate(req: DisruptionRequest, db: Session = Depends(get_db), _user=Depends(require_permission("disruptions", "simulate"))):
     try:
         result = simulate_disruption(db, req)
         _cache_drop("disruptions_list")
@@ -32,7 +33,7 @@ def simulate(req: DisruptionRequest, db: Session = Depends(get_db)):
 
 
 @router.get("/api/disruptions", summary="List all disruption runs (active + history)")
-def list_disruptions(db: Session = Depends(get_db)):
+def list_disruptions(db: Session = Depends(get_db), _user=Depends(require_permission("disruptions", "view"))):
     def _load():
         from app.models import Disruption
         rows = db.query(Disruption).order_by(Disruption.created_at.desc()).all()
@@ -57,7 +58,7 @@ def list_disruptions(db: Session = Depends(get_db)):
 
 
 @router.post("/api/disruptions/reset", summary="Reset all simulated disruptions (active + history)")
-def reset_disruptions(db: Session = Depends(get_db)):
+def reset_disruptions(db: Session = Depends(get_db), _user=Depends(require_permission("disruptions", "reset"))):
     from app.models import Disruption
     deleted = db.query(Disruption).delete()
     db.commit()
@@ -66,7 +67,7 @@ def reset_disruptions(db: Session = Depends(get_db)):
 
 
 @router.get("/api/disruptions/{simulation_id}", summary="Get full disruption snapshot")
-def get_disruption(simulation_id: str, db: Session = Depends(get_db)):
+def get_disruption(simulation_id: str, db: Session = Depends(get_db), _user=Depends(require_permission("disruptions", "view"))):
     from app.models import Disruption
     row = db.query(Disruption).filter_by(simulation_id=simulation_id).first()
     if not row:
@@ -79,7 +80,7 @@ def get_disruption(simulation_id: str, db: Session = Depends(get_db)):
 
 
 @router.post("/api/disruptions/{simulation_id}/resolve", summary="Resolve a disruption run")
-def resolve_disruption(simulation_id: str, db: Session = Depends(get_db)):
+def resolve_disruption(simulation_id: str, db: Session = Depends(get_db), _user=Depends(require_permission("disruptions", "resolve"))):
     from app.models import Disruption
     from datetime import datetime
     row = db.query(Disruption).filter_by(simulation_id=simulation_id).first()
@@ -93,17 +94,17 @@ def resolve_disruption(simulation_id: str, db: Session = Depends(get_db)):
 
 
 @router.get("/api/supply-chain/graph", summary="Export Full Supply Chain Topology")
-def export_graph(db: Session = Depends(get_db)):
+def export_graph(db: Session = Depends(get_db), _user=Depends(require_permission("supply_chain", "view_graph"))):
     return _cached("supply_graph", 300, lambda: _graph_payload(db))
 
 
 @router.get("/api/supply-chain/vulnerabilities", summary="Run Graph Theory Bottleneck Analysis")
-def get_vulnerabilities(db: Session = Depends(get_db)):
+def get_vulnerabilities(db: Session = Depends(get_db), _user=Depends(require_permission("supply_chain", "view_vulnerabilities"))):
     return analyze_vulnerabilities(db)
 
 
 @router.get("/api/supply-chain/geojson", summary="Export GeoJSON map for 3D Globe")
-def get_geojson(db: Session = Depends(get_db)):
+def get_geojson(db: Session = Depends(get_db), _user=Depends(require_permission("supply_chain", "view_graph"))):
     from app.models import Plant, Port, Supplier
     features = []
 
@@ -175,12 +176,12 @@ async def stream_disruption(websocket: WebSocket, db: Session = Depends(get_db))
 
 
 @router.post("/api/war-room/simulate-multi", summary="Simulate Simultaneous Multi-Vector Disruptions")
-def war_room_simulate(req: MultiDisruptionRequest, db: Session = Depends(get_db)):
+def war_room_simulate(req: MultiDisruptionRequest, db: Session = Depends(get_db), _user=Depends(require_permission("disruptions", "simulate"))):
     return simulate_multi_disruption(db, req.disruptions)
 
 
 @router.post("/api/war-room/chaos-monkey", summary="Unleash the Supply Chain Chaos Monkey")
-def unleash_chaos_monkey(db: Session = Depends(get_db)):
+def unleash_chaos_monkey(db: Session = Depends(get_db), _user=Depends(require_permission("disruptions", "simulate"))):
     """
     Uses Graph Theory (PageRank) to automatically identify the 3 most critical systemic
     vulnerabilities in the enterprise, and then simultaneously destroys them (Severity 1.0)

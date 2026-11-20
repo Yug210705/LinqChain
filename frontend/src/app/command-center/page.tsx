@@ -11,15 +11,15 @@ import { Zap } from 'lucide-react';
 export default function CommandCenter() {
   return (
     <div className="space-y-6 max-w-[1600px] mx-auto pb-12">
-      <div className="flex justify-between items-end border-b border-slate-200 dark:border-slate-800 pb-4">
+      <div className="flex justify-between items-end border-b border-slate-200 dark:border-neutral-800 pb-4">
         <div>
           <h1 className="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">Command Center</h1>
-          <p className="text-slate-500 dark:text-slate-400 mt-1">Real-time visibility across your supply chain</p>
+          <p className="text-slate-500 dark:text-neutral-400 mt-1">Real-time visibility across your supply chain</p>
         </div>
         
         {/* We use SimulationLauncher as the Simulate Disruption button wrapper */}
         <SimulationLauncher>
-          <div className="bg-blue-600 hover:bg-blue-700 text-white rounded-md px-4 py-2 font-semibold text-sm flex items-center shadow-sm transition-colors">
+          <div className="bg-blue-600 hover:bg-blue-700 dark:bg-amber-600 dark:hover:bg-amber-700 text-white rounded-md px-4 py-2 font-semibold text-sm flex items-center shadow-sm transition-colors cursor-pointer">
             <Zap className="w-4 h-4 mr-2" /> Simulate Disruption
           </div>
         </SimulationLauncher>

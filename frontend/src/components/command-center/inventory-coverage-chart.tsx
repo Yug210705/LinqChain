@@ -45,14 +45,14 @@ export function InventoryCoverageChart() {
   const avgCoverage = chartData.length > 0 ? chartData[0].coverage.toFixed(1) : '0.0';
 
   return (
-    <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm p-4 flex flex-col h-[280px]">
+    <div className="bg-white dark:bg-[#1c1c1e] border border-slate-200 dark:border-neutral-800 rounded-xl shadow-sm p-4 flex flex-col h-[280px]">
       <h3 className="font-bold text-slate-900 dark:text-white mb-2">Inventory Coverage</h3>
       
       {activeDisruption && chartData.length > 0 ? (
         <>
           <div className="mb-4">
             <div className="text-3xl font-extrabold text-slate-900 dark:text-white">{avgCoverage} days</div>
-            <div className="text-xs text-slate-500 dark:text-slate-400">Initial remaining coverage</div>
+            <div className="text-xs text-slate-500 dark:text-neutral-400">Initial remaining coverage</div>
           </div>
           
           <div className="flex-1 min-h-[120px] w-full mt-2">

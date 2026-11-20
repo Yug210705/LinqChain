@@ -13,3 +13,6 @@ openai
 structlog
 python-dotenv
 sse-starlette
+passlib[bcrypt]
+python-jose[cryptography]
+psycopg2-binary

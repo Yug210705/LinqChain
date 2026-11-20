@@ -62,7 +62,7 @@ export function KPIStrip() {
       label: 'Affected Plants', 
       value: countOf('affected_plants', live?.affected_plants).toString(),
       subtext: isDisrupted ? 'across regions' : '-', 
-      icon: Factory, iconColor: 'text-blue-600 dark:text-blue-400', iconBg: 'bg-blue-50 dark:bg-blue-900/30',
+      icon: Factory, iconColor: 'text-blue-600 dark:text-amber-400', iconBg: 'bg-blue-50 dark:bg-amber-900/30',
       badge: isDisrupted ? 'High' : null, badgeColor: 'bg-amber-100 text-amber-700 dark:bg-amber-900/50 dark:text-amber-400'
     },
     { 
@@ -83,7 +83,7 @@ export function KPIStrip() {
       label: 'Production Impact', 
       value: isDisrupted && summary?.overall_impact_score ? `${summary.overall_impact_score}%` : '0%',
       subtext: isDisrupted ? 'Severity Score' : '-', 
-      icon: BarChart3, iconColor: 'text-blue-600 dark:text-blue-400', iconBg: 'bg-blue-50 dark:bg-blue-900/30',
+      icon: BarChart3, iconColor: 'text-blue-600 dark:text-amber-400', iconBg: 'bg-blue-50 dark:bg-amber-900/30',
       badge: isDisrupted ? 'High' : null, badgeColor: 'bg-amber-100 text-amber-700 dark:bg-amber-900/50 dark:text-amber-400'
     },
   ];
@@ -91,22 +91,22 @@ export function KPIStrip() {
   return (
     <div className="flex overflow-x-auto pb-4 gap-4 custom-scrollbar">
       {kpis.map((kpi, i) => (
-        <div key={i} className="flex-1 min-w-[220px] shrink-0 bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-sm hover:shadow-md transition-all flex flex-col justify-between group relative overflow-hidden">
-          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-blue-400 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+        <div key={i} className="flex-1 min-w-[220px] shrink-0 bg-white dark:bg-[#1c1c1e] border border-slate-200 dark:border-neutral-800 rounded-xl p-4 shadow-sm hover:shadow-md transition-all flex flex-col justify-between group relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-blue-400 dark:via-amber-400 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
           
           <div className="flex items-center space-x-3 mb-4 relative z-10">
             <div className={cn("p-2 rounded-lg transition-transform group-hover:scale-110 duration-300 shrink-0", kpi.iconBg)}>
               <kpi.icon className={cn("w-5 h-5", kpi.iconColor)} />
             </div>
             <div>
-              <div className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider whitespace-nowrap leading-none mb-1">{kpi.label}</div>
+              <div className="text-[11px] font-bold text-slate-500 dark:text-neutral-400 uppercase tracking-wider whitespace-nowrap leading-none mb-1">{kpi.label}</div>
               <div className="text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight whitespace-nowrap leading-none">{kpi.value}</div>
             </div>
           </div>
 
-          <div className="flex items-center justify-between mt-auto pt-3 border-t border-slate-100 dark:border-slate-800/60 relative z-10">
+          <div className="flex items-center justify-between mt-auto pt-3 border-t border-slate-100 dark:border-neutral-800/60 relative z-10">
             <span className={cn("text-[11px] font-medium truncate mr-2", 
-              kpi.subtext.includes('↑') ? "text-red-500 font-bold" : "text-slate-500 dark:text-slate-400"
+              kpi.subtext.includes('↑') ? "text-red-500 font-bold" : "text-slate-500 dark:text-neutral-400"
             )} title={kpi.subtext}>
               {kpi.subtext}
             </span>

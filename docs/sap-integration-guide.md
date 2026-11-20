@@ -1,7 +1,7 @@
 # SAP Integration Guide
 **For Member 3 (SAP Implementation Lead)**
 
-This document details the SAP Integration Boundary (Chapter 5) built for Resilience OS. The core application logic is strictly isolated from SAP SDKs or specific vendor implementations.
+This document details the SAP Integration Boundary (Chapter 5) built for LinqChain. The core application logic is strictly isolated from SAP SDKs or specific vendor implementations.
 
 ## What Already Exists
 1. **SAP Port (`backend/app/integrations/sap/port.py`)**: Defines `SAPIntegrationPort`, the abstract interface detailing required read and write operations (`get_supplier`, `get_inventory`, `submit_recovery_action`, etc.).

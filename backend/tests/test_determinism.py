@@ -3,7 +3,8 @@ from app.main import app
 
 client = TestClient(app)
 
-def test_determinism():
+def test_determinism(monkeypatch):
+    monkeypatch.setenv("RESILIENCE_NO_AUTH", "1")
     payload = {
         "disruption_type": "supplier",
         "affected_entity_id": "SUP-007",

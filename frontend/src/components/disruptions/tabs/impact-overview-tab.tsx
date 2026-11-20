@@ -1,14 +1,9 @@
 'use client';
-import dynamic from 'next/dynamic';
+import { SupplyChainGraph } from '@/components/disruptions/supply-chain-graph';
 import { BarChart2, Users, Building2, LayoutDashboard, ListChecks, AlertTriangle, Info, Maximize, FileText, ArrowRight, Factory, LayoutGrid, Timer, MapPin, Clock } from 'lucide-react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, ReferenceLine, ReferenceArea, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
-
-const SupplyChainGraph = dynamic(
-  () => import('@/components/disruptions/supply-chain-graph').then((mod) => mod.SupplyChainGraph),
-  { ssr: false }
-);
 
 const inventoryData = [
   { day: 'May 17', coverage: 7.2 },
@@ -27,29 +22,29 @@ export function ImpactOverviewTab({ disruptionData, setActiveTab }: { disruption
   const summary = disruptionData?.summary || {};
   
   const kpis = [
-    { label: 'Affected Suppliers', value: summary.affected_suppliers || 7, icon: Factory, color: 'text-blue-500', bg: 'bg-blue-50 dark:bg-blue-900/30' },
+    { label: 'Affected Suppliers', value: summary.affected_suppliers || 7, icon: Factory, color: 'text-blue-500', bg: 'bg-blue-50 dark:bg-amber-900/30' },
     { label: 'Affected Materials', value: summary.affected_materials || 3, icon: Users, color: 'text-purple-500', bg: 'bg-purple-50 dark:bg-purple-900/30' },
     { label: 'Affected Plants', value: summary.affected_plants || 4, icon: Building2, color: 'text-emerald-500', bg: 'bg-emerald-50 dark:bg-emerald-900/30' },
-    { label: 'Affected Products', value: summary.affected_products || 8, icon: LayoutGrid, color: 'text-slate-500', bg: 'bg-slate-100 dark:bg-slate-800' },
-    { label: 'Affected Orders', value: summary.affected_orders || 124, icon: ListChecks, color: 'text-slate-500', bg: 'bg-slate-100 dark:bg-slate-800' },
+    { label: 'Affected Products', value: summary.affected_products || 8, icon: LayoutGrid, color: 'text-slate-500', bg: 'bg-slate-100 dark:bg-neutral-800' },
+    { label: 'Affected Orders', value: summary.affected_orders || 124, icon: ListChecks, color: 'text-slate-500', bg: 'bg-slate-100 dark:bg-neutral-800' },
     { label: 'Revenue at Risk', value: summary.revenue_at_risk ? `₹${(summary.revenue_at_risk / 10000000).toFixed(1)} Cr` : '₹18.5 Cr', icon: Timer, color: 'text-red-500', bg: 'bg-red-50 dark:bg-red-900/30' },
   ];
 
   return (
-    <div className="flex flex-col space-y-6 text-slate-900 dark:text-slate-100">
+    <div className="flex flex-col space-y-6 text-slate-900 dark:text-neutral-100">
       
       {/* Impact Summary Strip - Full Width */}
       <div>
         <h3 className="text-sm font-bold text-slate-900 dark:text-white mb-3">Impact Summary</h3>
         <div className="flex overflow-x-auto pb-2 gap-4 custom-scrollbar">
           {kpis.map((kpi, i) => (
-            <div key={i} className="flex-1 min-w-[180px] flex items-center p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#111827] shadow-sm">
+            <div key={i} className="flex-1 min-w-[180px] flex items-center p-4 rounded-xl border border-slate-200 dark:border-neutral-800 bg-white dark:bg-[#1c1c1e] shadow-sm">
               <div className={cn("p-2.5 rounded-lg mr-4 shrink-0", kpi.bg)}>
                 <kpi.icon className={cn("w-5 h-5", kpi.color)} />
               </div>
               <div>
                 <div className="text-[20px] font-extrabold text-slate-900 dark:text-white leading-none mb-1 whitespace-nowrap">{kpi.value}</div>
-                <div className="text-[11px] font-bold text-slate-500 dark:text-slate-400 leading-tight">{kpi.label}</div>
+                <div className="text-[11px] font-bold text-slate-500 dark:text-neutral-400 leading-tight">{kpi.label}</div>
               </div>
             </div>
           ))}
@@ -60,7 +55,7 @@ export function ImpactOverviewTab({ disruptionData, setActiveTab }: { disruption
       <div className="flex flex-col xl:flex-row gap-6">
         {/* Dependency Graph */}
         <div className={cn(
-          "bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm flex-1 min-w-0 flex flex-col",
+          "bg-white dark:bg-[#1c1c1e] border border-slate-200 dark:border-neutral-800 rounded-xl p-5 shadow-sm flex-1 min-w-0 flex flex-col",
           isFullScreen ? "fixed inset-4 z-50 flex flex-col shadow-2xl" : ""
         )}>
           <div className="flex justify-between items-center mb-4">
@@ -69,24 +64,24 @@ export function ImpactOverviewTab({ disruptionData, setActiveTab }: { disruption
               <Info className="w-4 h-4 text-slate-400 ml-2" />
             </div>
             <div className="flex items-center space-x-3">
-              <div className="flex items-center px-3 py-1.5 border border-slate-200 dark:border-slate-800 rounded-lg text-[12px] font-semibold text-slate-700 dark:text-slate-300">
+              <div className="flex items-center px-3 py-1.5 border border-slate-200 dark:border-neutral-800 rounded-lg text-[12px] font-semibold text-slate-700 dark:text-neutral-300">
                 <span className="text-slate-500 mr-1">Layout:</span> Hierarchical <span className="ml-2 text-slate-400 text-[10px]">▼</span>
               </div>
-              <button className="px-3 py-1.5 border border-slate-200 dark:border-slate-800 rounded-lg text-[12px] font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800">
+              <button className="px-3 py-1.5 border border-slate-200 dark:border-neutral-800 rounded-lg text-[12px] font-semibold text-slate-700 dark:text-neutral-300 hover:bg-slate-50 dark:hover:bg-neutral-800">
                 Fit View
               </button>
               <button 
                 onClick={() => setIsFullScreen(!isFullScreen)}
                 className={cn(
-                  "p-1.5 border border-slate-200 dark:border-slate-800 rounded-lg transition-colors",
-                  isFullScreen ? "bg-blue-50 text-blue-600 border-blue-200 dark:bg-blue-900/30 dark:border-blue-800" : "text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800"
+                  "p-1.5 border border-slate-200 dark:border-neutral-800 rounded-lg transition-colors",
+                  isFullScreen ? "bg-blue-50 text-blue-600 border-blue-200 dark:bg-amber-900/30 dark:border-amber-800" : "text-slate-500 hover:bg-slate-50 dark:hover:bg-neutral-800"
                 )}
               >
                 <Maximize className="w-4 h-4" />
               </button>
             </div>
           </div>
-          <div className="flex-1 min-h-[400px] w-full rounded-lg overflow-hidden relative border border-slate-200 dark:border-slate-800">
+          <div className="flex-1 min-h-[400px] w-full rounded-lg overflow-hidden relative border border-slate-200 dark:border-neutral-800">
              <SupplyChainGraph />
           </div>
         </div>
@@ -101,8 +96,8 @@ export function ImpactOverviewTab({ disruptionData, setActiveTab }: { disruption
         
         {/* Right Sidebar: Impact Details */}
         <div className="w-full xl:w-[320px] shrink-0">
-          <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm h-full flex flex-col">
-            <div className="flex items-center mb-6 text-slate-900 dark:text-white font-bold pb-4 border-b border-slate-200 dark:border-slate-800">
+          <div className="bg-white dark:bg-[#1c1c1e] border border-slate-200 dark:border-neutral-800 rounded-xl p-5 shadow-sm h-full flex flex-col">
+            <div className="flex items-center mb-6 text-slate-900 dark:text-white font-bold pb-4 border-b border-slate-200 dark:border-neutral-800">
               <span className="text-sm">Impact Details</span>
               <Info className="w-4 h-4 text-slate-400 ml-2" />
             </div>
@@ -116,7 +111,7 @@ export function ImpactOverviewTab({ disruptionData, setActiveTab }: { disruption
                 <div className="text-[11px] font-medium text-slate-500 mb-1">Disrupted Entity</div>
                 <div className="text-sm font-semibold text-slate-900 dark:text-white">SUP-007 - Pacific Electronics</div>
               </div>
-              <div className="bg-slate-50 dark:bg-slate-900/50 p-6 flex flex-col justify-between relative overflow-hidden">
+              <div className="bg-slate-50 dark:bg-neutral-900/50 p-6 flex flex-col justify-between relative overflow-hidden">
                 {/* The decorative gradient bar on the side */}
                 <div className="absolute top-0 bottom-0 left-0 w-1 bg-gradient-to-b from-blue-500 to-indigo-600"></div>
                 
@@ -159,32 +154,32 @@ export function ImpactOverviewTab({ disruptionData, setActiveTab }: { disruption
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         
         {/* Card 1: Inventory Coverage */}
-        <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm flex flex-col group hover:shadow-md transition-shadow duration-300">
-          <div className="p-6 border-b border-slate-100 dark:border-slate-800/60">
+        <div className="bg-white dark:bg-[#1c1c1e] border border-slate-200 dark:border-neutral-800 rounded-xl shadow-sm flex flex-col group hover:shadow-md transition-shadow duration-300">
+          <div className="p-6 border-b border-slate-100 dark:border-neutral-800/60">
             <h3 className="text-[15px] font-extrabold flex items-center mb-5 text-slate-900 dark:text-white">
               Inventory Coverage 
-              <span className="bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-full ml-3 font-bold border border-blue-200 dark:border-blue-800/50">MAT-004</span>
-              <Info className="w-4 h-4 text-slate-400 dark:text-slate-500 ml-auto cursor-help hover:text-slate-600 dark:hover:text-slate-300 transition-colors" />
+              <span className="bg-blue-100 dark:bg-amber-900/30 text-blue-700 dark:text-amber-400 text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-full ml-3 font-bold border border-blue-200 dark:border-amber-800/50">MAT-004</span>
+              <Info className="w-4 h-4 text-slate-400 dark:text-neutral-500 ml-auto cursor-help hover:text-slate-600 dark:hover:text-neutral-300 transition-colors" />
             </h3>
             <div className="flex justify-between items-end">
               <div>
-                <div className="text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1">Time to Exhaustion</div>
-                <div className="text-3xl font-black text-slate-900 dark:text-white tracking-tight leading-none">3.0 <span className="text-lg font-bold text-slate-500 dark:text-slate-400">days</span></div>
+                <div className="text-[11px] font-bold text-slate-400 dark:text-neutral-500 uppercase tracking-wider mb-1">Time to Exhaustion</div>
+                <div className="text-3xl font-black text-slate-900 dark:text-white tracking-tight leading-none">3.0 <span className="text-lg font-bold text-slate-500 dark:text-neutral-400">days</span></div>
               </div>
               <div className="flex space-x-6 text-right">
                 <div>
-                  <div className="text-slate-400 dark:text-slate-500 text-[10px] font-bold uppercase tracking-wider mb-1">On Hand</div>
-                  <div className="font-extrabold text-slate-800 dark:text-slate-200 text-sm">1,240 <span className="text-[10px] font-medium text-slate-500">u</span></div>
+                  <div className="text-slate-400 dark:text-neutral-500 text-[10px] font-bold uppercase tracking-wider mb-1">On Hand</div>
+                  <div className="font-extrabold text-slate-800 dark:text-neutral-200 text-sm">1,240 <span className="text-[10px] font-medium text-slate-500">u</span></div>
                 </div>
                 <div>
-                  <div className="text-slate-400 dark:text-slate-500 text-[10px] font-bold uppercase tracking-wider mb-1">Burn Rate</div>
-                  <div className="font-extrabold text-slate-800 dark:text-slate-200 text-sm">420 <span className="text-[10px] font-medium text-slate-500">u/d</span></div>
+                  <div className="text-slate-400 dark:text-neutral-500 text-[10px] font-bold uppercase tracking-wider mb-1">Burn Rate</div>
+                  <div className="font-extrabold text-slate-800 dark:text-neutral-200 text-sm">420 <span className="text-[10px] font-medium text-slate-500">u/d</span></div>
                 </div>
               </div>
             </div>
           </div>
           
-          <div className="flex-1 w-full relative min-h-[180px] p-4 bg-slate-50/50 dark:bg-[#0A0F1C]/30 rounded-b-xl">
+          <div className="flex-1 w-full relative min-h-[180px] p-4 bg-slate-50/50 dark:bg-[#1a1a1a]/30 rounded-b-xl">
             <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
               <LineChart data={inventoryData} margin={{ top: 20, right: 10, left: -25, bottom: 0 }}>
                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" strokeOpacity={0.6} />
@@ -204,11 +199,11 @@ export function ImpactOverviewTab({ disruptionData, setActiveTab }: { disruption
         </div>
 
         {/* Card 2: Production Impact */}
-        <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm flex flex-col group hover:shadow-md transition-shadow duration-300">
-          <div className="p-6 border-b border-slate-100 dark:border-slate-800/60">
+        <div className="bg-white dark:bg-[#1c1c1e] border border-slate-200 dark:border-neutral-800 rounded-xl shadow-sm flex flex-col group hover:shadow-md transition-shadow duration-300">
+          <div className="p-6 border-b border-slate-100 dark:border-neutral-800/60">
             <h3 className="text-[15px] font-extrabold flex items-center text-slate-900 dark:text-white mb-1">
               Production Impact
-              <Info className="w-4 h-4 text-slate-400 dark:text-slate-500 ml-auto cursor-help hover:text-slate-600 dark:hover:text-slate-300 transition-colors" />
+              <Info className="w-4 h-4 text-slate-400 dark:text-neutral-500 ml-auto cursor-help hover:text-slate-600 dark:hover:text-neutral-300 transition-colors" />
             </h3>
             <div className="text-[12px] font-semibold text-slate-500 flex items-center mb-6">
               <MapPin className="w-3 h-3 mr-1" /> PLANT-002
@@ -218,10 +213,10 @@ export function ImpactOverviewTab({ disruptionData, setActiveTab }: { disruption
               <div className="flex-1 space-y-7">
                 <div>
                   <div className="flex justify-between items-end mb-2">
-                    <div className="text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Baseline Capacity</div>
+                    <div className="text-[11px] font-bold text-slate-400 dark:text-neutral-500 uppercase tracking-wider">Baseline Capacity</div>
                     <div className="font-black text-slate-900 dark:text-white text-sm">2,000 <span className="text-[10px] font-semibold text-slate-500">u/d</span></div>
                   </div>
-                  <div className="w-full bg-slate-100 dark:bg-slate-800 h-2.5 rounded-full overflow-hidden shadow-inner">
+                  <div className="w-full bg-slate-100 dark:bg-neutral-800 h-2.5 rounded-full overflow-hidden shadow-inner">
                     <div className="bg-blue-500 w-full h-full rounded-full"></div>
                   </div>
                 </div>
@@ -232,7 +227,7 @@ export function ImpactOverviewTab({ disruptionData, setActiveTab }: { disruption
                     </div>
                     <div className="font-black text-red-600 dark:text-red-400 text-sm">1,150 <span className="text-[10px] font-semibold text-red-400/70">u/d</span></div>
                   </div>
-                  <div className="w-full bg-slate-100 dark:bg-slate-800 h-2.5 rounded-full overflow-hidden shadow-inner flex">
+                  <div className="w-full bg-slate-100 dark:bg-neutral-800 h-2.5 rounded-full overflow-hidden shadow-inner flex">
                     <div className="bg-red-500 w-[57.5%] h-full rounded-l-full relative overflow-hidden">
                        <div className="absolute inset-0 bg-white/20 w-full animate-[shimmer_2s_infinite]"></div>
                     </div>
@@ -240,7 +235,7 @@ export function ImpactOverviewTab({ disruptionData, setActiveTab }: { disruption
                 </div>
               </div>
               
-              <div className="w-36 flex flex-col items-center justify-center relative pl-6 border-l border-slate-100 dark:border-slate-800/60 ml-6">
+              <div className="w-36 flex flex-col items-center justify-center relative pl-6 border-l border-slate-100 dark:border-neutral-800/60 ml-6">
                 <div className="w-20 h-20 relative">
                   <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
                     <PieChart>
@@ -270,27 +265,27 @@ export function ImpactOverviewTab({ disruptionData, setActiveTab }: { disruption
             </div>
           </div>
           
-          <div className="p-4 bg-slate-50 dark:bg-[#0A0F1C]/50 rounded-b-xl mt-auto">
-            <Link href="#" className="text-blue-600 dark:text-blue-400 text-[13px] font-bold hover:text-blue-700 dark:hover:text-blue-300 flex items-center group">
+          <div className="p-4 bg-slate-50 dark:bg-[#1a1a1a]/50 rounded-b-xl mt-auto">
+            <Link href="#" className="text-blue-600 dark:text-amber-400 text-[13px] font-bold hover:text-blue-700 dark:hover:text-amber-300 flex items-center group">
               View comprehensive plant analysis <ArrowRight className="w-3.5 h-3.5 ml-1.5 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
         </div>
         
         {/* Card 3: Top Affected Orders */}
-        <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm flex flex-col justify-between group hover:shadow-md transition-shadow duration-300">
+        <div className="bg-white dark:bg-[#1c1c1e] border border-slate-200 dark:border-neutral-800 rounded-xl shadow-sm flex flex-col justify-between group hover:shadow-md transition-shadow duration-300">
            <div className="p-6 pb-0 flex justify-between items-center mb-5">
              <h3 className="text-[15px] font-extrabold flex items-center text-slate-900 dark:text-white">
                Top Affected Orders <Info className="w-4 h-4 text-slate-400 ml-2 cursor-help hover:text-slate-600 transition-colors" />
              </h3>
-             <button className="bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+             <button className="bg-slate-100 dark:bg-neutral-800 text-slate-600 dark:text-neutral-300 px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-slate-200 dark:hover:bg-neutral-700 transition-colors">
                View All
              </button>
            </div>
            
            <div className="px-1 mb-2">
              <table className="w-full text-xs text-left">
-               <thead className="text-[10px] font-bold text-slate-400 uppercase tracking-wider bg-slate-50 dark:bg-slate-900/50">
+               <thead className="text-[10px] font-bold text-slate-400 uppercase tracking-wider bg-slate-50 dark:bg-neutral-900/50">
                  <tr>
                    <th className="py-2.5 pl-5 rounded-l-lg">Order ID</th>
                    <th className="py-2.5">Customer</th>
@@ -298,7 +293,7 @@ export function ImpactOverviewTab({ disruptionData, setActiveTab }: { disruption
                    <th className="py-2.5 pr-5 text-right rounded-r-lg">At Risk</th>
                  </tr>
                </thead>
-               <tbody className="divide-y divide-slate-50 dark:divide-slate-800/60">
+               <tbody className="divide-y divide-slate-50 dark:divide-neutral-800/60">
                  {[
                    { id: 'ORD-1042', customer: 'Enterprise A', delay: '4 days', rev: '₹4.5 L', critical: true },
                    { id: 'ORD-1044', customer: 'Retail Corp', delay: '5 days', rev: '₹3.2 L', critical: true },
@@ -306,9 +301,9 @@ export function ImpactOverviewTab({ disruptionData, setActiveTab }: { disruption
                    { id: 'ORD-1045', customer: 'Global Ind.', delay: '4 days', rev: '₹1.8 L', critical: false },
                    { id: 'ORD-1046', customer: 'Tech Sol.', delay: '2 days', rev: '₹1.2 L', critical: false },
                  ].map((o, i) => (
-                   <tr key={i} className="hover:bg-slate-50 dark:hover:bg-slate-900/30 transition-colors group/row cursor-pointer">
-                     <td className="py-3 pl-5 font-bold text-slate-900 dark:text-slate-200">{o.id}</td>
-                     <td className="py-3 font-semibold text-slate-600 dark:text-slate-400 truncate max-w-[90px]">{o.customer}</td>
+                   <tr key={i} className="hover:bg-slate-50 dark:hover:bg-neutral-900/30 transition-colors group/row cursor-pointer">
+                     <td className="py-3 pl-5 font-bold text-slate-900 dark:text-neutral-200">{o.id}</td>
+                     <td className="py-3 font-semibold text-slate-600 dark:text-neutral-400 truncate max-w-[90px]">{o.customer}</td>
                      <td className="py-3 text-center">
                         <div className={cn(
                           "inline-flex items-center px-2 py-1 rounded-md border text-[11px] font-bold whitespace-nowrap shadow-sm",
@@ -319,15 +314,15 @@ export function ImpactOverviewTab({ disruptionData, setActiveTab }: { disruption
                           +{o.delay}
                         </div>
                      </td>
-                     <td className="py-3 pr-5 font-black text-slate-900 dark:text-white text-right group-hover/row:text-blue-600 dark:group-hover/row:text-blue-400 transition-colors">{o.rev}</td>
+                     <td className="py-3 pr-5 font-black text-slate-900 dark:text-white text-right group-hover/row:text-blue-600 dark:group-hover/row:text-amber-400 transition-colors">{o.rev}</td>
                    </tr>
                  ))}
                </tbody>
              </table>
            </div>
            
-           <div className="p-4 bg-slate-50 dark:bg-[#0A0F1C]/50 rounded-b-xl border-t border-slate-100 dark:border-slate-800/60 mt-auto">
-             <Link href="#" className="text-blue-600 dark:text-blue-400 text-[13px] font-bold hover:text-blue-700 dark:hover:text-blue-300 flex items-center group">
+           <div className="p-4 bg-slate-50 dark:bg-[#1a1a1a]/50 rounded-b-xl border-t border-slate-100 dark:border-neutral-800/60 mt-auto">
+             <Link href="#" className="text-blue-600 dark:text-amber-400 text-[13px] font-bold hover:text-blue-700 dark:hover:text-amber-300 flex items-center group">
                View all 124 affected orders <ArrowRight className="w-3.5 h-3.5 ml-1.5 group-hover:translate-x-1 transition-transform" />
              </Link>
            </div>

@@ -8,11 +8,11 @@ function App() {
       <header className="bg-[#0f172a] text-white h-14 border-b border-slate-800 flex items-center justify-between px-6 shrink-0 z-20 shadow-sm">
         <div className="flex items-center gap-6">
           <div className="flex items-center gap-3 pr-6 border-r border-slate-700/50">
-            <div className="w-8 h-8 bg-blue-600 rounded flex items-center justify-center shadow-inner">
-              <Activity className="w-5 h-5 text-white" />
+            <div className="w-8 h-8 bg-slate-950 rounded flex items-center justify-center p-1 border border-slate-700 shadow-inner">
+              <img src="/linqchain-logo.svg" alt="LinqChain Logo" className="w-full h-full object-contain" />
             </div>
             <div>
-              <h1 className="text-[13px] font-bold tracking-widest text-white leading-tight">RESILIENCE OS</h1>
+              <h1 className="text-[13px] font-bold tracking-widest text-white leading-tight">LINQCHAIN</h1>
               <p className="text-[10px] text-slate-400 font-medium tracking-wider uppercase leading-tight">Command Center</p>
             </div>
           </div>

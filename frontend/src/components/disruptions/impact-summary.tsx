@@ -20,10 +20,10 @@ export function ImpactSummary() {
   return (
     <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
       {kpis.map((kpi, i) => (
-        <div key={i} className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-lg p-4 shadow-sm">
+        <div key={i} className="bg-white dark:bg-[#1c1c1e] border border-slate-200 dark:border-neutral-800 rounded-lg p-4 shadow-sm">
           <div className="flex items-center space-x-2 mb-2">
             <kpi.icon className={`w-4 h-4 ${kpi.color}`} />
-            <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">{kpi.label}</span>
+            <span className="text-xs font-semibold text-slate-500 dark:text-neutral-400 uppercase tracking-wider">{kpi.label}</span>
           </div>
           <span className={`text-xl font-bold tracking-tight ${i === 5 ? 'text-red-600 dark:text-red-400' : 'text-slate-900 dark:text-white'}`}>{kpi.value}</span>
         </div>

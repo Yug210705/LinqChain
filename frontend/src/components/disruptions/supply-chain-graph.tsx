@@ -17,7 +17,7 @@ const CustomNode = ({ data, isConnectable }: any) => {
       <div style={{ background: 'transparent', border: 'none', width: nodeWidth, height: 20, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         <Handle type="target" position={Position.Left} style={{ opacity: 0 }} />
         <Handle type="source" position={Position.Right} style={{ opacity: 0 }} />
-        <div className="text-[10px] font-bold text-blue-600 dark:text-blue-400">{label}</div>
+        <div className="text-[10px] font-bold text-blue-600 dark:text-amber-400">{label}</div>
       </div>
     );
   }
@@ -35,7 +35,7 @@ const CustomNode = ({ data, isConnectable }: any) => {
       justifyContent: 'center',
       alignItems: 'center',
       boxShadow: '0 1px 2px rgba(0,0,0,0.05)'
-    }} className="bg-white dark:bg-[#111827]">
+    }} className="bg-white dark:bg-[#1c1c1e]">
       <Handle type="target" position={Position.Left} isConnectable={isConnectable} style={{ opacity: 0 }} />
       <div className="flex flex-col items-center justify-center h-full w-full">
         <span style={{ color: borderColor, fontSize: '11px', fontWeight: 800 }}>{label}</span>
@@ -258,7 +258,7 @@ export function SupplyChainGraph() {
       {/* Column Headers matching screenshot */}
       <div className="absolute top-4 left-0 w-full flex justify-between px-12 z-10 pointer-events-none">
         {['SUPPLIERS', 'MATERIALS', 'PLANTS', 'PRODUCTS', 'CUSTOMER ORDERS'].map((col, i) => (
-          <div key={i} className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider text-center w-[140px]">
+          <div key={i} className="text-[10px] font-bold text-slate-500 dark:text-neutral-400 uppercase tracking-wider text-center w-[140px]">
             {col}
           </div>
         ))}
@@ -273,8 +273,8 @@ export function SupplyChainGraph() {
         minZoom={0.2} 
         maxZoom={1.5}
       >
-        <Background color={isDark ? '#334155' : '#e2e8f0'} gap={16} />
-        <Controls position="top-left" className="bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-lg shadow-sm !mt-12 !ml-4" />
+        <Background color={isDark ? '#262629' : '#e2e8f0'} gap={16} />
+        <Controls position="top-left" className="bg-white dark:bg-neutral-800 border-slate-200 dark:border-neutral-700 rounded-lg shadow-sm !mt-12 !ml-4" />
       </ReactFlow>
       
       {/* Legend */}
@@ -285,7 +285,7 @@ export function SupplyChainGraph() {
         <div className="flex items-center text-[10px] font-bold text-slate-500"><div className="w-2.5 h-2.5 rounded-full bg-emerald-500 mr-2"></div>Low</div>
       </div>
       <div className="absolute bottom-4 right-4 z-10 pointer-events-none">
-        <span className="text-[10px] font-semibold text-slate-500 bg-white/80 dark:bg-[#111827]/80 px-2 py-1 rounded">Showing critical and high impact paths</span>
+        <span className="text-[10px] font-semibold text-slate-500 bg-white/80 dark:bg-[#1c1c1e]/80 px-2 py-1 rounded">Showing critical and high impact paths</span>
       </div>
     </div>
   );

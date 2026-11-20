@@ -89,7 +89,7 @@ def seed():
     # Print dataset stats
     from app.models import TransportRoute as TR
     print("=" * 50)
-    print("RESILIENCE OS — DATASET SEEDED")
+    print("LINQCHAIN — DATASET SEEDED")
     print("=" * 50)
     print(f"  Suppliers:           {db.query(Supplier).count()}")
     print(f"  Materials:           {db.query(Material).count()}")

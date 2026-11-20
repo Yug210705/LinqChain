@@ -109,7 +109,7 @@ export default function ActionHistoryPage() {
     const simulated = disruptions.active.length + disruptions.history.length;
     const resolved = disruptions.history.length;
     return [
-      { label: 'Total Actions', value: events.length, icon: Activity, color: 'text-slate-400 dark:text-slate-300', bg: 'bg-slate-100 dark:bg-slate-800' },
+      { label: 'Total Actions', value: events.length, icon: Activity, color: 'text-slate-400 dark:text-neutral-300', bg: 'bg-slate-100 dark:bg-neutral-800' },
       { label: 'Pipeline Runs', value: pipelines, icon: Zap, color: 'text-purple-500', bg: 'bg-purple-50 dark:bg-purple-950/40' },
       { label: 'Disruptions Simulated', value: simulated, icon: AlertTriangle, color: 'text-red-500', bg: 'bg-red-50 dark:bg-red-950/40' },
       { label: 'Disruptions Resolved', value: resolved, icon: CheckCircle2, color: 'text-emerald-500', bg: 'bg-emerald-50 dark:bg-emerald-950/40' },
@@ -127,22 +127,22 @@ export default function ActionHistoryPage() {
       {/* HEADER */}
       <div className="flex flex-col md:flex-row md:justify-between md:items-end gap-4 shrink-0">
         <div>
-          <div className="flex items-center space-x-2 text-[13px] text-slate-500 dark:text-slate-400 mb-2 font-medium">
+          <div className="flex items-center space-x-2 text-[13px] text-slate-500 dark:text-neutral-400 mb-2 font-medium">
             <Link href="/command-center" className="hover:text-slate-900 dark:hover:text-white transition-colors">Command Center</Link>
-            <span className="text-slate-300 dark:text-slate-600">/</span>
+            <span className="text-slate-300 dark:text-neutral-600">/</span>
             <Link href="/sap-actions" className="hover:text-slate-900 dark:hover:text-white transition-colors">SAP Actions</Link>
-            <span className="text-slate-300 dark:text-slate-600">/</span>
-            <span className="text-slate-900 dark:text-slate-100">Action History</span>
+            <span className="text-slate-300 dark:text-neutral-600">/</span>
+            <span className="text-slate-900 dark:text-neutral-100">Action History</span>
           </div>
           <h1 className="text-2xl font-semibold text-slate-900 dark:text-white tracking-tight">Action History</h1>
-          <p className="text-[13px] text-slate-500 dark:text-slate-400 mt-1">
+          <p className="text-[13px] text-slate-500 dark:text-neutral-400 mt-1">
             Audit trail of disruption simulations, recovery pipelines, and system actions.
           </p>
         </div>
 
         <div className="flex items-center space-x-3">
           {lastSync && (
-            <span className="flex items-center text-[11px] text-slate-400 dark:text-slate-500 font-medium">
+            <span className="flex items-center text-[11px] text-slate-400 dark:text-neutral-500 font-medium">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1.5 animate-pulse" />
               Synced {timeAgo(lastSync)}
             </span>
@@ -150,7 +150,7 @@ export default function ActionHistoryPage() {
           <button
             onClick={() => load(true)}
             disabled={loading}
-            className="flex items-center px-4 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 rounded-lg text-[13px] font-medium transition-colors shadow-sm disabled:opacity-50"
+            className="flex items-center px-4 py-2 bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-700 hover:bg-slate-50 dark:hover:bg-neutral-800 text-slate-700 dark:text-neutral-200 rounded-lg text-[13px] font-medium transition-colors shadow-sm disabled:opacity-50"
           >
             <RefreshCw className={`w-4 h-4 mr-2 ${loading ? 'animate-spin' : ''}`} /> Refresh
           </button>
@@ -170,13 +170,13 @@ export default function ActionHistoryPage() {
       {/* STATS */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-6 shrink-0">
         {stats.map((s) => (
-          <div key={s.label} className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm p-4 flex items-center">
+          <div key={s.label} className="bg-white dark:bg-[#1c1c1e] border border-slate-200 dark:border-neutral-800 rounded-xl shadow-sm p-4 flex items-center">
             <div className={`w-9 h-9 rounded-lg flex items-center justify-center mr-3 ${s.bg}`}>
               <s.icon className={`w-4.5 h-4.5 ${s.color}`} />
             </div>
             <div>
               <p className="text-lg font-bold text-slate-900 dark:text-white leading-tight">{s.value}</p>
-              <p className="text-[11px] font-medium text-slate-500 dark:text-slate-400">{s.label}</p>
+              <p className="text-[11px] font-medium text-slate-500 dark:text-neutral-400">{s.label}</p>
             </div>
           </div>
         ))}
@@ -190,15 +190,15 @@ export default function ActionHistoryPage() {
             onClick={() => setFilter(f.key)}
             className={`px-3.5 py-1.5 rounded-lg text-[12.5px] font-semibold transition-colors border ${
               filter === f.key
-                ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 border-slate-900 dark:border-white'
-                : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800'
+                ? 'bg-slate-900 dark:bg-white text-white dark:text-neutral-900 border-slate-900 dark:border-white'
+                : 'bg-white dark:bg-neutral-900 text-slate-600 dark:text-neutral-300 border-slate-200 dark:border-neutral-700 hover:bg-slate-50 dark:hover:bg-neutral-800'
             }`}
           >
             {f.label}
           </button>
         ))}
         {filtered.length > 0 && (
-          <span className="ml-auto text-[11.5px] font-medium text-slate-400 dark:text-slate-500">
+          <span className="ml-auto text-[11.5px] font-medium text-slate-400 dark:text-neutral-500">
             {filtered.length} {filtered.length === 1 ? 'action' : 'actions'}
           </span>
         )}
@@ -209,23 +209,23 @@ export default function ActionHistoryPage() {
         {loading && !runs.length && (
           <div className="space-y-3">
             {[...Array(4)].map((_, i) => (
-              <div key={i} className="h-20 bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm animate-pulse" />
+              <div key={i} className="h-20 bg-white dark:bg-[#1c1c1e] border border-slate-200 dark:border-neutral-800 rounded-xl shadow-sm animate-pulse" />
             ))}
           </div>
         )}
 
         {!loading && filtered.length === 0 && (
-          <div className="bg-slate-50/50 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800 border-dashed rounded-xl flex flex-col items-center justify-center py-16 text-center">
-            <div className="w-12 h-12 bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-700 rounded-lg flex items-center justify-center mb-4 shadow-sm">
-              <Inbox className="w-5 h-5 text-slate-400 dark:text-slate-500" />
+          <div className="bg-slate-50/50 dark:bg-neutral-900/40 border border-slate-200 dark:border-neutral-800 border-dashed rounded-xl flex flex-col items-center justify-center py-16 text-center">
+            <div className="w-12 h-12 bg-white dark:bg-[#1c1c1e] border border-slate-200 dark:border-neutral-700 rounded-lg flex items-center justify-center mb-4 shadow-sm">
+              <Inbox className="w-5 h-5 text-slate-400 dark:text-neutral-500" />
             </div>
             <h3 className="text-[14px] font-semibold text-slate-900 dark:text-white">No actions recorded yet</h3>
-            <p className="text-[12px] text-slate-500 dark:text-slate-400 mt-1 max-w-[320px]">
+            <p className="text-[12px] text-slate-500 dark:text-neutral-400 mt-1 max-w-[320px]">
               Run a disruption simulation or a recovery pipeline — they'll appear here automatically.
             </p>
             <Link
               href="/sap-actions"
-              className="mt-4 flex items-center px-4 py-2 bg-slate-900 hover:bg-slate-800 dark:bg-white dark:hover:bg-slate-200 text-white dark:text-slate-900 rounded-lg text-[13px] font-medium transition-colors shadow-sm"
+              className="mt-4 flex items-center px-4 py-2 bg-slate-900 hover:bg-slate-800 dark:bg-white dark:hover:bg-neutral-200 text-white dark:text-neutral-900 rounded-lg text-[13px] font-medium transition-colors shadow-sm"
             >
               <Activity className="w-4 h-4 mr-2" /> Go to SAP Actions
             </Link>
@@ -265,27 +265,27 @@ function TimelineRow({
     const rec = run.recommended_plan ?? {};
     const isOpen = expanded === run.run_id;
     const badges = [
-      { label: 'Deterministic', color: 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300' },
+      { label: 'Deterministic', color: 'bg-slate-100 dark:bg-neutral-800 text-slate-600 dark:text-neutral-300' },
       ...(run.guardrail_stripped ? [{ label: 'Guardrails Stripped', color: 'bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-400' }] : []),
       ...(run.agentic_retries && run.agentic_retries > 0 ? [{ label: `${run.agentic_retries} Retr${run.agentic_retries > 1 ? 'ies' : 'y'}`, color: 'bg-orange-50 dark:bg-orange-950/40 text-orange-700 dark:text-orange-400' }] : []),
     ];
 
     return (
       <div className="flex relative">
-        {!isLast && <div className="absolute top-9 left-[15px] w-px h-full bg-slate-100 dark:bg-slate-800" />}
+        {!isLast && <div className="absolute top-9 left-[15px] w-px h-full bg-slate-100 dark:bg-neutral-800" />}
         <div className="w-8 h-8 rounded-full bg-purple-50 dark:bg-purple-950/40 border border-purple-100 dark:border-purple-900/50 flex items-center justify-center shrink-0 z-10 shadow-sm">
           <Zap className="w-3.5 h-3.5 text-purple-500" />
         </div>
         <div className="ml-3 flex-1 min-w-0 pb-2.5">
-          <div className={`bg-white dark:bg-[#111827] border ${isOpen ? 'border-purple-300/70 dark:border-purple-700/60' : 'border-slate-200 dark:border-slate-800'} rounded-xl shadow-sm overflow-hidden`}>
-            <button onClick={() => onToggle(isOpen ? null : run.run_id)} className="w-full flex items-center justify-between px-4 py-3 text-left transition-colors hover:bg-slate-50/60 dark:hover:bg-slate-800/40">
+          <div className={`bg-white dark:bg-[#1c1c1e] border ${isOpen ? 'border-purple-300/70 dark:border-purple-700/60' : 'border-slate-200 dark:border-neutral-800'} rounded-xl shadow-sm overflow-hidden`}>
+            <button onClick={() => onToggle(isOpen ? null : run.run_id)} className="w-full flex items-center justify-between px-4 py-3 text-left transition-colors hover:bg-slate-50/60 dark:hover:bg-neutral-800/40">
               <div className="flex items-center min-w-0">
                 {isOpen ? <ChevronDown className="w-4 h-4 text-slate-400 shrink-0 mr-2.5" /> : <ChevronRight className="w-4 h-4 text-slate-400 shrink-0 mr-2.5" />}
                 <div className="min-w-0">
-                  <p className="text-[13.5px] font-semibold text-slate-800 dark:text-slate-200 truncate">
+                  <p className="text-[13.5px] font-semibold text-slate-800 dark:text-neutral-200 truncate">
                     Recovery pipeline · {rec.strategy || 'Recovery strategy'} — MAT-{run.material_id}
                   </p>
-                  <p className="text-[11.5px] text-slate-500 dark:text-slate-400 mt-0.5 truncate">
+                  <p className="text-[11.5px] text-slate-500 dark:text-neutral-400 mt-0.5 truncate">
                     {run.run_id} · {formatFull(run.timestamp)}
                   </p>
                 </div>
@@ -299,7 +299,7 @@ function TimelineRow({
             </button>
 
             {isOpen && (
-              <div className="px-4 pb-4 pt-1 border-t border-slate-100 dark:border-slate-800">
+              <div className="px-4 pb-4 pt-1 border-t border-slate-100 dark:border-neutral-800">
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-3">
                   <KV label="Material" value={`MAT-${run.material_id}`} />
                   <KV label="Supplier" value={rec.supplier_id || '—'} />
@@ -309,8 +309,8 @@ function TimelineRow({
 
                 {run.llm_explanation && (
                   <div className="mt-3">
-                    <p className="text-[11px] font-bold uppercase tracking-wide text-slate-400 dark:text-slate-500 mb-1">Pipeline Explanation</p>
-                    <p className="text-[13px] text-slate-600 dark:text-slate-300 leading-relaxed bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 rounded-lg p-3">
+                    <p className="text-[11px] font-bold uppercase tracking-wide text-slate-400 dark:text-neutral-500 mb-1">Pipeline Explanation</p>
+                    <p className="text-[13px] text-slate-600 dark:text-neutral-300 leading-relaxed bg-slate-50 dark:bg-neutral-900/50 border border-slate-100 dark:border-neutral-800 rounded-lg p-3">
                       {run.llm_explanation}
                     </p>
                   </div>
@@ -318,8 +318,8 @@ function TimelineRow({
 
                 {run.sap_action_result && (
                   <div className="mt-3">
-                    <p className="text-[11px] font-bold uppercase tracking-wide text-slate-400 dark:text-slate-500 mb-1">SAP Action Result</p>
-                    <pre className="text-[11.5px] text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 rounded-lg p-3 overflow-x-auto max-h-48 custom-scrollbar">
+                    <p className="text-[11px] font-bold uppercase tracking-wide text-slate-400 dark:text-neutral-500 mb-1">SAP Action Result</p>
+                    <pre className="text-[11.5px] text-slate-500 dark:text-neutral-400 bg-slate-50 dark:bg-neutral-900/50 border border-slate-100 dark:border-neutral-800 rounded-lg p-3 overflow-x-auto max-h-48 custom-scrollbar">
                       {JSON.stringify(run.sap_action_result, null, 2)}
                     </pre>
                   </div>
@@ -346,20 +346,20 @@ function TimelineRow({
 
   return (
     <div className="flex relative">
-      {!isLast && <div className="absolute top-9 left-[15px] w-px h-full bg-slate-100 dark:bg-slate-800" />}
+      {!isLast && <div className="absolute top-9 left-[15px] w-px h-full bg-slate-100 dark:bg-neutral-800" />}
       <div className={`w-8 h-8 rounded-full ${iconBg} flex items-center justify-center shrink-0 z-10 shadow-sm`}>
         <Icon className={`w-3.5 h-3.5 ${color}`} />
       </div>
       <div className="ml-3 flex-1 min-w-0 pb-2.5">
-        <div className={`bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm px-4 py-3 flex items-center justify-between ${isResolved ? 'opacity-95' : ''}`}>
+        <div className={`bg-white dark:bg-[#1c1c1e] border border-slate-200 dark:border-neutral-800 rounded-xl shadow-sm px-4 py-3 flex items-center justify-between ${isResolved ? 'opacity-95' : ''}`}>
           <div className="min-w-0">
             <Link
               href={`/disruptions/${d.simulation_id}`}
-              className="text-[13.5px] font-semibold text-slate-800 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors truncate block"
+              className="text-[13.5px] font-semibold text-slate-800 dark:text-neutral-200 hover:text-blue-600 dark:hover:text-amber-400 transition-colors truncate block"
             >
               {title}
             </Link>
-            <p className="text-[11.5px] text-slate-500 dark:text-slate-400 mt-0.5">
+            <p className="text-[11.5px] text-slate-500 dark:text-neutral-400 mt-0.5">
               {d.severity ? `Severity: ${d.severity}` : ''}{d.severity && d.duration_days ? ' · ' : ''}
               {d.duration_days ? `Impact window: ${d.duration_days} days` : ''}
               {' · '}{formatFull(event.ts)}
@@ -383,9 +383,9 @@ function TimelineRow({
 
 function KV({ label, value }: { label: string; value: string }) {
   return (
-    <div className="bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 rounded-lg px-3 py-2">
-      <p className="text-[10.5px] font-bold uppercase tracking-wide text-slate-400 dark:text-slate-500">{label}</p>
-      <p className="text-[13px] font-semibold text-slate-800 dark:text-slate-200 mt-0.5 truncate">{value}</p>
+    <div className="bg-slate-50 dark:bg-neutral-900/50 border border-slate-100 dark:border-neutral-800 rounded-lg px-3 py-2">
+      <p className="text-[10.5px] font-bold uppercase tracking-wide text-slate-400 dark:text-neutral-500">{label}</p>
+      <p className="text-[13px] font-semibold text-slate-800 dark:text-neutral-200 mt-0.5 truncate">{value}</p>
     </div>
   );
 }

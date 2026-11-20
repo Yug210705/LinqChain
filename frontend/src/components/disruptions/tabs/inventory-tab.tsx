@@ -171,24 +171,24 @@ export function InventoryTab({ disruptionData, setActiveTab }: { disruptionData:
       <div className="flex-1 flex flex-col space-y-6 min-w-0">
         
         {/* Header Controls */}
-        <div className="flex justify-between items-center bg-white dark:bg-[#111827] p-4 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm relative z-20">
+        <div className="flex justify-between items-center bg-white dark:bg-[#1c1c1e] p-4 rounded-xl border border-slate-200 dark:border-neutral-800 shadow-sm relative z-20">
           <div className="flex items-center space-x-4">
             <div className="p-2 bg-indigo-50 dark:bg-indigo-900/30 rounded-lg">
               <Layers className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
             </div>
-            <span className="text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wide">Target Material</span>
+            <span className="text-sm font-bold text-slate-700 dark:text-neutral-300 uppercase tracking-wide">Target Material</span>
             
             <div className="relative" ref={dropdownRef}>
               <button 
                 onClick={() => setDropdownOpen(!dropdownOpen)}
-                className="flex items-center justify-between w-[260px] bg-white dark:bg-slate-900 border-2 border-indigo-100 dark:border-indigo-900/40 hover:border-indigo-300 dark:hover:border-indigo-700 rounded-lg px-4 py-2 text-sm font-black text-indigo-900 dark:text-indigo-100 outline-none transition-all shadow-sm"
+                className="flex items-center justify-between w-[260px] bg-white dark:bg-neutral-900 border-2 border-indigo-100 dark:border-indigo-900/40 hover:border-indigo-300 dark:hover:border-indigo-700 rounded-lg px-4 py-2 text-sm font-black text-indigo-900 dark:text-indigo-100 outline-none transition-all shadow-sm"
               >
                 <span className="truncate">{activeData.id} - {activeData.name}</span>
                 <ChevronDown className={cn("w-4 h-4 text-indigo-500 transition-transform duration-200", dropdownOpen && "rotate-180")} />
               </button>
               
               {dropdownOpen && (
-                <div className="absolute top-full left-0 mt-2 w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl shadow-xl overflow-hidden animate-in fade-in slide-in-from-top-2">
+                <div className="absolute top-full left-0 mt-2 w-full bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-700 rounded-xl shadow-xl overflow-hidden animate-in fade-in slide-in-from-top-2">
                   <div className="py-1">
                     {Object.values(materialsData).map((mat: any) => (
                       <button
@@ -198,8 +198,8 @@ export function InventoryTab({ disruptionData, setActiveTab }: { disruptionData:
                           setDropdownOpen(false);
                         }}
                         className={cn(
-                          "w-full text-left px-4 py-3 flex items-center justify-between hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors",
-                          selectedMat === mat.id ? "bg-indigo-50/50 dark:bg-indigo-900/20 text-indigo-700 dark:text-indigo-300" : "text-slate-700 dark:text-slate-300"
+                          "w-full text-left px-4 py-3 flex items-center justify-between hover:bg-slate-50 dark:hover:bg-neutral-800/50 transition-colors",
+                          selectedMat === mat.id ? "bg-indigo-50/50 dark:bg-indigo-900/20 text-indigo-700 dark:text-indigo-300" : "text-slate-700 dark:text-neutral-300"
                         )}
                       >
                         <div>
@@ -218,12 +218,12 @@ export function InventoryTab({ disruptionData, setActiveTab }: { disruptionData:
 
         <div className="flex flex-col lg:flex-row flex-1 gap-6">
           {/* KPI Sidebar */}
-          <div className="w-full lg:w-[280px] bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm space-y-6">
+          <div className="w-full lg:w-[280px] bg-white dark:bg-[#1c1c1e] border border-slate-200 dark:border-neutral-800 rounded-xl p-5 shadow-sm space-y-6">
             <h3 className="font-bold text-slate-900 dark:text-white mb-2">Inventory Coverage</h3>
             
             <div className="space-y-4">
               <div className="flex items-start">
-                <div className="p-2 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-lg mr-4"><Package className="w-5 h-5" /></div>
+                <div className="p-2 bg-blue-50 dark:bg-amber-900/30 text-blue-600 dark:text-amber-400 rounded-lg mr-4"><Package className="w-5 h-5" /></div>
                 <div>
                   <div className="text-[11px] font-bold text-slate-400 uppercase">Current Inventory</div>
                   <div className="text-sm font-black text-slate-900 dark:text-white">{activeData.currentInventory} <span className="text-xs font-semibold text-slate-500">units</span></div>
@@ -258,7 +258,7 @@ export function InventoryTab({ disruptionData, setActiveTab }: { disruptionData:
                 </div>
               </div>
               <div className="flex items-start">
-                <div className="p-2 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 rounded-lg mr-4"><TrendingDown className="w-5 h-5" /></div>
+                <div className="p-2 bg-slate-100 dark:bg-neutral-800 text-slate-600 dark:text-neutral-400 rounded-lg mr-4"><TrendingDown className="w-5 h-5" /></div>
                 <div>
                   <div className="text-[11px] font-bold text-slate-400 uppercase">Disruption Duration</div>
                   <div className="text-sm font-black text-slate-900 dark:text-white">{activeData.disruptionDuration}</div>
@@ -268,12 +268,12 @@ export function InventoryTab({ disruptionData, setActiveTab }: { disruptionData:
           </div>
           
           {/* Main Chart */}
-          <div className="flex-1 bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm flex flex-col z-10">
+          <div className="flex-1 bg-white dark:bg-[#1c1c1e] border border-slate-200 dark:border-neutral-800 rounded-xl p-5 shadow-sm flex flex-col z-10">
             <div className="flex justify-between items-center mb-6">
               <h3 className="font-bold text-slate-900 dark:text-white">Inventory Coverage Over Time (Days)</h3>
-              <div className="flex bg-slate-100 dark:bg-slate-800 p-1 rounded-lg">
-                <button className="px-4 py-1.5 bg-white dark:bg-blue-600 rounded-md text-sm font-bold text-slate-900 dark:text-white shadow-sm">Days</button>
-                <button className="px-4 py-1.5 rounded-md text-sm font-bold text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white">Quantity</button>
+              <div className="flex bg-slate-100 dark:bg-neutral-800 p-1 rounded-lg">
+                <button className="px-4 py-1.5 bg-white dark:bg-amber-600 rounded-md text-sm font-bold text-slate-900 dark:text-white shadow-sm">Days</button>
+                <button className="px-4 py-1.5 rounded-md text-sm font-bold text-slate-500 dark:text-neutral-400 hover:text-slate-900 dark:hover:text-white">Quantity</button>
               </div>
             </div>
             
@@ -314,10 +314,10 @@ export function InventoryTab({ disruptionData, setActiveTab }: { disruptionData:
         
         {/* Bottom Tables */}
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
-          <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm overflow-x-auto">
+          <div className="bg-white dark:bg-[#1c1c1e] border border-slate-200 dark:border-neutral-800 rounded-xl p-5 shadow-sm overflow-x-auto">
             <h3 className="font-bold text-slate-900 dark:text-white mb-4">Inventory by Plant</h3>
             <table className="w-full text-sm text-left min-w-[500px]">
-              <thead className="text-[10px] font-bold text-slate-400 uppercase border-b border-slate-200 dark:border-slate-800">
+              <thead className="text-[10px] font-bold text-slate-400 uppercase border-b border-slate-200 dark:border-neutral-800">
                 <tr>
                   <th className="pb-3">Plant</th>
                   <th className="pb-3 text-right">On Hand (units)</th>
@@ -326,9 +326,9 @@ export function InventoryTab({ disruptionData, setActiveTab }: { disruptionData:
                   <th className="pb-3 text-right">Status</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+              <tbody className="divide-y divide-slate-100 dark:divide-neutral-800">
                 {activeData.plants.map((r: any, i: number) => (
-                  <tr key={i} className="text-slate-900 dark:text-slate-300">
+                  <tr key={i} className="text-slate-900 dark:text-neutral-300">
                     <td className="py-3 font-semibold">{r.plant}</td>
                     <td className="py-3 text-right">{r.onHand}</td>
                     <td className="py-3 text-right">{r.cons}</td>
@@ -341,10 +341,10 @@ export function InventoryTab({ disruptionData, setActiveTab }: { disruptionData:
             <button className="mt-2 text-indigo-600 dark:text-indigo-400 text-xs font-bold hover:underline">View all plant inventory →</button>
           </div>
           
-          <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm overflow-x-auto">
+          <div className="bg-white dark:bg-[#1c1c1e] border border-slate-200 dark:border-neutral-800 rounded-xl p-5 shadow-sm overflow-x-auto">
             <h3 className="font-bold text-slate-900 dark:text-white mb-4">Supplier Contribution</h3>
             <table className="w-full text-sm text-left min-w-[500px]">
-              <thead className="text-[10px] font-bold text-slate-400 uppercase border-b border-slate-200 dark:border-slate-800">
+              <thead className="text-[10px] font-bold text-slate-400 uppercase border-b border-slate-200 dark:border-neutral-800">
                 <tr>
                   <th className="pb-3">Supplier</th>
                   <th className="pb-3 text-right">Capacity (units/day)</th>
@@ -353,9 +353,9 @@ export function InventoryTab({ disruptionData, setActiveTab }: { disruptionData:
                   <th className="pb-3 text-right">Status</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+              <tbody className="divide-y divide-slate-100 dark:divide-neutral-800">
                 {activeData.suppliers.map((r: any, i: number) => (
-                  <tr key={i} className="text-slate-900 dark:text-slate-300">
+                  <tr key={i} className="text-slate-900 dark:text-neutral-300">
                     <td className="py-3 font-semibold">{r.sup}</td>
                     <td className="py-3 text-right">{r.cap}</td>
                     <td className="py-3 text-right">{r.lead}</td>
@@ -371,8 +371,8 @@ export function InventoryTab({ disruptionData, setActiveTab }: { disruptionData:
       </div>
       
       {/* Right Sidebar */}
-      <div className="w-full xl:w-[320px] shrink-0 bg-slate-50 dark:bg-[#111827]/50 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm h-full flex flex-col">
-        <div className="flex justify-between items-start mb-6 border-b border-slate-200 dark:border-slate-800 pb-4">
+      <div className="w-full xl:w-[320px] shrink-0 bg-slate-50 dark:bg-[#1c1c1e]/50 border border-slate-200 dark:border-neutral-800 rounded-xl p-5 shadow-sm h-full flex flex-col">
+        <div className="flex justify-between items-start mb-6 border-b border-slate-200 dark:border-neutral-800 pb-4">
           <h3 className="font-bold text-slate-900 dark:text-white">Material Details</h3>
           <button className="text-slate-400 hover:text-slate-600 transition-colors">-</button>
         </div>
@@ -382,12 +382,12 @@ export function InventoryTab({ disruptionData, setActiveTab }: { disruptionData:
             <h2 className="text-xl font-extrabold text-slate-900 dark:text-white tracking-tight">{activeData.id}</h2>
             <span className={cn("text-[10px] font-bold px-2 py-0.5 rounded uppercase border", activeData.criticalityColor)}>{activeData.criticality}</span>
           </div>
-          <p className="text-sm font-semibold text-slate-700 dark:text-slate-300">{activeData.name}</p>
+          <p className="text-sm font-semibold text-slate-700 dark:text-neutral-300">{activeData.name}</p>
           <p className="text-xs font-medium text-slate-500 mt-1">{activeData.category}</p>
         </div>
         
         <div className="space-y-4 mb-6">
-          <h4 className="text-xs font-bold text-slate-900 dark:text-white border-b border-slate-200 dark:border-slate-800 pb-2">Overview</h4>
+          <h4 className="text-xs font-bold text-slate-900 dark:text-white border-b border-slate-200 dark:border-neutral-800 pb-2">Overview</h4>
           <div className="flex justify-between text-sm"><span className="text-slate-500 font-medium">Unit of Measure</span><span className="font-bold text-slate-900 dark:text-white">{activeData.details.uom}</span></div>
           <div className="flex justify-between text-sm"><span className="text-slate-500 font-medium">Unit Cost</span><span className="font-bold text-slate-900 dark:text-white">{activeData.details.cost}</span></div>
           <div className="flex justify-between text-sm"><span className="text-slate-500 font-medium">Typical Lead Time</span><span className="font-bold text-slate-900 dark:text-white">{activeData.details.leadTime}</span></div>
@@ -396,18 +396,18 @@ export function InventoryTab({ disruptionData, setActiveTab }: { disruptionData:
         </div>
         
         <div className="space-y-4 mb-6">
-          <h4 className="text-xs font-bold text-slate-900 dark:text-white border-b border-slate-200 dark:border-slate-800 pb-2">Impacted By</h4>
+          <h4 className="text-xs font-bold text-slate-900 dark:text-white border-b border-slate-200 dark:border-neutral-800 pb-2">Impacted By</h4>
           <div className="bg-red-50 dark:bg-red-900/20 p-3 rounded-lg border border-red-100 dark:border-red-900/30 flex items-start shadow-sm">
             <AlertTriangle className="w-4 h-4 text-red-500 mr-2 shrink-0 mt-0.5" />
             <div>
-              <div className="text-sm font-bold text-slate-900 dark:text-white">SUP-007 <span className="text-slate-600 dark:text-slate-400 font-medium">Capacity Disruption</span></div>
+              <div className="text-sm font-bold text-slate-900 dark:text-white">SUP-007 <span className="text-slate-600 dark:text-neutral-400 font-medium">Capacity Disruption</span></div>
               <div className="text-xs font-medium text-slate-500 mt-1">100% capacity loss for 10 days</div>
             </div>
           </div>
         </div>
         
         <div className="space-y-4 mb-6 flex-1">
-          <h4 className="text-xs font-bold text-slate-900 dark:text-white border-b border-slate-200 dark:border-slate-800 pb-2">Used In (Products)</h4>
+          <h4 className="text-xs font-bold text-slate-900 dark:text-white border-b border-slate-200 dark:border-neutral-800 pb-2">Used In (Products)</h4>
           <div className="space-y-2.5">
             {activeData.products.map((p: any) => (
               <div key={p.id} className="flex justify-between items-center text-sm group">
@@ -420,10 +420,10 @@ export function InventoryTab({ disruptionData, setActiveTab }: { disruptionData:
           <button className="text-indigo-600 dark:text-indigo-400 text-xs font-bold hover:underline mt-3">+4 more products</button>
         </div>
         
-        <div className="space-y-3 mt-auto pt-4 border-t border-slate-200 dark:border-slate-800">
+        <div className="space-y-3 mt-auto pt-4 border-t border-slate-200 dark:border-neutral-800">
           <button 
             onClick={() => setActiveTab && setActiveTab('Dependency Graph')}
-            className="w-full bg-white dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-slate-700 dark:text-slate-300 font-bold py-2 rounded-lg flex items-center justify-center transition-all shadow-sm text-sm"
+            className="w-full bg-white dark:bg-neutral-800 border-2 border-slate-200 dark:border-neutral-700 hover:border-slate-300 dark:hover:border-slate-600 text-slate-700 dark:text-neutral-300 font-bold py-2 rounded-lg flex items-center justify-center transition-all shadow-sm text-sm"
           >
             <Activity className="w-4 h-4 mr-2" /> View Dependency Path
           </button>

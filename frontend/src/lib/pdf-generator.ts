@@ -20,7 +20,7 @@ export async function generateFinancialReport(disruptionId: string, data?: any) 
   doc.setTextColor(255, 255, 255);
   doc.setFontSize(18);
   doc.setFont('helvetica', 'bold');
-  doc.text('ResilienceOS Financial Impact Report', 14, 18);
+  doc.text('LinqChain Financial Impact Report', 14, 18);
   
   doc.setFontSize(10);
   doc.setFont('helvetica', 'normal');
@@ -125,7 +125,7 @@ export async function generateFinancialReport(disruptionId: string, data?: any) 
     doc.setFontSize(8);
     doc.setTextColor(secondaryColor[0], secondaryColor[1], secondaryColor[2]);
     doc.setFont('helvetica', 'normal');
-    doc.text(`ResilienceOS - Confidential & Proprietary`, 14, pageHeight - 10);
+    doc.text(`LinqChain - Confidential & Proprietary`, 14, pageHeight - 10);
     doc.text(`Page ${i} of ${totalPages}`, pageWidth - 14, pageHeight - 10, { align: 'right' });
   }
 

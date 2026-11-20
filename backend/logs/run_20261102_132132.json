@@ -1,0 +1,94 @@
+{
+  "run_id": "run_20261102_132132",
+  "timestamp": "2026-11-02T13:21:41.907013",
+  "material_id": "MAT-012",
+  "sap_input_data": {
+    "material_id": "MAT-012",
+    "shortage_quantity": 655,
+    "existing_inventory": 100,
+    "suppliers": [
+      {
+        "id": "SUP-007",
+        "capacity": 322,
+        "unit_cost": 291.69,
+        "lead_time_days": 2.0,
+        "risk_score": 0.24
+      },
+      {
+        "id": "SUP-010",
+        "capacity": 655,
+        "unit_cost": 375.25,
+        "lead_time_days": 2.0,
+        "risk_score": 0.35
+      }
+    ],
+    "affected_orders": [
+      {
+        "id": "ORD-001",
+        "revenue_at_risk": 2000000.0,
+        "sla_penalty": 150000.0
+      },
+      {
+        "id": "ORD-002",
+        "revenue_at_risk": 1800000.0,
+        "sla_penalty": 100000.0
+      }
+    ]
+  },
+  "ranked_plans": [
+    {
+      "id": "PLAN-SUP-007-SUP-010",
+      "suppliers_used": [
+        "SUP-007",
+        "SUP-010"
+      ],
+      "total_cost": 218464.63,
+      "max_delay_days": 2.0,
+      "blended_risk": 0.295,
+      "total_sla_exposure": 0.0,
+      "final_score": 347964.63
+    },
+    {
+      "id": "PLAN-SUP-010",
+      "suppliers_used": [
+        "SUP-010"
+      ],
+      "total_cost": 245788.75,
+      "max_delay_days": 2.0,
+      "blended_risk": 0.35,
+      "total_sla_exposure": 0.0,
+      "final_score": 380788.75
+    }
+  ],
+  "recommended_plan": {
+    "id": "PLAN-SUP-007-SUP-010",
+    "suppliers_used": [
+      "SUP-007",
+      "SUP-010"
+    ],
+    "total_cost": 218464.63,
+    "max_delay_days": 2.0,
+    "blended_risk": 0.295,
+    "total_sla_exposure": 0.0,
+    "final_score": 347964.63
+  },
+  "llm_explanation": "Plan PLAN-SUP-007-SUP-010 is recommended. Deterministic recovery engine (LLM narrative unavailable — no API key configured).",
+  "guardrail_stripped": false,
+  "agentic_retries": 0,
+  "sap_action_result": {
+    "transaction_id": "PO-456995653",
+    "status": "CONFIRMED",
+    "plan": {
+      "id": "PLAN-SUP-007-SUP-010",
+      "suppliers_used": [
+        "SUP-007",
+        "SUP-010"
+      ],
+      "total_cost": 218464.63,
+      "max_delay_days": 2.0,
+      "blended_risk": 0.295,
+      "total_sla_exposure": 0.0,
+      "final_score": 347964.63
+    }
+  }
+}

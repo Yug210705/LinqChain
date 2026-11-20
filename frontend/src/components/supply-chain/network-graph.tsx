@@ -3,12 +3,11 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   ReactFlow, Controls, Background, BackgroundVariant, Position, Handle,
   MiniMap, MarkerType, applyNodeChanges, applyEdgeChanges, useNodesState, useEdgesState,
-  type Node, type Edge, type OnNodesChange, type OnEdgesChange,
+  type Node, type Edge, type OnNodesChange, type OnEdgesChange, type Viewport,
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
-import dagre from 'dagre';
 import {
-  Network, RefreshCw, AlertTriangle, X, Search, Eye, RotateCcw, Boxes,
+  Network, RefreshCw, AlertTriangle, X, Search, Eye, RotateCcw, Boxes, Check,
 } from 'lucide-react';
 import { fetchGraph } from '@/services/api';
 import { useSimulationStore } from '@/stores/useSimulationStore';
@@ -39,22 +38,22 @@ const ORDER_H = 36;
 const HUB_W = 232;
 const HUB_H = 64;
 
-/* Dark navy canvas palette (matches reference topology screenshot) */
+/* Modern true-dark charcoal canvas palette */
 const NET = {
-  canvas:      '#141e30',
-  grid:        '#24374f',
-  nodeBg:      'linear-gradient(180deg, #1e3450 0%, #16263a 100%)',
-  border:      '#2f6b8f',
-  dimBorder:   '#3f5a78',
+  canvas:      '#121214',
+  grid:        '#262629',
+  nodeBg:      'linear-gradient(180deg, #222226 0%, #19191c 100%)',
+  border:      '#3a3a42',
+  dimBorder:   '#2a2a30',
   text:        '#ffffff',
-  type:        '#8a9bb5',
-  meta:        '#a0b4cc',
-  edge:        '#4a6a85',
-  legendBg:    '#1e2d3d',
-  legendBorder:'#2f425c',
-  controlBg:   '#1e2d3d',
-  controlBorder:'#2f425c',
-  panelBg:     '#0f1b2d',
+  type:        '#a1a1aa',
+  meta:        '#71717a',
+  edge:        '#3f3f46',
+  legendBg:    '#18181b',
+  legendBorder:'#2e2e33',
+  controlBg:   '#18181b',
+  controlBorder:'#2e2e33',
+  panelBg:     '#18181b',
 };
 
 /* Node states — the ONLY statuses the graph uses */
@@ -184,30 +183,170 @@ const NetworkNode = ({ data }: any) => {
 const nodeTypes = { networkNode: NetworkNode };
 
 /* ------------------------------------------------------------------ */
-/* Dagre layout (left → right, roomy)                                  */
+/* Horizontal widescreen layout (tiers with multi-column wrapping)     */
 /* ------------------------------------------------------------------ */
 
-const getLayoutedElements = (nodes: Node[], edges: Edge[]) => {
-  const g = new dagre.graphlib.Graph();
-  g.setDefaultEdgeLabel(() => ({}));
-  g.setGraph({ rankdir: 'LR', nodesep: 34, ranksep: 96, marginx: 16, marginy: 16 });
+const TIER_ORDER: Record<string, number> = {
+  supplier: 0,
+  port: 1,
+  route: 1,
+  material: 2,
+  plant: 3,
+  product: 4,
+  order: 5,
+};
+
+const getLayoutedElements = (
+  nodes: Node[],
+  _edges: Edge[],
+  savedPositions: Record<string, { x: number; y: number }> = {}
+) => {
+  if (nodes.length === 0) return [];
+
+  // 1. Group nodes into logical supply-chain tiers
+  const tierBuckets: Map<number, Node[]> = new Map();
+  for (let i = 0; i <= 5; i++) {
+    tierBuckets.set(i, []);
+  }
 
   nodes.forEach((n) => {
-    const d = n.data as any;
-    g.setNode(n.id, { width: d.w, height: d.h });
+    let type = (n.data as any)?.typeLabel?.toLowerCase() || '';
+    if (n.id.startsWith('grp-')) {
+      type = n.id.replace('grp-', '');
+    } else if (n.id.includes(':')) {
+      type = n.id.split(':')[0];
+    }
+    const tierIdx = TIER_ORDER[type] !== undefined ? TIER_ORDER[type] : 0;
+    tierBuckets.get(tierIdx)!.push(n);
   });
-  edges.forEach((e) => g.setEdge(e.source, e.target));
-  dagre.layout(g);
 
-  return nodes.map((n) => {
-    const pos = g.node(n.id);
-    const d = n.data as any;
-    n.targetPosition = Position.Left;
-    n.sourcePosition = Position.Right;
-    n.position = { x: pos.x - d.w / 2, y: pos.y - d.h / 2 };
-    return n;
+  // 2. Decide max nodes per vertical column:
+  // Capping at 7 rows ensures total height stays ~750px,
+  // spreading suppliers across 3-4 columns and materials across 2 columns.
+  const MAX_ROWS = 7;
+  const ROW_GAP = 22;
+  const SUBCOL_GAP = 36;
+  const TIER_GAP = 96;
+
+  interface ColumnDef {
+    tier: number;
+    nodes: Node[];
+    width: number;
+    height: number;
+  }
+
+  const columns: ColumnDef[] = [];
+
+  // 3. Partition each tier into 1 or more columns
+  for (let tier = 0; tier <= 5; tier++) {
+    const bucket = tierBuckets.get(tier) || [];
+    if (bucket.length === 0) continue;
+
+    const numCols = Math.max(1, Math.ceil(bucket.length / MAX_ROWS));
+    const itemsPerCol = Math.ceil(bucket.length / numCols);
+
+    for (let c = 0; c < numCols; c++) {
+      const colNodes = bucket.slice(c * itemsPerCol, (c + 1) * itemsPerCol);
+      if (colNodes.length === 0) continue;
+
+      const colWidth = Math.max(...colNodes.map((n) => (n.data as any)?.w || NODE_W));
+      const colHeight = colNodes.reduce((acc, n) => acc + ((n.data as any)?.h || NODE_H), 0) + (colNodes.length - 1) * ROW_GAP;
+
+      columns.push({
+        tier,
+        nodes: colNodes,
+        width: colWidth,
+        height: colHeight,
+      });
+    }
+  }
+
+  // 4. Find global max height so we can vertically center each column symmetrically
+  const globalMaxHeight = Math.max(...columns.map((c) => c.height), 650);
+
+  // 5. Position nodes with smooth X progression and vertically centered Y (or restore custom position)
+  let currentX = 40;
+  let prevTier = -1;
+
+  const resultNodes: Node[] = [];
+
+  columns.forEach((col) => {
+    if (prevTier !== -1) {
+      currentX += col.tier === prevTier ? SUBCOL_GAP : TIER_GAP;
+    }
+    prevTier = col.tier;
+
+    // Center this column vertically
+    const startY = Math.max(20, (globalMaxHeight - col.height) / 2);
+    let currentY = startY;
+
+    col.nodes.forEach((n) => {
+      const d = n.data as any;
+      const w = d?.w || NODE_W;
+      const h = d?.h || NODE_H;
+
+      const saved = savedPositions && savedPositions[n.id];
+      const hasSaved =
+        saved &&
+        typeof saved.x === 'number' &&
+        typeof saved.y === 'number' &&
+        !Number.isNaN(saved.x) &&
+        !Number.isNaN(saved.y);
+
+      resultNodes.push({
+        ...n,
+        targetPosition: Position.Left,
+        sourcePosition: Position.Right,
+        position: hasSaved
+          ? { x: saved.x, y: saved.y }
+          : {
+              x: currentX,
+              y: currentY,
+            },
+      });
+
+      currentY += h + ROW_GAP;
+    });
+
+    currentX += col.width;
   });
+
+  return resultNodes;
 };
+
+/* ------------------------------------------------------------------ */
+/* Storage Persistence Helpers                                        */
+/* ------------------------------------------------------------------ */
+
+function getStorageKey(key: string, compact?: boolean) {
+  return `linqchain.network.${compact ? 'compact.' : ''}${key}`;
+}
+
+function loadStoredJSON<T>(key: string, fallback: T): T {
+  if (typeof window === 'undefined') return fallback;
+  try {
+    const raw = localStorage.getItem(key);
+    return raw ? JSON.parse(raw) : fallback;
+  } catch {
+    return fallback;
+  }
+}
+
+function saveStoredJSON(key: string, value: any): void {
+  if (typeof window === 'undefined') return;
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+  } catch (err) {
+    console.warn(`[storage] failed to save ${key}:`, err);
+  }
+}
+
+function removeStored(key: string): void {
+  if (typeof window === 'undefined') return;
+  try {
+    localStorage.removeItem(key);
+  } catch {}
+}
 
 /* ------------------------------------------------------------------ */
 /* Main component                                                      */
@@ -233,21 +372,62 @@ export function SupplyChainNetwork({ initialFocusId, compact }: { initialFocusId
   const [data, setData] = useState<GraphData | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [layoutVersion, setLayoutVersion] = useState(0);
 
-  /* Collapsed types render as group/aggregation instead of raw members.
-     Hidden types are not rendered at all. */
-  const [collapsed, setCollapsed] = useState<Set<string>>(new Set(DEFAULT_COLLAPSED));
-  const [hidden, setHidden] = useState<Set<string>>(new Set());
+  const rfInstanceRef = useRef<any>(null);
 
-  const [selectedId, setSelectedId] = useState<string | null>(null);
+  /* Saved state hydration */
+  const [collapsed, setCollapsed] = useState<Set<string>>(() => {
+    const saved = loadStoredJSON<string[] | null>(getStorageKey('collapsed', compact), null);
+    return saved ? new Set(saved) : new Set(DEFAULT_COLLAPSED);
+  });
+
+  const [hidden, setHidden] = useState<Set<string>>(() => {
+    const saved = loadStoredJSON<string[] | null>(getStorageKey('hidden', compact), null);
+    return saved ? new Set(saved) : new Set();
+  });
+
+  const [selectedId, setSelectedId] = useState<string | null>(() => {
+    if (initialFocusId) return initialFocusId;
+    return loadStoredJSON<string | null>(getStorageKey('selected', compact), null);
+  });
+
+  const [savedViewport] = useState<Viewport | null>(() => {
+    return loadStoredJSON<Viewport | null>(getStorageKey('viewport', compact), null);
+  });
+
+  const [hasCustomLayout, setHasCustomLayout] = useState<boolean>(() => {
+    const savedPos = loadStoredJSON<Record<string, any>>(getStorageKey('positions', compact), {});
+    return Object.keys(savedPos).length > 0;
+  });
+
   const [focusId, setFocusId] = useState<string | null>(null);
   const [query, setQuery] = useState('');
+
+  // Persist collapsed & hidden changes
+  useEffect(() => {
+    saveStoredJSON(getStorageKey('collapsed', compact), Array.from(collapsed));
+  }, [collapsed, compact]);
+
+  useEffect(() => {
+    saveStoredJSON(getStorageKey('hidden', compact), Array.from(hidden));
+  }, [hidden, compact]);
+
+  const handleSelectNode = useCallback(
+    (id: string | null) => {
+      setSelectedId(id);
+      if (id) {
+        saveStoredJSON(getStorageKey('selected', compact), id);
+      } else {
+        removeStored(getStorageKey('selected', compact));
+      }
+    },
+    [compact]
+  );
 
   const load = useCallback(async () => {
     setLoading(true);
     setError(null);
-    setFocusId(null);
-    setSelectedId(null);
     try {
       const g = await fetchGraph();
       setData(g);
@@ -279,32 +459,64 @@ export function SupplyChainNetwork({ initialFocusId, compact }: { initialFocusId
   }, [data]);
 
   const toggleType = useCallback((type: string) => {
-    /* COLLAPSIBLE types: collapsed ⇄ hidden. Others: visible ⇄ hidden. */
-    setCollapsed((prev) => {
-      const next = new Set(prev);
-      if ((COLLAPSIBLE as readonly string[]).includes(type)) {
-        if (next.has(type)) next.delete(type);
-        else next.add(type);
-      }
-      return next;
-    });
-    setHidden((prev) => {
-      const next = new Set(prev);
-      if (next.has(type)) next.delete(type);
-      else next.add(type);
-      return next;
-    });
-    setSelectedId(null);
-    setFocusId(null);
+    const isCollapsible = (COLLAPSIBLE as readonly string[]).includes(type);
+
+    if (isCollapsible) {
+      setCollapsed((prevCollapsed) => {
+        const nextC = new Set(prevCollapsed);
+        setHidden((prevHidden) => {
+          const nextH = new Set(prevHidden);
+
+          const isHidden = prevHidden.has(type);
+          const isCollapsed = prevCollapsed.has(type) && !isHidden;
+          const isExpanded = !prevCollapsed.has(type) && !isHidden;
+
+          if (isExpanded) {
+            nextC.add(type);
+            nextH.delete(type);
+          } else if (isCollapsed) {
+            nextC.delete(type);
+            nextH.add(type);
+          } else {
+            nextC.delete(type);
+            nextH.delete(type);
+          }
+          return nextH;
+        });
+        return nextC;
+      });
+    } else {
+      setHidden((prevHidden) => {
+        const nextH = new Set(prevHidden);
+        if (nextH.has(type)) {
+          nextH.delete(type);
+        } else {
+          nextH.add(type);
+        }
+        return nextH;
+      });
+    }
   }, []);
+
+  const resetLayout = useCallback(() => {
+    removeStored(getStorageKey('positions', compact));
+    removeStored(getStorageKey('viewport', compact));
+    setHasCustomLayout(false);
+    setLayoutVersion((v) => v + 1);
+    if (rfInstanceRef.current) {
+      rfInstanceRef.current.fitView({ padding: 0.08, duration: 400 });
+    }
+  }, [compact]);
 
   const resetView = useCallback(() => {
     setCollapsed(new Set(DEFAULT_COLLAPSED));
     setHidden(new Set());
-    setSelectedId(null);
+    handleSelectNode(null);
     setFocusId(null);
     setQuery('');
-  }, []);
+    removeStored(getStorageKey('collapsed', compact));
+    removeStored(getStorageKey('hidden', compact));
+  }, [compact, handleSelectNode]);
 
   /* ------------------------ Graph building ------------------------ */
 
@@ -447,7 +659,7 @@ export function SupplyChainNetwork({ initialFocusId, compact }: { initialFocusId
           h: isOrder ? ORDER_H : NODE_H,
           selected: n.id === selectedId,
           dim: false,
-          onClick: () => { setSelectedId(n.id); setFocusId((f) => (f === n.id ? null : n.id)); },
+          onClick: () => { handleSelectNode(n.id); setFocusId((f) => (f === n.id ? null : n.id)); },
         },
       });
     });
@@ -470,7 +682,7 @@ export function SupplyChainNetwork({ initialFocusId, compact }: { initialFocusId
           w: HUB_W, h: HUB_H,
           selected: false,
           dim: false,
-          onClick: () => setSelectedId(null),
+          onClick: () => handleSelectNode(null),
         },
       });
     }
@@ -619,18 +831,23 @@ export function SupplyChainNetwork({ initialFocusId, compact }: { initialFocusId
       degrees[t].in += 1;
     });
 
+    const savedPos = loadStoredJSON<Record<string, { x: number; y: number }>>(
+      getStorageKey('positions', compact),
+      {}
+    );
+
     return {
-      rfNodes: getLayoutedElements(nodes, edges),
+      rfNodes: getLayoutedElements(nodes, edges, savedPos),
       rfEdges: edges,
       degrees,
       productOrderCounts,
       supplierLinks,
     };
-  }, [data, collapsed, hidden, counts, selectedId, focusId, activeDisruption, activeRecovery]);
+  }, [data, collapsed, hidden, counts, selectedId, focusId, activeDisruption, activeRecovery, compact, layoutVersion]);
 
   /* ---------- ReactFlow state (smooth, draggable controlled nodes) ---------- */
 
-  const structureKey = `${data?.nodes.length ?? 0}x${data?.edges.length ?? 0}|${[...collapsed].sort().join(',')}|${[...hidden].sort().join(',')}`;
+  const structureKey = `${data?.nodes.length ?? 0}x${data?.edges.length ?? 0}|${[...collapsed].sort().join(',')}|${[...hidden].sort().join(',')}|${layoutVersion}`;
 
   const [rfNodes, setRfNodes, onNodesChange] = useNodesState<Node>(built.rfNodes);
   const [rfEdges, setRfEdges] = useEdgesState<Edge>(built.rfEdges);
@@ -643,7 +860,7 @@ export function SupplyChainNetwork({ initialFocusId, compact }: { initialFocusId
   const prevData = useRef(data);
 
   /* Layout is re-applied only when the topology/structure changes (chips toggled,
-     data refreshed). Focus & selection changes update node data in place so
+     data refreshed, or reset layout). Focus & selection changes update node data in place so
      user-dragged positions are preserved and dragging stays smooth. */
   useEffect(() => {
     const structural = prevData.current !== data || prevStructureKey.current !== structureKey;
@@ -673,7 +890,7 @@ export function SupplyChainNetwork({ initialFocusId, compact }: { initialFocusId
         return next ? { ...e, style: { ...(next.style as object) } } : e;
       })
     );
-  }, [structureKey, focusId, selectedId, data, activeDisruption, activeRecovery]);
+  }, [structureKey, focusId, selectedId, data, activeDisruption, activeRecovery, layoutVersion]);
 
   const handleNodesChange: OnNodesChange<Node> = useCallback(
     (changes) => setRfNodes((nds) => applyNodeChanges(changes, nds)),
@@ -682,6 +899,34 @@ export function SupplyChainNetwork({ initialFocusId, compact }: { initialFocusId
   const handleEdgesChange: OnEdgesChange<Edge> = useCallback(
     (changes) => setRfEdges((eds) => applyEdgeChanges(changes, eds)),
     []
+  );
+
+  const handleNodeDragStop = useCallback(
+    (_event: any, node: Node) => {
+      setRfNodes((currentNodes) => {
+        const key = getStorageKey('positions', compact);
+        const posMap: Record<string, { x: number; y: number }> = loadStoredJSON(key, {});
+        currentNodes.forEach((n) => {
+          const pos = n.id === node.id ? node.position : n.position;
+          if (pos && typeof pos.x === 'number' && typeof pos.y === 'number' && !Number.isNaN(pos.x)) {
+            posMap[n.id] = { x: Math.round(pos.x), y: Math.round(pos.y) };
+          }
+        });
+        saveStoredJSON(key, posMap);
+        setHasCustomLayout(true);
+        return currentNodes;
+      });
+    },
+    [compact]
+  );
+
+  const handleMoveEnd = useCallback(
+    (_event: any, vp: Viewport) => {
+      if (vp && typeof vp.x === 'number' && typeof vp.zoom === 'number') {
+        saveStoredJSON(getStorageKey('viewport', compact), vp);
+      }
+    },
+    [compact]
   );
 
   /* --------------------------- Search ----------------------------- */
@@ -694,30 +939,33 @@ export function SupplyChainNetwork({ initialFocusId, compact }: { initialFocusId
       .slice(0, 6);
   }, [data, query]);
 
-  const applyFocus = useCallback((id: string) => {
-    setFocusId(id);
-    setSelectedId(id);
-    setQuery('');
-    /* If the target lives inside a collapsed group, expand just that group */
-    const nodeType = data?.nodes.find((n: any) => n.id === id)?.type;
-    if (nodeType && (collapsed.has(nodeType) || hidden.has(nodeType))) {
-      setCollapsed((prev) => {
-        const next = new Set(prev);
-        if ((COLLAPSIBLE as readonly string[]).includes(nodeType)) next.delete(nodeType);
-        return next;
-      });
-      setHidden((prev) => {
-        const next = new Set(prev);
-        next.delete(nodeType);
-        return next;
-      });
-    }
-  }, [data, collapsed, hidden]);
+  const applyFocus = useCallback(
+    (id: string) => {
+      setFocusId(id);
+      handleSelectNode(id);
+      setQuery('');
+      /* If the target lives inside a collapsed group, expand just that group */
+      const nodeType = data?.nodes.find((n: any) => n.id === id)?.type;
+      if (nodeType && (collapsed.has(nodeType) || hidden.has(nodeType))) {
+        setCollapsed((prev) => {
+          const next = new Set(prev);
+          if ((COLLAPSIBLE as readonly string[]).includes(nodeType)) next.delete(nodeType);
+          return next;
+        });
+        setHidden((prev) => {
+          const next = new Set(prev);
+          next.delete(nodeType);
+          return next;
+        });
+      }
+    },
+    [data, collapsed, hidden, handleSelectNode]
+  );
 
   const clearFocus = useCallback(() => {
     setFocusId(null);
-    setSelectedId(null);
-  }, []);
+    handleSelectNode(null);
+  }, [handleSelectNode]);
 
   /* ----------------------- Detail panel --------------------------- */
 
@@ -753,10 +1001,9 @@ export function SupplyChainNetwork({ initialFocusId, compact }: { initialFocusId
   ];
 
   const chipMeta = (type: string) => {
-    if (COLLAPSIBLE.includes(type as any)) {
-      return collapsed.has(type) ? 'collapsed' : 'hidden';
-    }
-    return hidden.has(type) ? 'hidden' : 'expanded';
+    if (hidden.has(type)) return 'hidden';
+    if ((COLLAPSIBLE as readonly string[]).includes(type) && collapsed.has(type)) return 'collapsed';
+    return 'expanded';
   };
 
   return (
@@ -765,19 +1012,19 @@ export function SupplyChainNetwork({ initialFocusId, compact }: { initialFocusId
       {!compact && (
         <div className="grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-9 gap-2">
           {statCards.map((s) => (
-            <div key={s.label} className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-lg px-3 py-2 text-center">
+            <div key={s.label} className="bg-white dark:bg-[#1c1c1e] border border-slate-200 dark:border-neutral-800 rounded-lg px-3 py-2 text-center">
               <div className="text-lg font-bold text-slate-900 dark:text-white leading-tight">{s.value}</div>
-              <div className="text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide">{s.label}</div>
+              <div className="text-[10px] font-semibold text-slate-500 dark:text-neutral-400 uppercase tracking-wide">{s.label}</div>
             </div>
           ))}
         </div>
       )}
 
       {/* Graph card */}
-      <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm overflow-hidden">
-        <div className="px-4 py-3 border-b border-slate-100 dark:border-slate-800 flex flex-wrap items-center justify-between gap-2">
+      <div className="bg-white dark:bg-[#1c1c1e] border border-slate-200 dark:border-neutral-800 rounded-xl shadow-sm overflow-hidden">
+        <div className="px-4 py-3 border-b border-slate-100 dark:border-neutral-800 flex flex-wrap items-center justify-between gap-2">
           <div className="flex items-center space-x-2">
-            <Boxes className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+            <Boxes className="w-4 h-4 text-blue-600 dark:text-amber-400" />
             <h2 className="font-bold text-slate-900 dark:text-white text-sm">Global Network Topology</h2>
             <span className="text-[10px] font-semibold text-slate-400 hidden md:inline">
               {focusId ? 'Focus mode — click again to clear' : 'Routes & orders grouped · drag any node to rearrange'}
@@ -788,16 +1035,16 @@ export function SupplyChainNetwork({ initialFocusId, compact }: { initialFocusId
             <div className="relative">
               <Search className="absolute left-2 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400 pointer-events-none" />
               {query.length > 0 && matches.length > 0 && (
-                <div className="absolute top-7 left-0 right-0 z-20 bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-700 rounded-lg shadow-xl py-1 max-h-56 overflow-y-auto">
+                <div className="absolute top-7 left-0 right-0 z-20 bg-white dark:bg-[#1c1c1e] border border-slate-200 dark:border-neutral-700 rounded-lg shadow-xl py-1 max-h-56 overflow-y-auto">
                   {matches.map((m: any) => {
                     const meta = TYPE_META[m.type] || {};
                     return (
                       <button
                         key={m.id}
                         onClick={() => applyFocus(m.id)}
-                        className="w-full text-left px-3 py-1.5 hover:bg-slate-50 dark:hover:bg-slate-800 flex items-center justify-between gap-2"
+                        className="w-full text-left px-3 py-1.5 hover:bg-slate-50 dark:hover:bg-neutral-800 flex items-center justify-between gap-2"
                       >
-                        <span className="text-xs font-bold text-slate-700 dark:text-slate-300 truncate">{m.label || m.id}</span>
+                        <span className="text-xs font-bold text-slate-700 dark:text-neutral-300 truncate">{m.label || m.id}</span>
                         <span className="text-[9px] font-bold uppercase shrink-0" style={{ color: meta.color }}>
                           {m.type}
                         </span>
@@ -811,28 +1058,49 @@ export function SupplyChainNetwork({ initialFocusId, compact }: { initialFocusId
                 onChange={(e) => setQuery(e.target.value)}
                 onKeyDown={(e) => { if (e.key === 'Enter' && matches[0]) applyFocus(matches[0].id); }}
                 placeholder="Search node…"
-                className="w-40 sm:w-48 pl-7 pr-2 py-1.5 text-xs font-semibold text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-[#0f1522] border border-slate-200 dark:border-slate-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500/40"
+                className="w-40 sm:w-48 pl-7 pr-2 py-1.5 text-xs font-semibold text-slate-700 dark:text-neutral-300 bg-slate-50 dark:bg-[#171717] border border-slate-200 dark:border-neutral-700 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500/40"
               />
               {focusId && (
                 <button
                   onClick={clearFocus}
                   title="Clear focus"
-                  className="absolute right-1.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
+                  className="absolute right-1.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-neutral-200"
                 >
                   <X className="w-3.5 h-3.5" />
                 </button>
               )}
             </div>
+
+            {/* Layout saved badge */}
+            {hasCustomLayout && (
+              <div className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-semibold text-emerald-400 bg-emerald-950/40 border border-emerald-800/60 rounded-md shadow-xs">
+                <Check className="w-3.5 h-3.5 text-emerald-400" />
+                <span>Layout Preserved</span>
+              </div>
+            )}
+
+            {/* Reset layout button */}
+            {hasCustomLayout && (
+              <button
+                onClick={resetLayout}
+                title="Reset dragged nodes and view to default layout"
+                className="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-semibold text-slate-500 dark:text-neutral-400 hover:text-amber-500 dark:hover:text-amber-400 border border-slate-200 dark:border-neutral-700 rounded-md transition-colors"
+              >
+                <RotateCcw className="w-3.5 h-3.5" />
+                <span className="hidden md:inline">Reset Layout</span>
+              </button>
+            )}
+
             <button
               onClick={resetView}
-              title="Reset view"
-              className="inline-flex items-center px-2.5 py-1.5 text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 border border-slate-200 dark:border-slate-700 rounded-md transition-colors"
+              title="Reset view and filters"
+              className="inline-flex items-center px-2.5 py-1.5 text-xs font-semibold text-slate-500 dark:text-neutral-400 hover:text-blue-600 dark:hover:text-amber-400 border border-slate-200 dark:border-neutral-700 rounded-md transition-colors"
             >
               <RotateCcw className="w-3.5 h-3.5" />
             </button>
             <button
               onClick={load}
-              className="inline-flex items-center text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors px-1"
+              className="inline-flex items-center text-xs font-semibold text-slate-500 dark:text-neutral-400 hover:text-blue-600 dark:hover:text-amber-400 transition-colors px-1"
             >
               <RefreshCw className={`w-3.5 h-3.5 mr-1 ${loading ? 'animate-spin' : ''}`} /> Refresh
             </button>
@@ -840,7 +1108,7 @@ export function SupplyChainNetwork({ initialFocusId, compact }: { initialFocusId
         </div>
 
         {/* Type filter chips */}
-        <div className="px-4 py-2.5 border-b border-slate-100 dark:border-slate-800 flex flex-wrap gap-2 items-center">
+        <div className="px-4 py-2.5 border-b border-slate-100 dark:border-neutral-800 flex flex-wrap gap-2 items-center">
           {Object.entries(TYPE_META).map(([type, meta]) => {
             const state = chipMeta(type);
             return (
@@ -849,9 +1117,9 @@ export function SupplyChainNetwork({ initialFocusId, compact }: { initialFocusId
                 onClick={() => toggleType(type)}
                 className={`inline-flex items-center text-[11px] font-bold px-2.5 py-1 rounded-full border transition-colors ${
                   state === 'hidden'
-                    ? 'border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-500 opacity-50'
+                    ? 'border-slate-200 dark:border-neutral-700 text-slate-400 dark:text-neutral-500 opacity-50'
                     : state === 'collapsed'
-                      ? 'border-dashed text-slate-600 dark:text-slate-300'
+                      ? 'border-dashed text-slate-600 dark:text-neutral-300'
                       : 'border-transparent text-white'
                 }`}
                 style={
@@ -868,7 +1136,7 @@ export function SupplyChainNetwork({ initialFocusId, compact }: { initialFocusId
                 }
               >
                 <span
-                  className={`w-2 h-2 rounded-sm mr-1.5 ${state === 'hidden' ? 'bg-slate-300 dark:bg-slate-600' : ''}`}
+                  className={`w-2 h-2 rounded-sm mr-1.5 ${state === 'hidden' ? 'bg-slate-300 dark:bg-neutral-600' : ''}`}
                   style={state === 'hidden' ? undefined : { background: state === 'collapsed' ? 'transparent' : meta.color, border: state === 'collapsed' ? `1.5px dashed ${meta.color}` : undefined }}
                 />
                 {meta.label} {counts[type] !== undefined && `(${counts[type]})`}
@@ -907,32 +1175,37 @@ export function SupplyChainNetwork({ initialFocusId, compact }: { initialFocusId
 
         {/* ReactFlow canvas */}
         {loading ? (
-          <div className="h-[600px] flex flex-col items-center justify-center bg-[#141e30]">
-            <Network className="w-8 h-8 text-blue-400 animate-pulse mb-3" />
-            <p className="text-sm font-semibold text-slate-300">Building network topology…</p>
+          <div className={`flex flex-col items-center justify-center bg-[#121214] ${compact ? 'h-[480px]' : 'h-[750px] min-h-[600px] xl:h-[800px]'}`}>
+            <Network className="w-8 h-8 text-amber-400 animate-pulse mb-3" />
+            <p className="text-sm font-semibold text-neutral-300">Building network topology…</p>
           </div>
         ) : error ? (
-          <div className="h-[600px] flex flex-col items-center justify-center bg-[#141e30] text-center px-6">
+          <div className={`flex flex-col items-center justify-center bg-[#121214] text-center px-6 ${compact ? 'h-[480px]' : 'h-[750px] min-h-[600px] xl:h-[800px]'}`}>
             <AlertTriangle className="w-8 h-8 text-amber-400 mb-3" />
-            <p className="text-sm font-bold text-slate-200 mb-1">Could not load the supply chain network</p>
-            <p className="text-xs text-slate-400 max-w-md mb-4">{error}</p>
+            <p className="text-sm font-bold text-neutral-200 mb-1">Could not load the supply chain network</p>
+            <p className="text-xs text-neutral-400 max-w-md mb-4">{error}</p>
             <button
               onClick={load}
-              className="inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md font-semibold text-xs shadow-sm transition-colors"
+              className="inline-flex items-center bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-md font-semibold text-xs shadow-sm transition-colors"
             >
               <RefreshCw className="w-3.5 h-3.5 mr-1.5" /> Try again
             </button>
           </div>
         ) : (
-          <div className="relative h-[600px] bg-[#141e30]">
+          <div className={`relative bg-[#121214] ${compact ? 'h-[480px]' : 'h-[750px] min-h-[600px] xl:h-[800px]'}`}>
             <ReactFlow
               nodes={rfNodes}
               edges={rfEdges}
               nodeTypes={nodeTypes}
               onNodesChange={handleNodesChange}
               onEdgesChange={handleEdgesChange}
-              fitView
-              fitViewOptions={{ padding: 0.15 }}
+              onInit={(instance) => { rfInstanceRef.current = instance; }}
+              onNodeDragStop={handleNodeDragStop}
+              onMoveEnd={handleMoveEnd}
+              onPaneClick={() => handleSelectNode(null)}
+              defaultViewport={savedViewport || undefined}
+              fitView={!savedViewport && !initialFocusId}
+              fitViewOptions={{ padding: 0.08 }}
               minZoom={0.15}
               maxZoom={1.75}
               nodesDraggable={!compact}
@@ -950,16 +1223,16 @@ export function SupplyChainNetwork({ initialFocusId, compact }: { initialFocusId
                   return (STATE_META[st] || STATE_META.active).color;
                 }}
                 nodeStrokeColor={() => NET.panelBg}
-                maskColor="rgba(20,30,48,0.7)"
-                className="!bg-[#16263a] !border-[#2f425c]"
+                maskColor="rgba(18,18,20,0.7)"
+                className="!bg-[#18181b] !border-[#2e2e33]"
               />
               )}
-              <Controls position="bottom-left" className="!bg-[#1e2d3d] !border-[#2f425c] rounded-lg overflow-hidden" />
+              <Controls position="bottom-left" className="!bg-[#18181b] !border-[#2e2e33] rounded-lg overflow-hidden" />
             </ReactFlow>
 
             {/* Selected node detail panel */}
             {selectedNode && (
-              <div className="absolute top-3 right-3 z-10 w-64 bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-700 rounded-xl shadow-lg p-4">
+              <div className="absolute top-3 right-3 z-10 w-64 bg-white dark:bg-[#1c1c1e] border border-slate-200 dark:border-neutral-700 rounded-xl shadow-lg p-4">
                 <div className="flex justify-between items-start mb-2">
                   <span
                     className="inline-flex items-center text-[10px] font-bold text-white px-2 py-0.5 rounded-full uppercase tracking-wide"
@@ -969,33 +1242,33 @@ export function SupplyChainNetwork({ initialFocusId, compact }: { initialFocusId
                   </span>
                   <span
                     className="inline-flex items-center text-[10px] font-black px-2 py-0.5 rounded-full uppercase tracking-wide ml-2"
-                    style={{ background: (STATE_META[selectedNode.state] || STATE_META.active).color, color: '#0f1522' }}
+                    style={{ background: (STATE_META[selectedNode.state] || STATE_META.active).color, color: '#171717' }}
                   >
                     {(STATE_META[selectedNode.state] || STATE_META.active).label}
                   </span>
-                  <button onClick={() => setSelectedId(null)} className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 ml-auto">
+                  <button onClick={() => handleSelectNode(null)} className="text-slate-400 hover:text-slate-600 dark:hover:text-neutral-200 ml-auto">
                     <X className="w-4 h-4" />
                   </button>
                 </div>
                 <p className="text-sm font-bold text-slate-900 dark:text-white mb-1 break-words">{selectedNode.node.label || selectedNode.node.id}</p>
                 <p className="text-[10px] font-semibold text-slate-400 mb-3 break-all">{selectedNode.node.id}</p>
                 <div className="grid grid-cols-2 gap-2 mb-3">
-                  <div className="bg-slate-50 dark:bg-[#0f1522] rounded-md px-2 py-1.5 text-center">
+                  <div className="bg-slate-50 dark:bg-[#171717] rounded-md px-2 py-1.5 text-center">
                     <div className="text-sm font-bold text-slate-900 dark:text-white">{selectedNode.d.out}</div>
                     <div className="text-[9px] font-semibold text-slate-500 uppercase">Outgoing</div>
                   </div>
-                  <div className="bg-slate-50 dark:bg-[#0f1522] rounded-md px-2 py-1.5 text-center">
+                  <div className="bg-slate-50 dark:bg-[#171717] rounded-md px-2 py-1.5 text-center">
                     <div className="text-sm font-bold text-slate-900 dark:text-white">{selectedNode.d.in}</div>
                     <div className="text-[9px] font-semibold text-slate-500 uppercase">Incoming</div>
                   </div>
                 </div>
                 {selectedNode.node.risk !== undefined && selectedNode.node.risk !== null && (
-                  <div className="text-[11px] font-semibold text-slate-600 dark:text-slate-300 mb-1">
+                  <div className="text-[11px] font-semibold text-slate-600 dark:text-neutral-300 mb-1">
                     Risk score: <span className="text-slate-900 dark:text-white">{formatRisk(selectedNode.node.risk)}</span>
                   </div>
                 )}
                 {selectedNode.node.val !== undefined && (
-                  <div className="text-[11px] font-semibold text-slate-600 dark:text-slate-300 mb-1">
+                  <div className="text-[11px] font-semibold text-slate-600 dark:text-neutral-300 mb-1">
                     Order value: <span className="text-slate-900 dark:text-white">${Number(selectedNode.node.val).toLocaleString()}</span>
                   </div>
                 )}
@@ -1007,7 +1280,7 @@ export function SupplyChainNetwork({ initialFocusId, compact }: { initialFocusId
                         <button
                           key={id}
                           onClick={() => applyFocus(id)}
-                          className="text-[9px] font-semibold text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-[#0f1522] px-1.5 py-0.5 rounded hover:text-blue-600"
+                          className="text-[9px] font-semibold text-slate-500 dark:text-neutral-400 bg-slate-100 dark:bg-[#171717] px-1.5 py-0.5 rounded hover:text-blue-600"
                         >
                           {id.split(':')[1]}
                         </button>
@@ -1022,31 +1295,31 @@ export function SupplyChainNetwork({ initialFocusId, compact }: { initialFocusId
             )}
 
             {/* Legend (reference-style dark card) */}
-            <div className="absolute top-3 left-3 z-10 pointer-events-none bg-[#1e2d3d] border border-[#2f425c] rounded-lg px-3.5 py-2.5 shadow-lg">
+            <div className="absolute top-3 left-3 z-10 pointer-events-none bg-[#18181b] border border-[#2e2e33] rounded-lg px-3.5 py-2.5 shadow-lg">
               <div className="text-[10px] font-extrabold text-white uppercase tracking-widest mb-2">Node state</div>
               <div className="grid grid-cols-2 gap-x-4 gap-y-1.5">
-                <div className="flex items-center text-[10px] font-bold text-slate-300">
+                <div className="flex items-center text-[10px] font-bold text-neutral-300">
                   <span className="w-2.5 h-2.5 rounded-full mr-1.5" style={{ background: STATE_META.active.color }} /> Active
                 </div>
-                <div className="flex items-center text-[10px] font-bold text-slate-300">
+                <div className="flex items-center text-[10px] font-bold text-neutral-300">
                   <span className="w-2.5 h-2.5 rounded-full mr-1.5" style={{ background: STATE_META.atRisk.color }} /> At risk
                 </div>
-                <div className="flex items-center text-[10px] font-bold text-slate-300">
+                <div className="flex items-center text-[10px] font-bold text-neutral-300">
                   <span className="w-2.5 h-2.5 rounded-full mr-1.5" style={{ background: STATE_META.disrupted.color }} /> Disrupted
                 </div>
-                <div className="flex items-center text-[10px] font-bold text-slate-300">
+                <div className="flex items-center text-[10px] font-bold text-neutral-300">
                   <span className="w-2.5 h-2.5 rounded-full mr-1.5" style={{ background: STATE_META.inactive.color }} /> Inactive
                 </div>
               </div>
               <span className="block mt-2" style={{ borderTop: `1.5px dashed ${NET.dimBorder}`, height: 0 }} />
-              <div className="text-[9px] font-semibold text-slate-400 mt-1">dashed borders = standby (collapsed group)</div>
+              <div className="text-[9px] font-semibold text-neutral-400 mt-1">dashed borders = standby (collapsed group)</div>
             </div>
           </div>
         )}
       </div>
 
       {/* Footnote */}
-      <p className="text-[11px] text-slate-400 dark:text-slate-500">
+      <p className="text-[11px] text-slate-400 dark:text-neutral-500">
         All suppliers are shown individually and laid out left-to-right by their links (supplier → port/material → plant → product → order). Routes & orders are grouped by default — click their chips to expand. Drag any node to rearrange (positions stick until the topology changes) · click a node to focus its neighbourhood · search to jump straight to an entity.
       </p>
     </div>

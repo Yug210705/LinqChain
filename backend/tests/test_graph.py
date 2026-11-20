@@ -3,7 +3,8 @@ from app.main import app
 
 client = TestClient(app)
 
-def test_get_graph():
+def test_get_graph(monkeypatch):
+    monkeypatch.setenv("RESILIENCE_NO_AUTH", "1")
     r = client.get("/api/supply-chain/graph")
     assert r.status_code == 200
     data = r.json()

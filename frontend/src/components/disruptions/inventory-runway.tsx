@@ -20,10 +20,10 @@ export function InventoryRunway() {
   if (data.length === 0) return null;
 
   return (
-    <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-lg shadow-sm p-5">
+    <div className="bg-white dark:bg-[#1c1c1e] border border-slate-200 dark:border-neutral-800 rounded-lg shadow-sm p-5">
       <div className="mb-4">
         <h3 className="font-semibold text-slate-900 dark:text-white">Inventory Runway ({matId})</h3>
-        <p className="text-xs text-slate-500 dark:text-slate-400">Buffer depletion over time</p>
+        <p className="text-xs text-slate-500 dark:text-neutral-400">Buffer depletion over time</p>
       </div>
       <div className="h-64">
         <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
@@ -38,7 +38,7 @@ export function InventoryRunway() {
             <XAxis dataKey="day" axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: '#94a3b8' }} />
             <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: '#94a3b8' }} />
             <Tooltip 
-              contentStyle={{ borderRadius: '8px', border: '1px solid #334155', background: '#111827', color: '#f1f5f9', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+              contentStyle={{ borderRadius: '8px', border: '1px solid #334155', background: '#1c1c1e', color: '#f1f5f9', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
             />
             <ReferenceLine y={0} stroke="#ef4444" strokeDasharray="3 3" />
             <Area type="monotone" dataKey="inventory" stroke="#2563eb" fillOpacity={1} fill="url(#colorInv)" />

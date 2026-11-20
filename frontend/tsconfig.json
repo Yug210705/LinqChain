@@ -42,6 +42,7 @@
     "src/api/**/*.ts",
     "src/api/**/*.tsx",
     "src/pages/**/*.tsx",
+    "legacy_vite",
     "src/lib/pdf-generator.ts",
     "src/components/network/**/*.tsx",
     "src/components/scenario/**/*.tsx"

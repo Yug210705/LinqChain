@@ -3,7 +3,7 @@ set -e
 cd "$(dirname "$0")"
 
 echo "===================================================="
-echo "Starting RESILIENCE OS (Hackathon Demo Environment)"
+echo "Starting LINQCHAIN (Hackathon Demo Environment)"
 echo "===================================================="
 
 # Offline mode when the HANA instance is stopped:

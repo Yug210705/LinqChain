@@ -1,0 +1,49 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: linqchain-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: linqchain
+      POSTGRES_PASSWORD: linqchain_secure_password_replace_in_prod
+      POSTGRES_DB: linqchain
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U linqchain -d linqchain"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: linqchain-backend
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+    environment:
+      ENVIRONMENT: production
+      DATABASE_URL: postgresql://linqchain:linqchain_secure_password_replace_in_prod@db:5432/linqchain
+      ADMIN_DATABASE_URL: postgresql://linqchain:linqchain_secure_password_replace_in_prod@db:5432/linqchain_admin
+      ADMIN_JWT_SECRET: production-grade-secret-key-at-least-32-characters-long
+      SAP_WEBHOOK_SECRET: sap-production-webhook-secret-token-min16
+      ALLOWED_ORIGINS: http://localhost:3000,http://127.0.0.1:3000
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+volumes:
+  postgres_data:

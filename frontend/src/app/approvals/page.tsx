@@ -27,11 +27,11 @@ function formatStatus(status: RecoveryPlanStatus): string {
 function getStatusColor(status: RecoveryPlanStatus) {
   switch (status) {
     case 'PENDING_AUDIT': return 'text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/40 border-amber-200/60 dark:border-amber-900/50';
-    case 'PENDING_APPROVAL': return 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/40 border-blue-200/60 dark:border-blue-900/50';
+    case 'PENDING_APPROVAL': return 'text-blue-600 dark:text-amber-400 bg-blue-50 dark:bg-amber-950/40 border-blue-200/60 dark:border-amber-900/50';
     case 'APPROVED': return 'text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/40 border-indigo-200/60 dark:border-indigo-900/50';
     case 'COMPLETED': return 'text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 border-emerald-200/60 dark:border-emerald-900/50';
     case 'REJECTED': return 'text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/40 border-red-200/60 dark:border-red-900/50';
-    default: return 'text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-900/40 border-slate-200/60 dark:border-slate-700/60';
+    default: return 'text-slate-600 dark:text-neutral-300 bg-slate-50 dark:bg-neutral-900/40 border-slate-200/60 dark:border-neutral-700/60';
   }
 }
 
@@ -174,17 +174,17 @@ export default function ApprovalWorkspace() {
         {/* HEADER */}
         <div className="shrink-0 flex flex-col md:flex-row md:justify-between md:items-end gap-4">
           <div>
-            <div className="flex items-center space-x-2 text-[13px] text-slate-500 dark:text-slate-400 mb-2 font-medium">
+            <div className="flex items-center space-x-2 text-[13px] text-slate-500 dark:text-neutral-400 mb-2 font-medium">
               <Link href="/command-center" className="hover:text-slate-900 dark:hover:text-white transition-colors">Command Center</Link>
-              <span className="text-slate-300 dark:text-slate-600">/</span>
-              <span className="text-slate-900 dark:text-slate-100">Approvals</span>
+              <span className="text-slate-300 dark:text-neutral-600">/</span>
+              <span className="text-slate-900 dark:text-neutral-100">Approvals</span>
             </div>
             <h1 className="text-2xl font-semibold text-slate-900 dark:text-white tracking-tight">Authorization Queue</h1>
-            <p className="text-[13px] text-slate-500 dark:text-slate-400 mt-1">Review audited recovery plans pending final human authorization.</p>
+            <p className="text-[13px] text-slate-500 dark:text-neutral-400 mt-1">Review audited recovery plans pending final human authorization.</p>
           </div>
           
           <div className="flex items-center space-x-3">
-            <button onClick={() => loadData(page, debouncedSearch)} disabled={loading} className="flex items-center px-4 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 rounded-lg text-[13px] font-medium transition-colors shadow-sm disabled:opacity-50">
+            <button onClick={() => loadData(page, debouncedSearch)} disabled={loading} className="flex items-center px-4 py-2 bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-700 hover:bg-slate-50 dark:hover:bg-neutral-800 text-slate-700 dark:text-neutral-200 rounded-lg text-[13px] font-medium transition-colors shadow-sm disabled:opacity-50">
               <RefreshCw className={`w-4 h-4 mr-2 ${loading ? 'animate-spin' : ''}`} /> Refresh
             </button>
           </div>
@@ -202,41 +202,41 @@ export default function ApprovalWorkspace() {
 
         {!data && loading ? (
           <div className="flex-1 space-y-6">
-            <div className="shrink-0 h-20 bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm animate-pulse" />
+            <div className="shrink-0 h-20 bg-white dark:bg-[#1c1c1e] border border-slate-200 dark:border-neutral-800 rounded-xl shadow-sm animate-pulse" />
             <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
-              <div className="xl:col-span-2 h-[400px] bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm animate-pulse" />
-              <div className="xl:col-span-1 h-[400px] bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm animate-pulse" />
+              <div className="xl:col-span-2 h-[400px] bg-white dark:bg-[#1c1c1e] border border-slate-200 dark:border-neutral-800 rounded-xl shadow-sm animate-pulse" />
+              <div className="xl:col-span-1 h-[400px] bg-white dark:bg-[#1c1c1e] border border-slate-200 dark:border-neutral-800 rounded-xl shadow-sm animate-pulse" />
             </div>
           </div>
         ) : data?.total === 0 && !searchQuery ? (
           <div className="flex-1 overflow-y-auto min-h-0 space-y-6 custom-scrollbar">
-            <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm py-16 text-center">
-              <div className="w-12 h-12 bg-slate-50 dark:bg-slate-900/40 border border-slate-100 dark:border-slate-800 rounded-xl flex items-center justify-center mb-4 mx-auto">
+            <div className="bg-white dark:bg-[#1c1c1e] border border-slate-200 dark:border-neutral-800 rounded-xl shadow-sm py-16 text-center">
+              <div className="w-12 h-12 bg-slate-50 dark:bg-neutral-900/40 border border-slate-100 dark:border-neutral-800 rounded-xl flex items-center justify-center mb-4 mx-auto">
                 <CheckCircle2 className="w-6 h-6 text-emerald-500" />
               </div>
               <h2 className="text-[15px] font-semibold text-slate-900 dark:text-white">No recovery plans are currently awaiting approval.</h2>
-              <p className="text-[13px] text-slate-500 dark:text-slate-400 mt-1.5 max-w-sm mx-auto">All plans have been processed.</p>
+              <p className="text-[13px] text-slate-500 dark:text-neutral-400 mt-1.5 max-w-sm mx-auto">All plans have been processed.</p>
             </div>
 
             {recent.length > 0 && (
-              <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm overflow-hidden">
-                <div className="px-5 py-4 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center">
+              <div className="bg-white dark:bg-[#1c1c1e] border border-slate-200 dark:border-neutral-800 rounded-xl shadow-sm overflow-hidden">
+                <div className="px-5 py-4 border-b border-slate-100 dark:border-neutral-800 flex justify-between items-center">
                   <h3 className="font-bold text-slate-900 dark:text-white text-sm">Recent plans</h3>
-                  <span className="text-[11px] font-semibold text-slate-400 dark:text-slate-500">Latest activity in the workspace</span>
+                  <span className="text-[11px] font-semibold text-slate-400 dark:text-neutral-500">Latest activity in the workspace</span>
                 </div>
                 <table className="w-full text-left whitespace-nowrap">
-                  <thead className="bg-slate-50/80 dark:bg-slate-900/80 border-b border-slate-200 dark:border-slate-800">
+                  <thead className="bg-slate-50/80 dark:bg-neutral-900/80 border-b border-slate-200 dark:border-neutral-800">
                     <tr>
-                      <th className="px-5 py-2.5 text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Plan ID</th>
-                      <th className="px-5 py-2.5 text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Strategy</th>
-                      <th className="px-5 py-2.5 text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Status</th>
+                      <th className="px-5 py-2.5 text-[11px] font-semibold text-slate-500 dark:text-neutral-400 uppercase tracking-wider">Plan ID</th>
+                      <th className="px-5 py-2.5 text-[11px] font-semibold text-slate-500 dark:text-neutral-400 uppercase tracking-wider">Strategy</th>
+                      <th className="px-5 py-2.5 text-[11px] font-semibold text-slate-500 dark:text-neutral-400 uppercase tracking-wider">Status</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+                  <tbody className="divide-y divide-slate-100 dark:divide-neutral-800">
                     {recent.map((p) => (
-                      <tr key={p.id} className="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+                      <tr key={p.id} className="hover:bg-slate-50 dark:hover:bg-neutral-800/50 transition-colors">
                         <td className="px-5 py-3 font-mono text-[12px] text-slate-900 dark:text-white">{p.id}</td>
-                        <td className="px-5 py-3 text-[12px] text-slate-600 dark:text-slate-300 truncate max-w-[300px]" title={p.strategy}>{p.strategy}</td>
+                        <td className="px-5 py-3 text-[12px] text-slate-600 dark:text-neutral-300 truncate max-w-[300px]" title={p.strategy}>{p.strategy}</td>
                         <td className="px-5 py-3">
                           <span className={`inline-flex items-center px-2 py-0.5 text-[10px] font-bold rounded-full border ${getStatusColor(p.status)}`}>
                             {formatStatus(p.status)}
@@ -256,17 +256,17 @@ export default function ApprovalWorkspace() {
             <div className="flex-1 min-h-0 grid grid-cols-1 xl:grid-cols-3 gap-6 items-start">
               
               {/* LEFT: DATA GRID */}
-              <div className="xl:col-span-2 bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm flex flex-col h-full min-h-0">
-                <div className="shrink-0 px-5 py-4 border-b border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white dark:bg-[#111827] rounded-t-xl">
+              <div className="xl:col-span-2 bg-white dark:bg-[#1c1c1e] border border-slate-200 dark:border-neutral-800 rounded-xl shadow-sm flex flex-col h-full min-h-0">
+                <div className="shrink-0 px-5 py-4 border-b border-slate-100 dark:border-neutral-800 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white dark:bg-[#1c1c1e] rounded-t-xl">
                   <div className="flex items-center space-x-2">
-                    <div className="text-[13px] font-medium text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 px-3 py-1.5 rounded-md">Pending Approval Queue</div>
+                    <div className="text-[13px] font-medium text-slate-600 dark:text-neutral-300 bg-slate-100 dark:bg-neutral-800 px-3 py-1.5 rounded-md">Pending Approval Queue</div>
                   </div>
                   <div className="relative flex-1 sm:w-64">
-                    <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500" />
+                    <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-neutral-500" />
                     <input 
                       type="text" 
                       placeholder="Search by ID, strategy, or supplier..." 
-                      className="w-full pl-9 pr-4 py-2 text-[13px] bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:bg-white dark:focus:bg-slate-900 transition-colors placeholder:text-slate-400"
+                      className="w-full pl-9 pr-4 py-2 text-[13px] bg-slate-50 dark:bg-neutral-900/50 border border-slate-200 dark:border-neutral-700 text-slate-900 dark:text-neutral-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:bg-white dark:focus:bg-slate-900 transition-colors placeholder:text-slate-400"
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
                     />
@@ -276,17 +276,17 @@ export default function ApprovalWorkspace() {
                 <div className="flex-1 overflow-auto min-h-0 relative">
                   {data?.items && data.items.length > 0 ? (
                     <table className="w-full text-left whitespace-nowrap">
-                      <thead className="bg-slate-50/80 dark:bg-slate-900/80 sticky top-0 z-10 backdrop-blur-sm shadow-[0_1px_2px_rgba(0,0,0,0.02)]">
+                      <thead className="bg-slate-50/80 dark:bg-neutral-900/80 sticky top-0 z-10 backdrop-blur-sm shadow-[0_1px_2px_rgba(0,0,0,0.02)]">
                         <tr>
-                          <th className="px-5 py-3 text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider border-b border-slate-200 dark:border-slate-800">Plan ID</th>
-                          <th className="px-5 py-3 text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider border-b border-slate-200 dark:border-slate-800">Disruption</th>
-                          <th className="px-5 py-3 text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider border-b border-slate-200 dark:border-slate-800">Strategy</th>
-                          <th className="px-5 py-3 text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider border-b border-slate-200 dark:border-slate-800">Status</th>
-                          <th className="px-5 py-3 text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider border-b border-slate-200 dark:border-slate-800">Created</th>
-                          <th className="px-5 py-3 border-b border-slate-200 dark:border-slate-800"></th>
+                          <th className="px-5 py-3 text-[11px] font-semibold text-slate-500 dark:text-neutral-400 uppercase tracking-wider border-b border-slate-200 dark:border-neutral-800">Plan ID</th>
+                          <th className="px-5 py-3 text-[11px] font-semibold text-slate-500 dark:text-neutral-400 uppercase tracking-wider border-b border-slate-200 dark:border-neutral-800">Disruption</th>
+                          <th className="px-5 py-3 text-[11px] font-semibold text-slate-500 dark:text-neutral-400 uppercase tracking-wider border-b border-slate-200 dark:border-neutral-800">Strategy</th>
+                          <th className="px-5 py-3 text-[11px] font-semibold text-slate-500 dark:text-neutral-400 uppercase tracking-wider border-b border-slate-200 dark:border-neutral-800">Status</th>
+                          <th className="px-5 py-3 text-[11px] font-semibold text-slate-500 dark:text-neutral-400 uppercase tracking-wider border-b border-slate-200 dark:border-neutral-800">Created</th>
+                          <th className="px-5 py-3 border-b border-slate-200 dark:border-neutral-800"></th>
                         </tr>
                       </thead>
-                      <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+                      <tbody className="divide-y divide-slate-100 dark:divide-neutral-800">
                         {data.items.map((plan) => {
                           const isSelected = plan.id === selectedPlanId;
                           const { date, time } = formatDate(plan.created_at);
@@ -296,23 +296,23 @@ export default function ApprovalWorkspace() {
                             <tr 
                               key={plan.id} 
                               onClick={() => setSelectedPlanId(plan.id)}
-                              className={`cursor-pointer transition-colors group ${isSelected ? 'bg-indigo-50/30 dark:bg-indigo-950/30' : 'bg-white dark:bg-transparent hover:bg-slate-50/80 dark:hover:bg-slate-800/50'}`}
+                              className={`cursor-pointer transition-colors group ${isSelected ? 'bg-indigo-50/30 dark:bg-indigo-950/30' : 'bg-white dark:bg-transparent hover:bg-slate-50/80 dark:hover:bg-neutral-800/50'}`}
                             >
                               <td className="px-5 py-3.5 relative">
                                 {isSelected && <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-indigo-600" />}
                                 <div className="flex flex-col">
-                                  <span className={`text-[13px] font-mono font-medium ${isSelected ? 'text-indigo-700 dark:text-indigo-400' : 'text-slate-900 dark:text-slate-100'}`}>
+                                  <span className={`text-[13px] font-mono font-medium ${isSelected ? 'text-indigo-700 dark:text-indigo-400' : 'text-slate-900 dark:text-neutral-100'}`}>
                                     {plan.id.split('-')[0]}-{plan.id.split('-')[1]?.substring(0, 6) || plan.id}
                                   </span>
                                   {isRecommended && <span className="text-[10px] font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider mt-0.5">Recommended</span>}
                                 </div>
                               </td>
                               <td className="px-5 py-3.5">
-                                <div className="text-[13px] font-mono text-slate-600 dark:text-slate-300">{plan.disruption_id}</div>
+                                <div className="text-[13px] font-mono text-slate-600 dark:text-neutral-300">{plan.disruption_id}</div>
                               </td>
                               <td className="px-5 py-3.5">
-                                <div className="text-[13px] font-medium text-slate-900 dark:text-slate-100 max-w-[180px] truncate" title={plan.strategy}>{plan.strategy}</div>
-                                <div className="text-[12px] text-slate-500 dark:text-slate-400 mt-0.5 max-w-[180px] truncate" title={plan.supplier_id}>{plan.supplier_id.replace(/,/g, ' + ')}</div>
+                                <div className="text-[13px] font-medium text-slate-900 dark:text-neutral-100 max-w-[180px] truncate" title={plan.strategy}>{plan.strategy}</div>
+                                <div className="text-[12px] text-slate-500 dark:text-neutral-400 mt-0.5 max-w-[180px] truncate" title={plan.supplier_id}>{plan.supplier_id.replace(/,/g, ' + ')}</div>
                               </td>
                               <td className="px-5 py-3.5">
                                 <div className={`inline-flex items-center px-2 py-0.5 text-[11px] font-medium rounded-full border ${getStatusColor(plan.status)}`}>
@@ -321,11 +321,11 @@ export default function ApprovalWorkspace() {
                                 </div>
                               </td>
                               <td className="px-5 py-3.5">
-                                <div className="text-[13px] font-medium text-slate-700 dark:text-slate-200">{date}</div>
-                                <div className="text-[11px] text-slate-400 dark:text-slate-500 font-mono mt-0.5">{time}</div>
+                                <div className="text-[13px] font-medium text-slate-700 dark:text-neutral-200">{date}</div>
+                                <div className="text-[11px] text-slate-400 dark:text-neutral-500 font-mono mt-0.5">{time}</div>
                               </td>
                               <td className="px-5 py-3.5 text-right">
-                                <button className="p-1.5 text-slate-400 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-md transition-colors opacity-0 group-hover:opacity-100">
+                                <button className="p-1.5 text-slate-400 dark:text-neutral-500 hover:text-slate-700 dark:hover:text-neutral-200 hover:bg-slate-100 dark:hover:bg-neutral-800 rounded-md transition-colors opacity-0 group-hover:opacity-100">
                                   <ArrowUpRight className="w-4 h-4" />
                                 </button>
                               </td>
@@ -336,12 +336,12 @@ export default function ApprovalWorkspace() {
                     </table>
                   ) : (
                     <div className="flex flex-col items-center justify-center py-16 text-center h-full">
-                      <Search className="w-6 h-6 text-slate-300 dark:text-slate-600 mb-3" />
-                      <p className="text-[13px] text-slate-500 dark:text-slate-400">No plans match your current criteria.</p>
+                      <Search className="w-6 h-6 text-slate-300 dark:text-neutral-600 mb-3" />
+                      <p className="text-[13px] text-slate-500 dark:text-neutral-400">No plans match your current criteria.</p>
                     </div>
                   )}
                   {loading && (
-                    <div className="absolute inset-0 bg-white/50 dark:bg-slate-950/50 backdrop-blur-[1px] flex items-center justify-center z-20">
+                    <div className="absolute inset-0 bg-white/50 dark:bg-neutral-950/50 backdrop-blur-[1px] flex items-center justify-center z-20">
                       <div className="w-8 h-8 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
                     </div>
                   )}
@@ -349,22 +349,22 @@ export default function ApprovalWorkspace() {
 
                 {/* PAGINATION FOOTER */}
                 {data && data.total > 0 && (
-                  <div className="shrink-0 px-5 py-3 border-t border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/60 rounded-b-xl flex items-center justify-between">
-                    <div className="text-[13px] text-slate-500 dark:text-slate-400">
+                  <div className="shrink-0 px-5 py-3 border-t border-slate-100 dark:border-neutral-800 bg-slate-50 dark:bg-neutral-900/60 rounded-b-xl flex items-center justify-between">
+                    <div className="text-[13px] text-slate-500 dark:text-neutral-400">
                       Showing <span className="font-medium text-slate-900 dark:text-white">{(page - 1) * PAGE_SIZE + 1}</span> to <span className="font-medium text-slate-900 dark:text-white">{Math.min(page * PAGE_SIZE, data.total)}</span> of <span className="font-medium text-slate-900 dark:text-white">{data.total}</span> plans
                     </div>
                     <div className="flex items-center space-x-2">
                       <button 
                         onClick={() => setPage(p => Math.max(1, p - 1))}
                         disabled={page === 1 || loading}
-                        className="p-1.5 rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                        className="p-1.5 rounded border border-slate-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-slate-600 dark:text-neutral-300 hover:bg-slate-50 dark:hover:bg-neutral-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                       >
                         <ChevronLeft className="w-4 h-4" />
                       </button>
                       <button 
                         onClick={() => setPage(p => p + 1)}
                         disabled={!data.has_more || loading}
-                        className="p-1.5 rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                        className="p-1.5 rounded border border-slate-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-slate-600 dark:text-neutral-300 hover:bg-slate-50 dark:hover:bg-neutral-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                       >
                         <ChevronRight className="w-4 h-4" />
                       </button>
@@ -376,17 +376,17 @@ export default function ApprovalWorkspace() {
               {/* RIGHT: INTELLIGENCE PANEL */}
               <div className="xl:col-span-1 h-full min-h-0 flex flex-col">
                 {selectedPlan ? (
-                  <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm flex flex-col h-full min-h-0 overflow-hidden">
+                  <div className="bg-white dark:bg-[#1c1c1e] border border-slate-200 dark:border-neutral-800 rounded-xl shadow-sm flex flex-col h-full min-h-0 overflow-hidden">
                     
                     {/* Header */}
-                    <div className="shrink-0 px-5 py-4 border-b border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/40 flex justify-between items-center">
+                    <div className="shrink-0 px-5 py-4 border-b border-slate-100 dark:border-neutral-800 bg-slate-50/50 dark:bg-neutral-900/40 flex justify-between items-center">
                       <div className="flex items-center">
-                        <div className="w-8 h-8 rounded bg-white dark:bg-[#0f1522] border border-slate-200 dark:border-slate-700 flex items-center justify-center mr-3 shadow-sm">
-                          <Crosshair className="w-4 h-4 text-slate-600 dark:text-slate-300" />
+                        <div className="w-8 h-8 rounded bg-white dark:bg-[#171717] border border-slate-200 dark:border-neutral-700 flex items-center justify-center mr-3 shadow-sm">
+                          <Crosshair className="w-4 h-4 text-slate-600 dark:text-neutral-300" />
                         </div>
                         <div>
-                          <h3 className="text-[13px] font-mono font-medium text-slate-900 dark:text-slate-100">{selectedPlan.id}</h3>
-                          <p className="text-[11px] text-slate-500 dark:text-slate-400 uppercase tracking-wider mt-0.5 font-medium">Selected Plan</p>
+                          <h3 className="text-[13px] font-mono font-medium text-slate-900 dark:text-neutral-100">{selectedPlan.id}</h3>
+                          <p className="text-[11px] text-slate-500 dark:text-neutral-400 uppercase tracking-wider mt-0.5 font-medium">Selected Plan</p>
                         </div>
                       </div>
                       <div className={`inline-flex items-center px-2 py-0.5 text-[11px] font-medium rounded-full border ${getStatusColor(selectedPlan.status)}`}>
@@ -398,42 +398,42 @@ export default function ApprovalWorkspace() {
                       
                       {/* Strategy Block */}
                       <div>
-                        <div className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-2">Strategy Allocation</div>
-                        <div className="bg-slate-50 dark:bg-slate-900/40 border border-slate-200/60 dark:border-slate-700/60 rounded-lg p-3">
+                        <div className="text-[10px] font-bold text-slate-400 dark:text-neutral-500 uppercase tracking-wider mb-2">Strategy Allocation</div>
+                        <div className="bg-slate-50 dark:bg-neutral-900/40 border border-slate-200/60 dark:border-neutral-700/60 rounded-lg p-3">
                           <div className="text-[14px] font-semibold text-slate-900 dark:text-white">{selectedPlan.strategy}</div>
-                          <p className="text-[12px] text-slate-600 dark:text-slate-300 mt-1 leading-relaxed">
-                            Mitigating <span className="font-mono text-[11px] bg-slate-200/50 dark:bg-slate-700/60 px-1 py-0.5 rounded text-slate-700 dark:text-slate-200">{selectedPlan.disruption_id}</span> using <span className="font-medium text-slate-800 dark:text-slate-100">{selectedPlan.supplier_id.replace(/,/g, ' + ')}</span>.
+                          <p className="text-[12px] text-slate-600 dark:text-neutral-300 mt-1 leading-relaxed">
+                            Mitigating <span className="font-mono text-[11px] bg-slate-200/50 dark:bg-neutral-700/60 px-1 py-0.5 rounded text-slate-700 dark:text-neutral-200">{selectedPlan.disruption_id}</span> using <span className="font-medium text-slate-800 dark:text-neutral-100">{selectedPlan.supplier_id.replace(/,/g, ' + ')}</span>.
                           </p>
                         </div>
                       </div>
 
                       {/* 2x2 Metrics Grid */}
                       <div>
-                        <div className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-2">Impact Metrics</div>
+                        <div className="text-[10px] font-bold text-slate-400 dark:text-neutral-500 uppercase tracking-wider mb-2">Impact Metrics</div>
                         <div className="grid grid-cols-2 gap-3">
-                          <div className="bg-white dark:bg-[#0f1522] border border-slate-200/60 dark:border-slate-800/70 rounded-lg p-3 shadow-sm">
-                            <div className="flex items-center text-slate-500 dark:text-slate-400 mb-1.5">
+                          <div className="bg-white dark:bg-[#171717] border border-slate-200/60 dark:border-neutral-800/70 rounded-lg p-3 shadow-sm">
+                            <div className="flex items-center text-slate-500 dark:text-neutral-400 mb-1.5">
                               <Clock className="w-3.5 h-3.5 mr-1.5" />
                               <span className="text-[11px] font-medium">Recovery Time</span>
                             </div>
-                            <div className="text-[15px] font-mono font-semibold text-slate-900 dark:text-white">{selectedPlan.max_delay_days} <span className="text-[11px] text-slate-500 dark:text-slate-400 font-sans font-normal">days</span></div>
+                            <div className="text-[15px] font-mono font-semibold text-slate-900 dark:text-white">{selectedPlan.max_delay_days} <span className="text-[11px] text-slate-500 dark:text-neutral-400 font-sans font-normal">days</span></div>
                           </div>
-                          <div className="bg-white dark:bg-[#0f1522] border border-slate-200/60 dark:border-slate-800/70 rounded-lg p-3 shadow-sm">
-                            <div className="flex items-center text-slate-500 dark:text-slate-400 mb-1.5">
+                          <div className="bg-white dark:bg-[#171717] border border-slate-200/60 dark:border-neutral-800/70 rounded-lg p-3 shadow-sm">
+                            <div className="flex items-center text-slate-500 dark:text-neutral-400 mb-1.5">
                               <TrendingDown className="w-3.5 h-3.5 mr-1.5" />
                               <span className="text-[11px] font-medium">Total Cost</span>
                             </div>
                             <div className="text-[15px] font-mono font-semibold text-slate-900 dark:text-white">{formatCurrency(selectedPlan.total_cost)}</div>
                           </div>
-                          <div className="bg-white dark:bg-[#0f1522] border border-slate-200/60 dark:border-slate-800/70 rounded-lg p-3 shadow-sm">
-                            <div className="flex items-center text-slate-500 dark:text-slate-400 mb-1.5">
+                          <div className="bg-white dark:bg-[#171717] border border-slate-200/60 dark:border-neutral-800/70 rounded-lg p-3 shadow-sm">
+                            <div className="flex items-center text-slate-500 dark:text-neutral-400 mb-1.5">
                               <AlertCircle className="w-3.5 h-3.5 mr-1.5" />
                               <span className="text-[11px] font-medium">SLA Exposure</span>
                             </div>
                             <div className="text-[15px] font-mono font-semibold text-red-600 dark:text-red-400">{formatCurrency(selectedPlan.total_sla_exposure)}</div>
                           </div>
-                          <div className="bg-white dark:bg-[#0f1522] border border-slate-200/60 dark:border-slate-800/70 rounded-lg p-3 shadow-sm">
-                            <div className="flex items-center text-slate-500 dark:text-slate-400 mb-1.5">
+                          <div className="bg-white dark:bg-[#171717] border border-slate-200/60 dark:border-neutral-800/70 rounded-lg p-3 shadow-sm">
+                            <div className="flex items-center text-slate-500 dark:text-neutral-400 mb-1.5">
                               <Activity className="w-3.5 h-3.5 mr-1.5" />
                               <span className="text-[11px] font-medium">Risk Score</span>
                             </div>
@@ -444,15 +444,15 @@ export default function ApprovalWorkspace() {
 
                       {/* Compact Lifecycle */}
                       <div>
-                        <div className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-3">Lifecycle Progress</div>
+                        <div className="text-[10px] font-bold text-slate-400 dark:text-neutral-500 uppercase tracking-wider mb-3">Lifecycle Progress</div>
                         <div className="flex justify-between items-start relative px-1">
-                          <div className="absolute top-2 left-4 right-4 h-[2px] bg-slate-100 dark:bg-slate-800 z-0"></div>
+                          <div className="absolute top-2 left-4 right-4 h-[2px] bg-slate-100 dark:bg-neutral-800 z-0"></div>
                           {getTimelineSteps(selectedPlan).map((step, idx) => (
                             <div key={idx} className="relative z-10 flex flex-col items-center group">
-                              <div className={`w-4 h-4 rounded-full border-[2px] flex items-center justify-center bg-white dark:bg-[#0f1522] ${step.active ? 'border-indigo-600' : 'border-slate-200 dark:border-slate-700'}`}>
+                              <div className={`w-4 h-4 rounded-full border-[2px] flex items-center justify-center bg-white dark:bg-[#171717] ${step.active ? 'border-indigo-600' : 'border-slate-200 dark:border-neutral-700'}`}>
                                 {step.active && <div className="w-1.5 h-1.5 rounded-full bg-indigo-600" />}
                               </div>
-                              <span className={`text-[10px] font-medium mt-1.5 text-center ${step.active ? 'text-slate-800 dark:text-slate-200' : 'text-slate-400 dark:text-slate-500'}`}>
+                              <span className={`text-[10px] font-medium mt-1.5 text-center ${step.active ? 'text-slate-800 dark:text-neutral-200' : 'text-slate-400 dark:text-neutral-500'}`}>
                                 {step.label}
                               </span>
                             </div>
@@ -462,7 +462,7 @@ export default function ApprovalWorkspace() {
                     </div>
                     
                     {/* Contextual Action */}
-                    <div className="shrink-0 p-4 bg-slate-50 dark:bg-slate-900/50 border-t border-slate-100 dark:border-slate-800">
+                    <div className="shrink-0 p-4 bg-slate-50 dark:bg-neutral-900/50 border-t border-slate-100 dark:border-neutral-800">
                       <button 
                         onClick={() => handleAction(selectedPlan)}
                         className="w-full flex justify-center items-center py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-md font-medium text-[13px] shadow-sm transition-colors"
@@ -476,12 +476,12 @@ export default function ApprovalWorkspace() {
                     </div>
                   </div>
                 ) : (
-                  <div className="bg-slate-50/50 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800 border-dashed rounded-xl flex flex-col items-center justify-center h-full text-center p-8">
-                    <div className="w-12 h-12 bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-700 rounded-lg flex items-center justify-center mb-4 shadow-sm">
-                      <ListChecks className="w-5 h-5 text-slate-400 dark:text-slate-500" />
+                  <div className="bg-slate-50/50 dark:bg-neutral-900/40 border border-slate-200 dark:border-neutral-800 border-dashed rounded-xl flex flex-col items-center justify-center h-full text-center p-8">
+                    <div className="w-12 h-12 bg-white dark:bg-[#1c1c1e] border border-slate-200 dark:border-neutral-700 rounded-lg flex items-center justify-center mb-4 shadow-sm">
+                      <ListChecks className="w-5 h-5 text-slate-400 dark:text-neutral-500" />
                     </div>
                     <h3 className="text-[14px] font-semibold text-slate-900 dark:text-white">Select a Plan</h3>
-                    <p className="text-[12px] text-slate-500 dark:text-slate-400 mt-1 max-w-[200px]">Select a recovery plan from the active workspace to view intelligence, metrics, and actions.</p>
+                    <p className="text-[12px] text-slate-500 dark:text-neutral-400 mt-1 max-w-[200px]">Select a recovery plan from the active workspace to view intelligence, metrics, and actions.</p>
                   </div>
                 )}
               </div>

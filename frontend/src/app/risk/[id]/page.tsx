@@ -73,23 +73,23 @@ function PageContent({ id }: { id: string }) {
     );
   }
 
-  if (!plan) return <div className="p-12 text-center text-slate-500 dark:text-slate-400">Loading plan...</div>;
+  if (!plan) return <div className="p-12 text-center text-slate-500 dark:text-neutral-400">Loading plan...</div>;
 
   return (
     <div className="max-w-4xl mx-auto py-8">
       <div className="mb-8">
-        <div className="flex items-center space-x-2 text-sm text-slate-500 dark:text-slate-400 mb-2 font-medium">
+        <div className="flex items-center space-x-2 text-sm text-slate-500 dark:text-neutral-400 mb-2 font-medium">
           <Link href="/recovery-plans" className="hover:text-slate-900 dark:hover:text-white transition-colors">Recovery Plans</Link>
-          <span className="text-slate-300 dark:text-slate-600">/</span>
-          <span className="font-semibold text-slate-900 dark:text-slate-100">{id}</span>
-          <span className="text-slate-300 dark:text-slate-600">/</span>
-          <span className="font-semibold text-slate-900 dark:text-slate-100">Risk Audit</span>
+          <span className="text-slate-300 dark:text-neutral-600">/</span>
+          <span className="font-semibold text-slate-900 dark:text-neutral-100">{id}</span>
+          <span className="text-slate-300 dark:text-neutral-600">/</span>
+          <span className="font-semibold text-slate-900 dark:text-neutral-100">Risk Audit</span>
         </div>
         <h1 className="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">AI Risk Audit & Policy Validation</h1>
-        <p className="text-slate-500 dark:text-slate-400 mt-2 text-sm">Evaluating compliance, vendor history, and lead-time confidence.</p>
+        <p className="text-slate-500 dark:text-neutral-400 mt-2 text-sm">Evaluating compliance, vendor history, and lead-time confidence.</p>
       </div>
       
-      <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-xl p-8 shadow-sm">
+      <div className="bg-white dark:bg-[#1c1c1e] border border-slate-200 dark:border-neutral-800 rounded-xl p-8 shadow-sm">
         {analyzing ? (
           <div className="py-24 flex flex-col items-center justify-center">
             <div className="relative mb-8">
@@ -100,9 +100,9 @@ function PageContent({ id }: { id: string }) {
                 <Sparkles className="w-8 h-8 animate-pulse" />
               </div>
             </div>
-            <div className="text-slate-700 dark:text-slate-200 font-bold text-center">
+            <div className="text-slate-700 dark:text-neutral-200 font-bold text-center">
               <div className="text-lg mb-1">AI Agent orchestrating LLM request...</div>
-              <div className="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-widest mt-2">
+              <div className="text-xs font-semibold text-slate-400 dark:text-neutral-500 uppercase tracking-widest mt-2">
                 Calling OpenRouter • Running Guardrails • Verifying Policy
               </div>
             </div>
@@ -139,21 +139,21 @@ function PageContent({ id }: { id: string }) {
                       I have evaluated the recovery plan to activate <span className="font-bold text-blue-950 bg-blue-100 px-1.5 py-0.5 rounded">{plan.supplier_id}</span>.
                     </p>
                     <p>
-                      This action is highly recommended. The supplier has confirmed capacity to safeguard downstream orders. The <strong className="text-slate-800 dark:text-slate-100">{plan.max_delay_days}-day lead time</strong> is well within the acceptable tolerance before total plant shutdown. Risk score is {plan.blended_risk.toFixed(2)}.
+                      This action is highly recommended. The supplier has confirmed capacity to safeguard downstream orders. The <strong className="text-slate-800 dark:text-neutral-100">{plan.max_delay_days}-day lead time</strong> is well within the acceptable tolerance before total plant shutdown. Risk score is {plan.blended_risk.toFixed(2)}.
                     </p>
                   </>
                 )}
-                <div className="bg-white/60 dark:bg-slate-900/40 border border-blue-200 dark:border-blue-900/50 p-4 rounded-lg mt-6 shadow-sm inline-block">
+                <div className="bg-white/60 dark:bg-neutral-900/40 border border-blue-200 dark:border-amber-900/50 p-4 rounded-lg mt-6 shadow-sm inline-block">
                   <span className="text-xs font-bold text-blue-600 uppercase tracking-wider block mb-1">Conclusion</span>
                   <span className="font-extrabold text-slate-900 dark:text-white">Proceed with immediate activation.</span>
                 </div>
               </div>
             </div>
             
-            <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-sm">
-              <div className="px-6 py-5 bg-slate-50 dark:bg-slate-900/40 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center">
+            <div className="bg-white dark:bg-[#1c1c1e] border border-slate-200 dark:border-neutral-800 rounded-xl overflow-hidden shadow-sm">
+              <div className="px-6 py-5 bg-slate-50 dark:bg-neutral-900/40 border-b border-slate-200 dark:border-neutral-800 flex justify-between items-center">
                 <div className="flex items-center">
-                  <Activity className="w-5 h-5 text-slate-500 dark:text-slate-400 mr-2" />
+                  <Activity className="w-5 h-5 text-slate-500 dark:text-neutral-400 mr-2" />
                   <h3 className="font-bold text-slate-900 dark:text-white text-base">Deterministic Policy Audit</h3>
                 </div>
                 <span className="text-[10px] font-bold bg-amber-100 text-amber-700 border border-amber-200 px-3 py-1 rounded-full uppercase flex items-center shadow-sm tracking-wider">
@@ -162,23 +162,23 @@ function PageContent({ id }: { id: string }) {
               </div>
               
               <div className="p-0">
-                <ul className="divide-y divide-slate-100 dark:divide-slate-800">
-                  <li className="px-6 py-5 flex items-start transition-colors hover:bg-slate-50 dark:hover:bg-slate-800/50">
+                <ul className="divide-y divide-slate-100 dark:divide-neutral-800">
+                  <li className="px-6 py-5 flex items-start transition-colors hover:bg-slate-50 dark:hover:bg-neutral-800/50">
                     <div className="bg-emerald-50 dark:bg-emerald-950/40 p-2 rounded-full mr-4 border border-emerald-100 dark:border-emerald-900/50 shrink-0">
                       <CheckCircle2 className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
                     </div>
                     <div>
                       <p className="text-[14px] font-bold text-slate-900 dark:text-white mb-1">Supplier Qualification</p>
-                      <p className="text-[13px] font-medium text-slate-500 dark:text-slate-400">{plan.supplier_id} is fully qualified and active in vendor master.</p>
+                      <p className="text-[13px] font-medium text-slate-500 dark:text-neutral-400">{plan.supplier_id} is fully qualified and active in vendor master.</p>
                     </div>
                   </li>
-                  <li className="px-6 py-5 flex items-start transition-colors hover:bg-slate-50 dark:hover:bg-slate-800/50">
+                  <li className="px-6 py-5 flex items-start transition-colors hover:bg-slate-50 dark:hover:bg-neutral-800/50">
                     <div className="bg-emerald-50 dark:bg-emerald-950/40 p-2 rounded-full mr-4 border border-emerald-100 dark:border-emerald-900/50 shrink-0">
                       <CheckCircle2 className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
                     </div>
                     <div>
                       <p className="text-[14px] font-bold text-slate-900 dark:text-white mb-1">Capacity Availability</p>
-                      <p className="text-[13px] font-medium text-slate-500 dark:text-slate-400">Confirmed allocation.</p>
+                      <p className="text-[13px] font-medium text-slate-500 dark:text-neutral-400">Confirmed allocation.</p>
                     </div>
                   </li>
                   <li className="px-6 py-5 flex items-start bg-amber-50/50 dark:bg-amber-950/30 border-l-2 border-l-amber-500">

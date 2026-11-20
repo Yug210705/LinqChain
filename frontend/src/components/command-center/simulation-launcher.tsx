@@ -4,6 +4,7 @@ import { AlertTriangle, Play, X, Presentation, Zap } from 'lucide-react';
 import { useSimulationStore } from '@/stores/useSimulationStore';
 import { simulateDisruption } from '@/services/api';
 import { useRouter } from 'next/navigation';
+import { useTheme } from 'next-themes';
 
 export function SimulationLauncher({ children }: { children?: React.ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,6 +13,8 @@ export function SimulationLauncher({ children }: { children?: React.ReactNode })
   const [errorMsg, setErrorMsg] = useState('');
   const { setActiveDisruption } = useSimulationStore();
   const router = useRouter();
+  const { resolvedTheme } = useTheme();
+  const isDark = resolvedTheme === 'dark';
 
   const [formData, setFormData] = useState({
     disruption_type: 'supplier',
@@ -94,46 +97,78 @@ export function SimulationLauncher({ children }: { children?: React.ReactNode })
       )}
 
       {isOpen && (
-        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-xl shadow-2xl w-full max-w-lg overflow-hidden flex flex-col transform transition-all">
-            <div className="p-6 border-b border-slate-200 flex justify-between items-center bg-slate-50 relative overflow-hidden">
+        <div className="fixed inset-0 bg-black/60 dark:bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div 
+            className="simulation-modal-card bg-white dark:bg-[#1a1a1c] border border-slate-200 dark:border-neutral-800 rounded-xl shadow-2xl w-full max-w-lg overflow-hidden flex flex-col transform transition-all"
+            style={isDark ? { backgroundColor: '#1a1a1c', borderColor: '#2e2e32', color: '#ededed' } : undefined}
+          >
+            <div 
+              className="simulation-modal-header p-6 border-b border-slate-200 dark:border-neutral-800 flex justify-between items-center bg-slate-50 dark:bg-[#141416] relative overflow-hidden"
+              style={isDark ? { backgroundColor: '#141416', borderColor: '#2e2e32' } : undefined}
+            >
               {isPitchMode && <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500"></div>}
               <div>
-                <h2 className="text-xl font-bold text-slate-900 flex items-center">
+                <h2 
+                  className="simulation-modal-title text-xl font-bold text-slate-900 dark:text-white flex items-center"
+                  style={isDark ? { color: '#ffffff' } : undefined}
+                >
                   Simulate Disruption
                 </h2>
               </div>
-              <button onClick={() => setIsOpen(false)} className="text-slate-400 hover:text-slate-600 bg-slate-200 hover:bg-slate-300 rounded-full p-1 transition-colors"><X className="w-4 h-4"/></button>
+              <button 
+                onClick={() => setIsOpen(false)} 
+                className="simulation-modal-close text-slate-400 hover:text-slate-600 dark:text-neutral-400 dark:hover:text-neutral-200 bg-slate-200 hover:bg-slate-300 dark:bg-neutral-800 dark:hover:bg-neutral-700 rounded-full p-1 transition-colors"
+                style={isDark ? { backgroundColor: '#26262a', color: '#a1a1aa' } : undefined}
+              >
+                <X className="w-4 h-4"/>
+              </button>
             </div>
             
-            <div className="p-6 space-y-5 relative">
+            <div 
+              className="simulation-modal-body p-6 space-y-5 relative bg-white dark:bg-[#1a1a1c]"
+              style={isDark ? { backgroundColor: '#1a1a1c' } : undefined}
+            >
               {/* Pitch Mode Toggle removed to enforce real API usage */}
               {isLoading ? (
                 <div className="py-12 flex flex-col items-center justify-center space-y-6">
                   <div className="relative">
                     <div className="animate-ping absolute inset-0 rounded-full bg-red-400 opacity-20"></div>
-                    <div className="relative bg-red-100 text-red-600 p-4 rounded-full">
+                    <div className="relative bg-red-100 dark:bg-red-950/50 text-red-600 dark:text-red-400 p-4 rounded-full">
                       <Zap className="w-8 h-8 animate-pulse" />
                     </div>
                   </div>
-                  <div className="text-slate-800 font-bold text-lg text-center">
+                  <div 
+                    className="text-slate-800 dark:text-white font-bold text-lg text-center"
+                    style={isDark ? { color: '#ffffff' } : undefined}
+                  >
                     Injecting Chaos...<br/>
-                    <span className="text-sm text-slate-500 font-medium mt-2 block animate-pulse">Calculating systemic cascading failure</span>
+                    <span 
+                      className="text-sm text-slate-500 dark:text-neutral-400 font-medium mt-2 block animate-pulse"
+                      style={isDark ? { color: '#a1a1aa' } : undefined}
+                    >
+                      Calculating systemic cascading failure
+                    </span>
                   </div>
                 </div>
               ) : (
                 <div className={`transition-opacity duration-300 opacity-100`}>
                   {errorMsg && (
-                    <div className="mb-4 p-3 bg-red-50 text-red-600 text-sm font-semibold rounded-lg border border-red-100 flex items-center">
+                    <div className="mb-4 p-3 bg-red-50 dark:bg-red-950/30 text-red-600 dark:text-red-400 text-sm font-semibold rounded-lg border border-red-100 dark:border-red-900/50 flex items-center">
                       <AlertTriangle className="w-4 h-4 mr-2 shrink-0" />
                       {errorMsg}
                     </div>
                   )}
                   <div className="space-y-4">
                     <div>
-                      <label className="block text-sm font-semibold text-slate-700 mb-1">Disruption Type</label>
+                      <label 
+                        className="simulation-modal-label block text-sm font-semibold text-slate-700 dark:text-neutral-200 mb-1"
+                        style={isDark ? { color: '#d4d4d8' } : undefined}
+                      >
+                        Disruption Type
+                      </label>
                       <select 
-                        className="w-full border border-slate-300 rounded-md p-2.5 text-slate-900 bg-white focus:ring-2 focus:ring-blue-500 outline-none"
+                        className="simulation-modal-input w-full border border-slate-300 dark:border-neutral-700 rounded-md p-2.5 text-slate-900 dark:text-neutral-100 bg-white dark:bg-[#222226] focus:ring-2 focus:ring-amber-500 outline-none"
+                        style={isDark ? { backgroundColor: '#222226', borderColor: '#38383e', color: '#ffffff' } : undefined}
                         value={formData.disruption_type}
                         onChange={(e) => {
                           const type = e.target.value;
@@ -144,35 +179,53 @@ export function SimulationLauncher({ children }: { children?: React.ReactNode })
                           setFormData({...formData, disruption_type: type, affected_entity_id: newEntity});
                         }}
                       >
-                        <option value="supplier">Supplier</option>
-                        <option value="material">Material</option>
-                        <option value="plant">Plant</option>
+                        <option value="supplier" style={isDark ? { backgroundColor: '#222226', color: '#ffffff' } : undefined}>Supplier</option>
+                        <option value="material" style={isDark ? { backgroundColor: '#222226', color: '#ffffff' } : undefined}>Material</option>
+                        <option value="plant" style={isDark ? { backgroundColor: '#222226', color: '#ffffff' } : undefined}>Plant</option>
                       </select>
                     </div>
                     <div>
-                      <label className="block text-sm font-semibold text-slate-700 mb-1">Affected Entity</label>
+                      <label 
+                        className="simulation-modal-label block text-sm font-semibold text-slate-700 dark:text-neutral-200 mb-1"
+                        style={isDark ? { color: '#d4d4d8' } : undefined}
+                      >
+                        Affected Entity
+                      </label>
                       <input 
                         type="text" 
-                        className="w-full border border-slate-300 rounded-md p-2.5 text-slate-900 font-mono text-sm focus:ring-2 focus:ring-blue-500 outline-none"
+                        className="simulation-modal-input w-full border border-slate-300 dark:border-neutral-700 rounded-md p-2.5 text-slate-900 dark:text-neutral-100 font-mono text-sm bg-white dark:bg-[#222226] focus:ring-2 focus:ring-amber-500 outline-none"
+                        style={isDark ? { backgroundColor: '#222226', borderColor: '#38383e', color: '#ffffff' } : undefined}
                         value={formData.affected_entity_id}
                         onChange={(e) => setFormData({...formData, affected_entity_id: e.target.value})}
                       />
                     </div>
                     <div className="grid grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-sm font-semibold text-slate-700 mb-1">Severity (0-1.0)</label>
+                        <label 
+                          className="simulation-modal-label block text-sm font-semibold text-slate-700 dark:text-neutral-200 mb-1"
+                          style={isDark ? { color: '#d4d4d8' } : undefined}
+                        >
+                          Severity (0-1.0)
+                        </label>
                         <input 
                           type="number" step="0.1" min="0" max="1"
-                          className="w-full border border-slate-300 rounded-md p-2.5 text-slate-900 focus:ring-2 focus:ring-blue-500 outline-none"
+                          className="simulation-modal-input w-full border border-slate-300 dark:border-neutral-700 rounded-md p-2.5 text-slate-900 dark:text-neutral-100 bg-white dark:bg-[#222226] focus:ring-2 focus:ring-amber-500 outline-none"
+                          style={isDark ? { backgroundColor: '#222226', borderColor: '#38383e', color: '#ffffff' } : undefined}
                           value={Number.isNaN(formData.severity) ? '' : formData.severity}
                           onChange={(e) => setFormData({...formData, severity: e.target.value === '' ? NaN : parseFloat(e.target.value)})}
                         />
                       </div>
                       <div>
-                        <label className="block text-sm font-semibold text-slate-700 mb-1">Duration (Days)</label>
+                        <label 
+                          className="simulation-modal-label block text-sm font-semibold text-slate-700 dark:text-neutral-200 mb-1"
+                          style={isDark ? { color: '#d4d4d8' } : undefined}
+                        >
+                          Duration (Days)
+                        </label>
                         <input 
                           type="number" min="1"
-                          className="w-full border border-slate-300 rounded-md p-2.5 text-slate-900 focus:ring-2 focus:ring-blue-500 outline-none"
+                          className="simulation-modal-input w-full border border-slate-300 dark:border-neutral-700 rounded-md p-2.5 text-slate-900 dark:text-neutral-100 bg-white dark:bg-[#222226] focus:ring-2 focus:ring-amber-500 outline-none"
+                          style={isDark ? { backgroundColor: '#222226', borderColor: '#38383e', color: '#ffffff' } : undefined}
                           value={Number.isNaN(formData.duration_days) ? '' : formData.duration_days}
                           onChange={(e) => setFormData({...formData, duration_days: e.target.value === '' ? NaN : parseInt(e.target.value)})}
                         />
@@ -184,8 +237,17 @@ export function SimulationLauncher({ children }: { children?: React.ReactNode })
             </div>
             
             {!isLoading && (
-              <div className="p-4 border-t border-slate-200 flex justify-end space-x-3 bg-slate-50">
-                <button onClick={() => setIsOpen(false)} className="px-4 py-2 text-sm font-bold text-slate-600 hover:bg-slate-200 rounded-md transition-colors">Cancel</button>
+              <div 
+                className="simulation-modal-footer p-4 border-t border-slate-200 dark:border-neutral-800 flex justify-end space-x-3 bg-slate-50 dark:bg-[#141416]"
+                style={isDark ? { backgroundColor: '#141416', borderColor: '#2e2e32' } : undefined}
+              >
+                <button 
+                  onClick={() => setIsOpen(false)} 
+                  className="simulation-modal-cancel px-4 py-2 text-sm font-bold text-slate-600 dark:text-neutral-300 hover:bg-slate-200 dark:hover:bg-neutral-800 rounded-md transition-colors"
+                  style={isDark ? { color: '#d4d4d8' } : undefined}
+                >
+                  Cancel
+                </button>
                 <button 
                   onClick={runSimulation} 
                   className={`px-6 py-2 rounded-md font-bold text-sm flex items-center shadow-md transition-transform hover:scale-105 active:scale-95 ${isPitchMode ? 'bg-indigo-600 hover:bg-indigo-700 text-white' : 'bg-red-600 hover:bg-red-700 text-white'}`}

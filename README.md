@@ -1,8 +1,8 @@
-# Resilience OS — Supply Chain Resilience Platform
+# LinqChain — Supply Chain Resilience Platform
 
 **Predict, simulate, and recover from supply-chain disruptions in real time — backed by SAP HANA.**
 
-Resilience OS is a full-stack supply-chain resilience & risk-management platform built for
+LinqChain is a full-stack supply-chain resilience & risk-management platform built for
 operations war rooms. It ingests a complete supply-chain topology (suppliers · materials ·
 plants · inventory · orders · ports · shipping routes), lets you **simulate disruptions**, watch
 the impact cascade through the network on a **live interactive graph**, generates **deterministic,
@@ -17,7 +17,7 @@ the UI is backend-truthful — nothing is faked client-side.
 
 ## The Problem
 
-| Pain point | How Resilience OS answers it |
+| Pain point | How LinqChain answers it |
 |---|---|
 | Disruptions are discovered too late | Real-time SAP event stream (SSE) + one-click **disruption simulation** across the live topology |
 | Impact is hard to quantify | Deterministic cascade: affected suppliers, materials, orders, plant loss, revenue-at-risk, inventory runway |
@@ -352,4 +352,4 @@ The `docs/` folder contains the original architecture & integration guides:
 
 ---
 
-© 2026 Resilience OS — reference implementation. All rights reserved.
+© 2026 LinqChain — reference implementation. All rights reserved.

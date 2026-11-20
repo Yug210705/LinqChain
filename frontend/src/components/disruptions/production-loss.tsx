@@ -17,10 +17,10 @@ export function ProductionLoss() {
   const data = Array.from(dataMap.values());
 
   return (
-    <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-lg shadow-sm p-5">
+    <div className="bg-white dark:bg-[#1c1c1e] border border-slate-200 dark:border-neutral-800 rounded-lg shadow-sm p-5">
       <div className="mb-4">
         <h3 className="font-semibold text-slate-900 dark:text-white">Production Shortfall</h3>
-        <p className="text-xs text-slate-500 dark:text-slate-400">Daily unfulfilled manufacturing units</p>
+        <p className="text-xs text-slate-500 dark:text-neutral-400">Daily unfulfilled manufacturing units</p>
       </div>
       <div className="h-64">
         <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
@@ -29,8 +29,8 @@ export function ProductionLoss() {
             <XAxis dataKey="day" axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: '#94a3b8' }} />
             <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: '#94a3b8' }} />
             <Tooltip 
-              cursor={{ fill: '#1e293b' }}
-              contentStyle={{ borderRadius: '8px', border: '1px solid #334155', background: '#111827', color: '#f1f5f9' }}
+              cursor={{ fill: '#262626' }}
+              contentStyle={{ borderRadius: '8px', border: '1px solid #334155', background: '#1c1c1e', color: '#f1f5f9' }}
             />
             <Bar dataKey="loss" fill="#ef4444" radius={[4, 4, 0, 0]} />
           </BarChart>

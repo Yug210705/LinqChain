@@ -54,20 +54,20 @@ export default function LiveDemoPage() {
       <div className="text-center mb-10">
         <h2 className="text-sm font-bold tracking-widest text-blue-600 uppercase mb-2">Live Proof + Impact</h2>
         <h1 className="text-4xl font-extrabold text-slate-900 dark:text-white uppercase tracking-tight mb-2">Let's Deliberately Break The Supply Chain.</h1>
-        <p className="text-lg text-slate-500 dark:text-slate-400 mb-8">Live prototype demonstration — from disruption to recovery decision</p>
+        <p className="text-lg text-slate-500 dark:text-neutral-400 mb-8">Live prototype demonstration — from disruption to recovery decision</p>
         
         {/* STEP TRACKER */}
-        <div className="inline-flex items-center space-x-3 bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-full px-6 py-3 text-sm font-bold text-slate-600 dark:text-slate-200 shadow-sm animate-in fade-in slide-in-from-top-4 duration-1000">
+        <div className="inline-flex items-center space-x-3 bg-slate-50 dark:bg-neutral-900/50 border border-slate-200 dark:border-neutral-700 rounded-full px-6 py-3 text-sm font-bold text-slate-600 dark:text-neutral-200 shadow-sm animate-in fade-in slide-in-from-top-4 duration-1000">
           <span className="flex items-center text-red-600"><AlertTriangle className="w-4 h-4 mr-1.5" /> BREAK</span>
-          <ArrowRight className="w-4 h-4 text-slate-300 dark:text-slate-600" />
+          <ArrowRight className="w-4 h-4 text-slate-300 dark:text-neutral-600" />
           <span className="flex items-center text-amber-500"><Zap className="w-4 h-4 mr-1.5" /> CASCADE</span>
-          <ArrowRight className="w-4 h-4 text-slate-300 dark:text-slate-600" />
+          <ArrowRight className="w-4 h-4 text-slate-300 dark:text-neutral-600" />
           <span className="flex items-center text-blue-500"><BarChart2 className="w-4 h-4 mr-1.5" /> COMPARE</span>
-          <ArrowRight className="w-4 h-4 text-slate-300 dark:text-slate-600" />
+          <ArrowRight className="w-4 h-4 text-slate-300 dark:text-neutral-600" />
           <span className="flex items-center text-emerald-600"><Target className="w-4 h-4 mr-1.5" /> OPTIMIZE</span>
-          <ArrowRight className="w-4 h-4 text-slate-300 dark:text-slate-600" />
+          <ArrowRight className="w-4 h-4 text-slate-300 dark:text-neutral-600" />
           <span className="flex items-center text-amber-600"><Bot className="w-4 h-4 mr-1.5" /> EXPLAIN</span>
-          <ArrowRight className="w-4 h-4 text-slate-300 dark:text-slate-600" />
+          <ArrowRight className="w-4 h-4 text-slate-300 dark:text-neutral-600" />
           <span className="flex items-center text-emerald-600"><CheckSquare className="w-4 h-4 mr-1.5" /> APPROVE</span>
         </div>
       </div>
@@ -78,33 +78,33 @@ export default function LiveDemoPage() {
         {/* COLUMN 1: SCENARIO & KPIs */}
         <div className="space-y-6">
           {/* Simulated Scenario Card (Red Border) */}
-          <div className="bg-white dark:bg-[#111827] border-2 border-red-200 dark:border-red-900/60 rounded-xl p-6 shadow-sm relative overflow-hidden animate-in fade-in slide-in-from-left-8 duration-700 delay-100">
+          <div className="bg-white dark:bg-[#1c1c1e] border-2 border-red-200 dark:border-red-900/60 rounded-xl p-6 shadow-sm relative overflow-hidden animate-in fade-in slide-in-from-left-8 duration-700 delay-100">
             <div className="absolute top-0 left-0 w-full h-1.5 bg-red-500"></div>
             <div className="flex items-center text-red-600 font-bold text-sm mb-3">
               <AlertTriangle className="w-4 h-4 mr-2 animate-pulse" /> Simulated Scenario
             </div>
             <h3 className="text-2xl font-extrabold text-slate-900 dark:text-white mb-1">Supplier {disruption.affected_entity_id} Unavailable</h3>
             <p className="text-red-600 dark:text-red-400 font-semibold mb-6">Disruption duration: {disruption.duration_days} Days</p>
-            <p className="text-sm text-slate-500 dark:text-slate-400 italic">Live inject triggers downstream cascade simulation</p>
+            <p className="text-sm text-slate-500 dark:text-neutral-400 italic">Live inject triggers downstream cascade simulation</p>
           </div>
 
-          {/* Resilience OS Identifies Card (Yellow Border) */}
-          <div className="bg-white dark:bg-[#111827] border-2 border-amber-200 dark:border-amber-900/60 rounded-xl p-6 shadow-sm relative overflow-hidden animate-in fade-in slide-in-from-left-8 duration-700 delay-300">
+          {/* LinqChain Identifies Card (Yellow Border) */}
+          <div className="bg-white dark:bg-[#1c1c1e] border-2 border-amber-200 dark:border-amber-900/60 rounded-xl p-6 shadow-sm relative overflow-hidden animate-in fade-in slide-in-from-left-8 duration-700 delay-300">
             <div className="absolute top-0 left-0 w-full h-1.5 bg-amber-500"></div>
-            <h4 className="font-bold text-slate-700 dark:text-slate-200 text-sm mb-6">Resilience OS Identifies</h4>
+            <h4 className="font-bold text-slate-700 dark:text-neutral-200 text-sm mb-6">LinqChain Identifies</h4>
             
             <div className="space-y-5">
               <div>
                 <div className="text-3xl font-extrabold text-slate-900 dark:text-white"><CountUp end={summary.affected_suppliers} duration={2000}/></div>
-                <div className="text-sm text-slate-500 dark:text-slate-400 font-medium">Suppliers Affected</div>
+                <div className="text-sm text-slate-500 dark:text-neutral-400 font-medium">Suppliers Affected</div>
               </div>
               <div>
                 <div className="text-3xl font-extrabold text-slate-900 dark:text-white"><CountUp end={summary.affected_orders} duration={2500}/></div>
-                <div className="text-sm text-slate-500 dark:text-slate-400 font-medium">Orders Impacted</div>
+                <div className="text-sm text-slate-500 dark:text-neutral-400 font-medium">Orders Impacted</div>
               </div>
               <div>
                 <div className="text-3xl font-extrabold text-amber-500"><CountUp end={summary.affected_plants} duration={3000}/></div>
-                <div className="text-sm text-slate-500 dark:text-slate-400 font-medium">Plants At Risk</div>
+                <div className="text-sm text-slate-500 dark:text-neutral-400 font-medium">Plants At Risk</div>
               </div>
               <div>
                 <div className="text-3xl font-extrabold text-red-600 dark:text-red-400"><CountUp end={summary.revenue_at_risk} isCurrency={true} duration={3500}/></div>
@@ -115,18 +115,18 @@ export default function LiveDemoPage() {
         </div>
 
         {/* COLUMN 2: RECOVERY OPTIONS (Blue Border) */}
-        <div className="bg-blue-50 dark:bg-blue-950/30 border-2 border-blue-200 dark:border-blue-900/50 rounded-xl p-6 shadow-sm relative overflow-hidden h-full">
+        <div className="bg-blue-50 dark:bg-amber-950/30 border-2 border-blue-200 dark:border-amber-900/50 rounded-xl p-6 shadow-sm relative overflow-hidden h-full">
           <div className="absolute top-0 left-0 w-full h-1.5 bg-blue-500"></div>
-          <h4 className="font-bold text-blue-800 dark:text-blue-300 text-sm mb-6">Recovery Options Evaluation</h4>
+          <h4 className="font-bold text-blue-800 dark:text-amber-300 text-sm mb-6">Recovery Options Evaluation</h4>
           
           <div className="space-y-6">
             {plans.map((plan: any, i: number) => (
-              <div key={i} className={`p-4 rounded-lg border ${plan.recommended ? 'bg-white dark:bg-[#0f1522] border-blue-400 shadow-md ring-1 ring-blue-400' : 'bg-transparent border-blue-200 dark:border-blue-900/60 opacity-70'}`}>
+              <div key={i} className={`p-4 rounded-lg border ${plan.recommended ? 'bg-white dark:bg-[#171717] border-blue-400 shadow-md ring-1 ring-blue-400' : 'bg-transparent border-blue-200 dark:border-amber-900/60 opacity-70'}`}>
                 <div className="flex justify-between items-center mb-1">
                   <h5 className="font-extrabold text-slate-900 dark:text-white text-lg uppercase">{plan.id} — {plan.name.split('(')[0]}</h5>
-                  {plan.recommended && <span className="text-[10px] font-bold text-blue-500 uppercase tracking-widest bg-blue-50 dark:bg-blue-950/50 px-2 py-1 rounded">Best Fit</span>}
+                  {plan.recommended && <span className="text-[10px] font-bold text-blue-500 uppercase tracking-widest bg-blue-50 dark:bg-amber-950/50 px-2 py-1 rounded">Best Fit</span>}
                 </div>
-                <div className="text-slate-600 dark:text-slate-300 font-medium text-sm flex space-x-4">
+                <div className="text-slate-600 dark:text-neutral-300 font-medium text-sm flex space-x-4">
                   <span>Cost: <span className="text-slate-900 dark:text-white">+{plan.costIncrease}%</span></span>
                   <span>Delay: <span className="text-slate-900 dark:text-white">{plan.time} days</span></span>
                 </div>

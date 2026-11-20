@@ -46,8 +46,8 @@ const categoryData = [
 export function ProductionTab({ disruptionData }: { disruptionData: any }) {
   const [viewBy, setViewBy] = useState('Plant');
   
-  const activeBtn = "px-5 py-1.5 bg-white dark:bg-[#1e293b] rounded shadow-sm font-bold text-blue-600 dark:text-blue-400 transition-all";
-  const inactiveBtn = "px-5 py-1.5 rounded font-semibold text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-all";
+  const activeBtn = "px-5 py-1.5 bg-white dark:bg-[#262626] rounded shadow-sm font-bold text-blue-600 dark:text-amber-400 transition-all";
+  const inactiveBtn = "px-5 py-1.5 rounded font-semibold text-slate-500 hover:text-slate-700 dark:hover:text-neutral-300 transition-all";
 
   const tableData = viewBy === 'Plant' ? plantData : (viewBy === 'Product' ? productData : categoryData);
   const focusItem = tableData[0];
@@ -64,7 +64,7 @@ export function ProductionTab({ disruptionData }: { disruptionData: any }) {
           <h2 className="text-xl font-extrabold tracking-tight">Production Overview</h2>
           <div className="flex items-center space-x-3 text-sm">
             <span className="text-slate-500 font-medium">View by:</span>
-            <div className="flex bg-slate-100 dark:bg-slate-800/80 p-1 rounded-lg border border-slate-200 dark:border-slate-700/50">
+            <div className="flex bg-slate-100 dark:bg-neutral-800/80 p-1 rounded-lg border border-slate-200 dark:border-neutral-700/50">
               <button onClick={() => setViewBy('Plant')} className={viewBy === 'Plant' ? activeBtn : inactiveBtn}>Plant</button>
               <button onClick={() => setViewBy('Product')} className={viewBy === 'Product' ? activeBtn : inactiveBtn}>Product</button>
               <button onClick={() => setViewBy('Category')} className={viewBy === 'Category' ? activeBtn : inactiveBtn}>Category</button>
@@ -74,9 +74,9 @@ export function ProductionTab({ disruptionData }: { disruptionData: any }) {
 
         {/* KPI Strip */}
         <div className="flex w-full gap-1.5 sm:gap-2 xl:gap-4">
-          <div className="flex-1 min-w-0 bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-xl p-1.5 sm:p-2 xl:p-4 shadow-sm hover:shadow-md transition-shadow flex items-center">
-            <div className="bg-blue-50 dark:bg-blue-900/30 p-1.5 xl:p-2.5 rounded-lg xl:rounded-xl mr-1.5 xl:mr-3 shrink-0 hidden md:block">
-              <Factory className="w-3.5 h-3.5 xl:w-5 xl:h-5 text-blue-600 dark:text-blue-400" />
+          <div className="flex-1 min-w-0 bg-white dark:bg-[#1c1c1e] border border-slate-200 dark:border-neutral-800 rounded-xl p-1.5 sm:p-2 xl:p-4 shadow-sm hover:shadow-md transition-shadow flex items-center">
+            <div className="bg-blue-50 dark:bg-amber-900/30 p-1.5 xl:p-2.5 rounded-lg xl:rounded-xl mr-1.5 xl:mr-3 shrink-0 hidden md:block">
+              <Factory className="w-3.5 h-3.5 xl:w-5 xl:h-5 text-blue-600 dark:text-amber-400" />
             </div>
             <div className="min-w-0 w-full text-center md:text-left">
               <div className="text-[7.5px] sm:text-[8px] lg:text-[9px] xl:text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-0.5 leading-[1.1]">Normal Cap.</div>
@@ -84,7 +84,7 @@ export function ProductionTab({ disruptionData }: { disruptionData: any }) {
             </div>
           </div>
           
-          <div className="flex-1 min-w-0 bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-xl p-1.5 sm:p-2 xl:p-4 shadow-sm hover:shadow-md transition-shadow flex items-center">
+          <div className="flex-1 min-w-0 bg-white dark:bg-[#1c1c1e] border border-slate-200 dark:border-neutral-800 rounded-xl p-1.5 sm:p-2 xl:p-4 shadow-sm hover:shadow-md transition-shadow flex items-center">
             <div className="bg-amber-50 dark:bg-amber-900/30 p-1.5 xl:p-2.5 rounded-lg xl:rounded-xl mr-1.5 xl:mr-3 shrink-0 hidden md:block">
               <Activity className="w-3.5 h-3.5 xl:w-5 xl:h-5 text-amber-600 dark:text-amber-400" />
             </div>
@@ -94,7 +94,7 @@ export function ProductionTab({ disruptionData }: { disruptionData: any }) {
             </div>
           </div>
           
-          <div className="flex-1 min-w-0 bg-white dark:bg-[#111827] border border-red-200 dark:border-red-900/50 rounded-xl p-1.5 sm:p-2 xl:p-4 shadow-sm hover:shadow-md transition-shadow flex items-center relative overflow-hidden">
+          <div className="flex-1 min-w-0 bg-white dark:bg-[#1c1c1e] border border-red-200 dark:border-red-900/50 rounded-xl p-1.5 sm:p-2 xl:p-4 shadow-sm hover:shadow-md transition-shadow flex items-center relative overflow-hidden">
             <div className="absolute inset-0 bg-red-50/50 dark:bg-red-900/10"></div>
             <div className="bg-red-100 dark:bg-red-900/40 p-1.5 xl:p-2.5 rounded-lg xl:rounded-xl mr-1.5 xl:mr-3 shrink-0 relative z-10 border border-red-200 dark:border-red-800/50 hidden md:block">
               <TrendingDown className="w-3.5 h-3.5 xl:w-5 xl:h-5 text-red-600 dark:text-red-400" />
@@ -105,7 +105,7 @@ export function ProductionTab({ disruptionData }: { disruptionData: any }) {
             </div>
           </div>
           
-          <div className="flex-1 min-w-0 bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-xl p-1.5 sm:p-2 xl:p-4 shadow-sm hover:shadow-md transition-shadow flex items-center">
+          <div className="flex-1 min-w-0 bg-white dark:bg-[#1c1c1e] border border-slate-200 dark:border-neutral-800 rounded-xl p-1.5 sm:p-2 xl:p-4 shadow-sm hover:shadow-md transition-shadow flex items-center">
             <div className="bg-purple-50 dark:bg-purple-900/30 p-1.5 xl:p-2.5 rounded-lg xl:rounded-xl mr-1.5 xl:mr-3 shrink-0 hidden md:block">
               <AlertTriangle className="w-3.5 h-3.5 xl:w-5 xl:h-5 text-purple-600 dark:text-purple-400" />
             </div>
@@ -115,7 +115,7 @@ export function ProductionTab({ disruptionData }: { disruptionData: any }) {
             </div>
           </div>
           
-          <div className="flex-1 min-w-0 bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-xl p-1.5 sm:p-2 xl:p-4 shadow-sm hover:shadow-md transition-shadow flex items-center">
+          <div className="flex-1 min-w-0 bg-white dark:bg-[#1c1c1e] border border-slate-200 dark:border-neutral-800 rounded-xl p-1.5 sm:p-2 xl:p-4 shadow-sm hover:shadow-md transition-shadow flex items-center">
             <div className="bg-emerald-50 dark:bg-emerald-900/30 p-1.5 xl:p-2.5 rounded-lg xl:rounded-xl mr-1.5 xl:mr-3 shrink-0 hidden md:block">
               <Package className="w-3.5 h-3.5 xl:w-5 xl:h-5 text-emerald-600 dark:text-emerald-400" />
             </div>
@@ -128,14 +128,14 @@ export function ProductionTab({ disruptionData }: { disruptionData: any }) {
 
         <div className="flex flex-col xl:flex-row flex-1 gap-6 min-h-0">
           {/* Production Impact by Plant/Product/Category */}
-          <div className="flex-1 bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm overflow-hidden flex flex-col min-w-0">
-            <div className="p-5 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center">
+          <div className="flex-1 bg-white dark:bg-[#1c1c1e] border border-slate-200 dark:border-neutral-800 rounded-xl shadow-sm overflow-hidden flex flex-col min-w-0">
+            <div className="p-5 border-b border-slate-100 dark:border-neutral-800 flex justify-between items-center">
               <h3 className="font-bold text-[15px]">Production Impact by {viewBy}</h3>
-              <button className="text-blue-600 dark:text-blue-400 text-xs font-bold hover:underline">Export Data</button>
+              <button className="text-blue-600 dark:text-amber-400 text-xs font-bold hover:underline">Export Data</button>
             </div>
             <div className="flex-1 overflow-auto custom-scrollbar">
               <table className="w-full text-sm text-left">
-                <thead className="text-[10px] font-bold text-slate-500 uppercase tracking-wider bg-slate-50 dark:bg-slate-900/50 sticky top-0 z-10">
+                <thead className="text-[10px] font-bold text-slate-500 uppercase tracking-wider bg-slate-50 dark:bg-neutral-900/50 sticky top-0 z-10">
                   <tr>
                     <th className="py-3 px-2">{viewBy}</th>
                     <th className="py-3 px-2 text-right">Disrupted<br/><span className="text-[9px] text-slate-400 lowercase">(u/d)</span></th>
@@ -144,21 +144,21 @@ export function ProductionTab({ disruptionData }: { disruptionData: any }) {
                     <th className="py-3 px-2 text-center">Severity</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100 dark:divide-slate-800/60">
+                <tbody className="divide-y divide-slate-100 dark:divide-neutral-800/60">
                   {tableData.map((r, i) => (
-                    <tr key={i} className="group hover:bg-slate-50 dark:hover:bg-slate-900/30 transition-colors cursor-pointer">
+                    <tr key={i} className="group hover:bg-slate-50 dark:hover:bg-neutral-900/30 transition-colors cursor-pointer">
                       <td className="py-2.5 px-2">
                         <div className="flex items-center">
-                          <div className="w-7 h-7 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center mr-2.5 border border-slate-200 dark:border-slate-700/50 shrink-0">
+                          <div className="w-7 h-7 rounded-lg bg-slate-100 dark:bg-neutral-800 flex items-center justify-center mr-2.5 border border-slate-200 dark:border-neutral-700/50 shrink-0">
                             <Icon className="w-3.5 h-3.5 text-slate-500" />
                           </div>
                           <div>
-                            <div className="font-bold text-slate-900 dark:text-slate-100 text-[13px]">{r.id}</div>
+                            <div className="font-bold text-slate-900 dark:text-neutral-100 text-[13px]">{r.id}</div>
                             <div className="text-[10px] font-medium text-slate-500 truncate max-w-[100px]">{r.name}</div>
                           </div>
                         </div>
                       </td>
-                      <td className="py-2.5 px-2 text-right font-medium text-slate-700 dark:text-slate-300">{r.d.toLocaleString()}</td>
+                      <td className="py-2.5 px-2 text-right font-medium text-slate-700 dark:text-neutral-300">{r.d.toLocaleString()}</td>
                       <td className="py-2.5 px-2 text-right font-bold text-red-600 dark:text-red-400 bg-red-50/30 dark:bg-red-900/10">{r.l.toLocaleString()}</td>
                       <td className="py-2.5 px-2 text-right font-bold text-slate-900 dark:text-white">{r.p}%</td>
                       <td className="py-2.5 px-2 text-center">
@@ -175,8 +175,8 @@ export function ProductionTab({ disruptionData }: { disruptionData: any }) {
                 </tbody>
               </table>
             </div>
-            <div className="p-4 bg-slate-50 dark:bg-slate-900/30 border-t border-slate-200 dark:border-slate-800 text-center">
-              <button className="text-blue-600 dark:text-blue-400 text-xs font-bold hover:underline inline-flex items-center">
+            <div className="p-4 bg-slate-50 dark:bg-neutral-900/30 border-t border-slate-200 dark:border-neutral-800 text-center">
+              <button className="text-blue-600 dark:text-amber-400 text-xs font-bold hover:underline inline-flex items-center">
                 Explore Detailed Plant View <TrendingDown className="w-3 h-3 ml-1" />
               </button>
             </div>
@@ -185,12 +185,12 @@ export function ProductionTab({ disruptionData }: { disruptionData: any }) {
           {/* Charts Column */}
           <div className="w-full xl:w-[400px] shrink-0 flex flex-col space-y-6">
             {/* Trend Chart */}
-            <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm h-[320px] flex flex-col">
+            <div className="bg-white dark:bg-[#1c1c1e] border border-slate-200 dark:border-neutral-800 rounded-xl p-5 shadow-sm h-[320px] flex flex-col">
               <div className="flex justify-between items-start mb-4">
                 <h3 className="font-bold text-[15px] leading-tight">Capacity Trend</h3>
-                <div className="bg-slate-100 dark:bg-slate-800 text-[10px] px-2 py-1 rounded font-bold text-slate-500 uppercase tracking-wider">Next 10 Days</div>
+                <div className="bg-slate-100 dark:bg-neutral-800 text-[10px] px-2 py-1 rounded font-bold text-slate-500 uppercase tracking-wider">Next 10 Days</div>
               </div>
-              <div className="flex space-x-4 text-[10px] font-bold mb-6 border-b border-slate-100 dark:border-slate-800 pb-3">
+              <div className="flex space-x-4 text-[10px] font-bold mb-6 border-b border-slate-100 dark:border-neutral-800 pb-3">
                 <div className="flex items-center"><div className="w-2.5 h-2.5 rounded-sm bg-blue-500 mr-1.5"></div> Normal</div>
                 <div className="flex items-center"><div className="w-2.5 h-2.5 rounded-sm bg-red-500 mr-1.5"></div> Disrupted</div>
               </div>
@@ -209,10 +209,10 @@ export function ProductionTab({ disruptionData }: { disruptionData: any }) {
             </div>
             
             {/* Loss by product */}
-            <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm flex-1 flex flex-col min-h-0">
+            <div className="bg-white dark:bg-[#1c1c1e] border border-slate-200 dark:border-neutral-800 rounded-xl p-5 shadow-sm flex-1 flex flex-col min-h-0">
               <div className="flex justify-between items-center mb-6">
                 <h3 className="font-bold text-[15px]">Loss by Product</h3>
-                <button className="text-blue-600 dark:text-blue-400 text-xs font-bold hover:underline">View All</button>
+                <button className="text-blue-600 dark:text-amber-400 text-xs font-bold hover:underline">View All</button>
               </div>
               <div className="space-y-5 flex-1 overflow-y-auto custom-scrollbar pr-2">
                 {[
@@ -227,7 +227,7 @@ export function ProductionTab({ disruptionData }: { disruptionData: any }) {
                       <div className="font-bold">{p.id} <span className="text-slate-500 font-medium ml-1">{p.name}</span></div>
                       <div className="font-bold text-red-600 dark:text-red-400">{p.loss.toLocaleString()} <span className="text-[9px] text-slate-500 font-medium ml-0.5">u/d</span></div>
                     </div>
-                    <div className="w-full bg-slate-100 dark:bg-slate-800 h-2 rounded-full overflow-hidden flex">
+                    <div className="w-full bg-slate-100 dark:bg-neutral-800 h-2 rounded-full overflow-hidden flex">
                       <div className="bg-red-500 h-full rounded-full" style={{ width: p.w }}></div>
                     </div>
                   </div>
@@ -239,8 +239,8 @@ export function ProductionTab({ disruptionData }: { disruptionData: any }) {
       </div>
       
       {/* Right Sidebar */}
-      <div className="w-full xl:w-[320px] shrink-0 bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm h-full flex flex-col overflow-hidden">
-        <div className="p-5 border-b border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-[#0f1522]">
+      <div className="w-full xl:w-[320px] shrink-0 bg-white dark:bg-[#1c1c1e] border border-slate-200 dark:border-neutral-800 rounded-xl shadow-sm h-full flex flex-col overflow-hidden">
+        <div className="p-5 border-b border-slate-100 dark:border-neutral-800 bg-slate-50/50 dark:bg-[#171717]">
           <div className="flex justify-between items-center mb-4">
             <h3 className="font-bold text-[13px] text-slate-500 uppercase tracking-wider">Focus {viewBy}</h3>
           </div>
@@ -254,7 +254,7 @@ export function ProductionTab({ disruptionData }: { disruptionData: any }) {
               "bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 border-emerald-200 dark:border-emerald-800/50"
             )}>{focusItem.lvl}</span>
           </div>
-          <p className="text-sm font-semibold text-slate-600 dark:text-slate-400 flex items-center"><Icon className="w-3.5 h-3.5 mr-1.5" /> {focusItem.name} {focusSubtitle}</p>
+          <p className="text-sm font-semibold text-slate-600 dark:text-neutral-400 flex items-center"><Icon className="w-3.5 h-3.5 mr-1.5" /> {focusItem.name} {focusSubtitle}</p>
         </div>
         
         <div className="p-5 flex-1 overflow-y-auto custom-scrollbar space-y-8">
@@ -263,18 +263,18 @@ export function ProductionTab({ disruptionData }: { disruptionData: any }) {
             <h4 className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Capacity Status</h4>
             <div className="space-y-3">
               <div className="flex justify-between items-end">
-                <span className="text-xs font-semibold text-slate-600 dark:text-slate-400">Normal</span>
+                <span className="text-xs font-semibold text-slate-600 dark:text-neutral-400">Normal</span>
                 <span className="font-bold text-slate-900 dark:text-white text-sm">{focusItem.n.toLocaleString()} <span className="text-[10px] text-slate-500 font-medium">u/d</span></span>
               </div>
               <div className="flex justify-between items-end">
-                <span className="text-xs font-semibold text-slate-600 dark:text-slate-400">Disrupted</span>
+                <span className="text-xs font-semibold text-slate-600 dark:text-neutral-400">Disrupted</span>
                 <span className="font-bold text-slate-900 dark:text-white text-sm">{focusItem.d.toLocaleString()} <span className="text-[10px] text-slate-500 font-medium">u/d</span></span>
               </div>
-              <div className="w-full bg-slate-100 dark:bg-slate-800 h-1.5 rounded-full overflow-hidden flex">
+              <div className="w-full bg-slate-100 dark:bg-neutral-800 h-1.5 rounded-full overflow-hidden flex">
                  <div className="bg-blue-600 h-full" style={{ width: `${(focusItem.d / focusItem.n) * 100}%` }}></div>
               </div>
               
-              <div className="flex justify-between items-end pt-3 border-t border-slate-100 dark:border-slate-800">
+              <div className="flex justify-between items-end pt-3 border-t border-slate-100 dark:border-neutral-800">
                 <span className="text-xs font-bold text-red-600 dark:text-red-400">Total Loss</span>
                 <div className="text-right">
                   <div className="font-black text-red-600 dark:text-red-400 text-lg leading-none">{focusItem.l.toLocaleString()} <span className="text-[10px] font-semibold">u/d</span></div>
@@ -287,7 +287,7 @@ export function ProductionTab({ disruptionData }: { disruptionData: any }) {
           <div className="space-y-4">
             <div className="flex justify-between items-end">
               <h4 className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Constrained Materials</h4>
-              <span className="text-[10px] font-bold bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded text-slate-500">3 Items</span>
+              <span className="text-[10px] font-bold bg-slate-100 dark:bg-neutral-800 px-1.5 py-0.5 rounded text-slate-500">3 Items</span>
             </div>
             <div className="space-y-3">
               {[
@@ -295,7 +295,7 @@ export function ProductionTab({ disruptionData }: { disruptionData: any }) {
                 { id: 'MAT-006', name: 'PCB Assembly', c: '5.2d', s: 'Day 5', color: 'bg-amber-500' },
                 { id: 'MAT-009', name: 'Microcontroller', c: '7.8d', s: 'Day 7', color: 'bg-yellow-500' },
               ].map((m, i) => (
-                <div key={i} className="bg-slate-50 dark:bg-slate-900/50 p-3 rounded-lg border border-slate-100 dark:border-slate-800 flex flex-col space-y-2">
+                <div key={i} className="bg-slate-50 dark:bg-neutral-900/50 p-3 rounded-lg border border-slate-100 dark:border-neutral-800 flex flex-col space-y-2">
                   <div className="flex items-center text-xs font-bold">
                     <div className={`w-2 h-2 rounded-full ${m.color} mr-2`}></div>
                     <span className="text-slate-900 dark:text-white">{m.id}</span>
@@ -311,8 +311,8 @@ export function ProductionTab({ disruptionData }: { disruptionData: any }) {
           </div>
         </div>
         
-        <div className="p-5 border-t border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-[#0f1522] space-y-3">
-          <button className="w-full bg-white dark:bg-[#1e293b] border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 font-bold py-2.5 rounded-lg flex items-center justify-center transition-colors shadow-sm text-xs hover:bg-slate-50 dark:hover:bg-slate-800">
+        <div className="p-5 border-t border-slate-100 dark:border-neutral-800 bg-slate-50/50 dark:bg-[#171717] space-y-3">
+          <button className="w-full bg-white dark:bg-[#262626] border border-slate-200 dark:border-neutral-700 text-slate-700 dark:text-neutral-200 font-bold py-2.5 rounded-lg flex items-center justify-center transition-colors shadow-sm text-xs hover:bg-slate-50 dark:hover:bg-neutral-800">
             <Activity className="w-3.5 h-3.5 mr-2 text-slate-400" /> View Dependency Path
           </button>
           <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 rounded-lg flex items-center justify-center transition-colors shadow-sm text-xs">

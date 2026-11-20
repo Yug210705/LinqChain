@@ -41,7 +41,7 @@ export default function CommandCenter() {
       <div className="flex h-full w-full flex-col items-center justify-center bg-slate-50 text-red-600">
         <AlertTriangle className="w-12 h-12 mb-4 text-red-500" />
         <p className="font-semibold text-lg tracking-tight text-slate-900">Platform Unavailable</p>
-        <p className="text-sm text-slate-500 mt-1">Unable to establish connection to Resilience OS core API.</p>
+        <p className="text-sm text-slate-500 mt-1">Unable to establish connection to LinqChain core API.</p>
       </div>
     );
   }

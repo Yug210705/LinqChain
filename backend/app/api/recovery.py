@@ -10,6 +10,7 @@ from sqlalchemy.orm import Session
 
 from app.core import config
 from app.core.database import get_db
+from app.core.auth import require_permission
 from app.core.runtime import (
     cached_list,
     invalidate_lists,
@@ -41,7 +42,7 @@ router = APIRouter(tags=["Recovery & AI"])
 
 
 @router.get("/api/recovery/options", response_model=RecoveryPlansResponse, summary="Get Recovery Options", description="Generates deterministic recovery options based on SAP supply data.")
-async def api_get_recovery_options(material_id: str = "MAT-12"):
+async def api_get_recovery_options(material_id: str = "MAT-12", _user=Depends(require_permission("recovery", "view_options"))):
     try:
         return await get_recovery_plans(material_id)
     except Exception as e:
@@ -49,7 +50,7 @@ async def api_get_recovery_options(material_id: str = "MAT-12"):
 
 
 @router.post("/api/recovery/plans", response_model=RecoveryPlanResponse, summary="Create Recovery Plan")
-async def api_create_recovery_plan(req: CreateRecoveryPlanRequest, db: Session = Depends(get_db)):
+async def api_create_recovery_plan(req: CreateRecoveryPlanRequest, db: Session = Depends(get_db), _user=Depends(require_permission("recovery", "create_plan"))):
     invalidate_lists()
     try:
         # INVARIANT 5: Reject stale/archived/invalid scenario selection
@@ -145,7 +146,8 @@ async def api_list_recovery_plans(
     status: Optional[str] = None,
     search: Optional[str] = None,
     disruption_id: Optional[str] = None,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    _user=Depends(require_permission("recovery", "view_options"))
 ):
     from sqlalchemy import func, or_
 
@@ -227,7 +229,7 @@ async def api_list_recovery_plans(
 
 
 @router.get("/api/recovery/plans/{plan_id}", response_model=RecoveryPlanResponse, summary="Get Single Recovery Plan")
-async def api_get_recovery_plan(plan_id: str, db: Session = Depends(get_db)):
+async def api_get_recovery_plan(plan_id: str, db: Session = Depends(get_db), _user=Depends(require_permission("recovery", "view_options"))):
     plan = db.query(RecoveryPlanRecord).filter(RecoveryPlanRecord.id == plan_id).first()
     if not plan:
         raise HTTPException(status_code=404, detail="Recovery Plan not found")
@@ -248,7 +250,7 @@ async def api_get_recovery_plan(plan_id: str, db: Session = Depends(get_db)):
 
 
 @router.put("/api/recovery/plans/{plan_id}/status", response_model=RecoveryPlanResponse, summary="Update Plan Status")
-async def api_update_plan_status(plan_id: str, req: UpdateStatusRequest, db: Session = Depends(get_db)):
+async def api_update_plan_status(plan_id: str, req: UpdateStatusRequest, db: Session = Depends(get_db), _user=Depends(require_permission("recovery", "approve"))):
     invalidate_lists()
     plan = db.query(RecoveryPlanRecord).filter(RecoveryPlanRecord.id == plan_id).first()
     if not plan:
@@ -315,7 +317,7 @@ async def api_update_plan_status(plan_id: str, req: UpdateStatusRequest, db: Ses
 
 
 @router.post("/run-recovery", response_model=AuditLog, summary="Run Full Recovery Pipeline", description="Executes the 6-step detect/optimize/explain/validate/act/audit pipeline.")
-async def run_recovery(response: Response, material_id: str = "MAT-12", db: Session = Depends(get_db)):
+async def run_recovery(response: Response, material_id: str = "MAT-12", db: Session = Depends(get_db), _user=Depends(require_permission("recovery", "run_pipeline"))):
     import time
     start = time.time()
     audit_log = await run_recovery_pipeline(material_id)
@@ -333,7 +335,7 @@ async def run_recovery(response: Response, material_id: str = "MAT-12", db: Sess
 
 
 @router.get("/run-recovery/{run_id}", response_model=AuditLog, summary="Retrieve Audit Trail", description="Fetches the exact IO logged during a specific recovery pipeline execution.")
-async def get_recovery_audit(run_id: str):
+async def get_recovery_audit(run_id: str, _user=Depends(require_permission("audit", "view"))):
     log_path = config.LOG_DIR / f"{run_id}.json"
     if not log_path.exists():
         raise HTTPException(status_code=404, detail="Audit log not found")
@@ -342,7 +344,7 @@ async def get_recovery_audit(run_id: str):
 
 
 @router.get("/api/audit/runs", summary="List Recovery Pipeline Audit Runs", description="Lists all persisted run-recovery audit trails (logs/*.json), newest first.")
-async def list_audit_runs(limit: int = 50, offset: int = 0):
+async def list_audit_runs(limit: int = 50, offset: int = 0, _user=Depends(require_permission("audit", "view"))):
     candidates = [
         str(config.LOG_DIR),
         os.path.join(config.BACKEND_DIR, "logs_legacy"),
@@ -374,7 +376,7 @@ async def list_audit_runs(limit: int = 50, offset: int = 0):
 
 
 @router.post("/api/scenarios/generate", response_model=List[ScenarioResponse], summary="Generate Scenarios from Disruption")
-async def api_generate_scenarios(req: GenerateScenariosRequest, force: bool = False, db: Session = Depends(get_db)):
+async def api_generate_scenarios(req: GenerateScenariosRequest, force: bool = False, db: Session = Depends(get_db), _user=Depends(require_permission("scenarios", "generate"))):
     invalidate_lists()
     try:
         # IDEMPOTENCY GUARD: Check for existing active (READY/SIMULATING) scenarios for this disruption.
@@ -470,7 +472,8 @@ async def api_list_scenarios(
     status: Optional[str] = None,         # e.g. "READY" or "READY,SIMULATING"
     search: Optional[str] = None,          # searches id, name, strategy, disruption_id
     disruption_id: Optional[str] = None,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    _user=Depends(require_permission("scenarios", "view"))
 ):
     from sqlalchemy import func, or_
 
@@ -537,7 +540,7 @@ async def api_list_scenarios(
 
 
 @router.get("/api/scenarios/{scenario_id}", response_model=ScenarioResponse, summary="Get Scenario")
-async def api_get_scenario(scenario_id: str, db: Session = Depends(get_db)):
+async def api_get_scenario(scenario_id: str, db: Session = Depends(get_db), _user=Depends(require_permission("scenarios", "view"))):
     s = db.query(ScenarioRecord).filter(ScenarioRecord.id == scenario_id).first()
     if not s:
         raise HTTPException(status_code=404, detail="Scenario not found")
@@ -560,7 +563,7 @@ async def api_get_scenario(scenario_id: str, db: Session = Depends(get_db)):
 
 
 @router.put("/api/scenarios/{scenario_id}/status", response_model=ScenarioResponse)
-async def api_update_scenario_status(scenario_id: str, req: UpdateScenarioStatusRequest, db: Session = Depends(get_db)):
+async def api_update_scenario_status(scenario_id: str, req: UpdateScenarioStatusRequest, db: Session = Depends(get_db), _user=Depends(require_permission("scenarios", "update_status"))):
     invalidate_lists()
     s = db.query(ScenarioRecord).filter(ScenarioRecord.id == scenario_id).first()
     if not s:

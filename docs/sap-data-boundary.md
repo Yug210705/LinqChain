@@ -1,11 +1,11 @@
 # SAP Data Boundary
 
-## Inbound (From SAP to Resilience OS)
+## Inbound (From SAP to LinqChain)
 - **Master Data**: Suppliers, Materials, Plants, Customers mapped to internal domain entities.
 - **Transactional Data**: Current Inventory levels, active Customer Orders, pending Purchase Orders.
 
-## Outbound (From Resilience OS to SAP)
-- **Auditable Actions**: When a human approves an AI-recommended recovery plan (e.g., switch to Alternative Supplier), Resilience OS dispatches a payload to SAP S/4HANA to create/modify a Purchase Order.
+## Outbound (From LinqChain to SAP)
+- **Auditable Actions**: When a human approves an AI-recommended recovery plan (e.g., switch to Alternative Supplier), LinqChain dispatches a payload to SAP S/4HANA to create/modify a Purchase Order.
 
 Example Output Payload:
 ```json

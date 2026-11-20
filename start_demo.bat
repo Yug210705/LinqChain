@@ -1,6 +1,6 @@
 @echo off
 echo ====================================================
-echo Starting RESILIENCE OS (Hackathon Demo Environment)
+echo Starting LINQCHAIN (Hackathon Demo Environment)
 echo ====================================================
 cd /d "%~dp0"
 

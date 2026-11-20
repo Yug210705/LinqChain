@@ -94,10 +94,10 @@ export default function ImpactAnalysisPage() {
 
   if (loading) {
     return (
-      <div className="flex h-full items-center justify-center bg-slate-50 dark:bg-[#0A0F1C]">
+      <div className="flex h-full items-center justify-center bg-slate-50 dark:bg-[#1a1a1a]">
         <div className="text-center">
           <div className="w-10 h-10 border-2 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">Loading disruption {id}…</p>
+          <p className="text-sm font-semibold text-slate-500 dark:text-neutral-400">Loading disruption {id}…</p>
         </div>
       </div>
     );
@@ -105,11 +105,11 @@ export default function ImpactAnalysisPage() {
 
   if (!data || error) {
     return (
-      <div className="flex h-full items-center justify-center bg-slate-50 dark:bg-[#0A0F1C] px-6">
+      <div className="flex h-full items-center justify-center bg-slate-50 dark:bg-[#1a1a1a] px-6">
         <div className="text-center max-w-md">
           <AlertTriangle className="w-10 h-10 text-amber-500 mx-auto mb-4" />
           <h2 className="text-lg font-bold text-slate-900 dark:text-white mb-1">Disruption not found</h2>
-          <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">{error || `No record exists for "${id}".`}</p>
+          <p className="text-sm text-slate-500 dark:text-neutral-400 mb-6">{error || `No record exists for "${id}".`}</p>
           <Link href="/disruptions" className="inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md font-semibold text-sm shadow-sm transition-colors">
             Back to Disruptions
           </Link>
@@ -119,17 +119,17 @@ export default function ImpactAnalysisPage() {
   }
 
   return (
-    <div className="flex flex-col h-full bg-slate-50 dark:bg-[#0A0F1C] overflow-y-auto overflow-x-hidden custom-scrollbar">
+    <div className="flex flex-col h-full bg-slate-50 dark:bg-[#1a1a1a] overflow-y-auto overflow-x-hidden custom-scrollbar">
       <div className="max-w-[1800px] mx-auto w-full">
         {/* Header Area */}
         <div className="px-6 pt-4 shrink-0">
           <div className="mb-6 flex justify-between items-end">
             <div>
-              <div className="flex items-center text-[12px] font-bold text-slate-500 dark:text-slate-400 mb-3 tracking-wide uppercase">
-                <Link href="/disruptions" className="hover:text-slate-800 dark:hover:text-slate-200 transition-colors cursor-pointer">
+              <div className="flex items-center text-[12px] font-bold text-slate-500 dark:text-neutral-400 mb-3 tracking-wide uppercase">
+                <Link href="/disruptions" className="hover:text-slate-800 dark:hover:text-neutral-200 transition-colors cursor-pointer">
                   Disruptions
                 </Link>
-                <ChevronRight className="w-3.5 h-3.5 mx-2 text-slate-400 dark:text-slate-600" />
+                <ChevronRight className="w-3.5 h-3.5 mx-2 text-slate-400 dark:text-neutral-600" />
                 <span className="text-slate-900 dark:text-white">{data?.disruption?.affected_entity_id || id}</span>
               </div>
               <h1 className="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-none">
@@ -138,10 +138,10 @@ export default function ImpactAnalysisPage() {
             </div>
 
             <div className="flex items-center space-x-3">
-              <button onClick={handleShare} className="flex items-center px-4 py-2 bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 rounded-lg text-[13px] font-bold hover:bg-slate-50 dark:hover:bg-slate-800 transition-all shadow-sm">
+              <button onClick={handleShare} className="flex items-center px-4 py-2 bg-white dark:bg-[#1c1c1e] border border-slate-200 dark:border-neutral-700 text-slate-700 dark:text-neutral-300 rounded-lg text-[13px] font-bold hover:bg-slate-50 dark:hover:bg-neutral-800 transition-all shadow-sm">
                 <Share2 className="w-4 h-4 mr-2 text-slate-500" /> {copied ? 'Copied!' : 'Share'}
               </button>
-              <button onClick={handleExport} className="flex items-center px-4 py-2 bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 rounded-lg text-[13px] font-bold hover:bg-slate-50 dark:hover:bg-slate-800 transition-all shadow-sm">
+              <button onClick={handleExport} className="flex items-center px-4 py-2 bg-white dark:bg-[#1c1c1e] border border-slate-200 dark:border-neutral-700 text-slate-700 dark:text-neutral-300 rounded-lg text-[13px] font-bold hover:bg-slate-50 dark:hover:bg-neutral-800 transition-all shadow-sm">
                 <Download className="w-4 h-4 mr-2 text-slate-500" /> Export
               </button>
               {isActive && (
@@ -156,7 +156,7 @@ export default function ImpactAnalysisPage() {
           </div>
 
           {/* Top Summary Box */}
-          <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm flex items-stretch overflow-hidden mb-2">
+          <div className="bg-white dark:bg-[#1c1c1e] border border-slate-200 dark:border-neutral-800 rounded-xl shadow-sm flex items-stretch overflow-hidden mb-2">
             <div className="flex items-center p-5 flex-1">
               <div className="bg-red-50 dark:bg-red-900/20 p-3 rounded-xl mr-5 border border-red-100 dark:border-red-900/30 shrink-0">
                 <AlertTriangle className="w-6 h-6 text-red-500" />
@@ -166,7 +166,7 @@ export default function ImpactAnalysisPage() {
                   <h2 className="text-[18px] font-extrabold text-slate-900 dark:text-white uppercase tracking-tight leading-none">
                     {data?.disruption?.affected_entity_id}
                   </h2>
-                  <span className="font-semibold text-slate-500 dark:text-slate-400 capitalize text-[14px]">
+                  <span className="font-semibold text-slate-500 dark:text-neutral-400 capitalize text-[14px]">
                     {data?.disruption?.disruption_type}
                   </span>
                 </div>
@@ -181,18 +181,18 @@ export default function ImpactAnalysisPage() {
                   )}>
                     {(data?.disruption?.severity ?? 1) >= 0.8 ? 'Critical' : (data.disruption.severity ?? 0) >= 0.5 ? 'High' : 'Medium'}
                   </span>
-                  <span className="text-slate-700 dark:text-slate-300 font-semibold">
+                  <span className="text-slate-700 dark:text-neutral-300 font-semibold">
                     {Math.round((data?.disruption?.severity ?? 1) * 100)}% capacity loss
                   </span>
-                  <span className="text-slate-300 dark:text-slate-600">•</span>
-                  <span className="text-slate-600 dark:text-slate-400 font-medium">
+                  <span className="text-slate-300 dark:text-neutral-600">•</span>
+                  <span className="text-slate-600 dark:text-neutral-400 font-medium">
                     {data?.disruption?.duration_days} Days duration
                   </span>
                 </div>
               </div>
             </div>
 
-            <div className="flex items-center bg-slate-50 dark:bg-slate-900/50 border-l border-slate-200 dark:border-slate-800 px-8 py-5 space-x-12 shrink-0">
+            <div className="flex items-center bg-slate-50 dark:bg-neutral-900/50 border-l border-slate-200 dark:border-neutral-800 px-8 py-5 space-x-12 shrink-0">
               <div>
                 <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Started</div>
                 <div className="text-[13px] font-bold text-slate-900 dark:text-white">{formatDate(data?.created_at)}</div>
@@ -224,7 +224,7 @@ export default function ImpactAnalysisPage() {
           </div>
 
           {/* Tabs */}
-          <div className="flex space-x-2 mt-6 border-b border-slate-200 dark:border-slate-800 px-2">
+          <div className="flex space-x-2 mt-6 border-b border-slate-200 dark:border-neutral-800 px-2">
             {TABS.map(tab => (
               <button
                 key={tab}
@@ -232,8 +232,8 @@ export default function ImpactAnalysisPage() {
                 className={cn(
                   "px-5 py-3 text-[13px] font-bold transition-all border-b-2 relative",
                   activeTab === tab
-                    ? "text-blue-600 dark:text-blue-400 border-blue-600 dark:border-blue-400"
-                    : "text-slate-500 dark:text-slate-400 border-transparent hover:text-slate-700 dark:hover:text-slate-200"
+                    ? "text-blue-600 dark:text-amber-400 border-blue-600 dark:border-amber-400"
+                    : "text-slate-500 dark:text-neutral-400 border-transparent hover:text-slate-700 dark:hover:text-neutral-200"
                 )}
               >
                 {tab}

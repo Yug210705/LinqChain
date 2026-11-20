@@ -63,7 +63,7 @@ function PageContent({ id }: { id: string }) {
     );
   }
 
-  if (!plan) return <div className="p-12 text-center text-slate-500 dark:text-slate-400">Loading plan...</div>;
+  if (!plan) return <div className="p-12 text-center text-slate-500 dark:text-neutral-400">Loading plan...</div>;
 
   const sapPayload = {
     action: "CHANGE_SUPPLIER",
@@ -76,44 +76,44 @@ function PageContent({ id }: { id: string }) {
 
   return (
     <div className="space-y-6 max-w-4xl mx-auto pb-12 py-8">
-      <div className="flex justify-between items-end border-b border-slate-200 dark:border-slate-800 pb-4">
+      <div className="flex justify-between items-end border-b border-slate-200 dark:border-neutral-800 pb-4">
         <div>
-          <div className="flex items-center space-x-2 text-sm text-slate-500 dark:text-slate-400 mb-2 font-medium">
+          <div className="flex items-center space-x-2 text-sm text-slate-500 dark:text-neutral-400 mb-2 font-medium">
             <Link href="/recovery-plans" className="hover:text-slate-900 dark:hover:text-white transition-colors">Recovery Plans</Link>
-            <span className="text-slate-300 dark:text-slate-600">/</span>
-            <span className="font-semibold text-slate-900 dark:text-slate-100">{id}</span>
-            <span className="text-slate-300 dark:text-slate-600">/</span>
-            <span className="font-semibold text-slate-900 dark:text-slate-100">Action Approval</span>
+            <span className="text-slate-300 dark:text-neutral-600">/</span>
+            <span className="font-semibold text-slate-900 dark:text-neutral-100">{id}</span>
+            <span className="text-slate-300 dark:text-neutral-600">/</span>
+            <span className="font-semibold text-slate-900 dark:text-neutral-100">Action Approval</span>
           </div>
           <h1 className="text-3xl font-bold text-slate-900 dark:text-white tracking-tight">Pending Human Approval</h1>
-          <p className="text-slate-500 dark:text-slate-400 mt-1">Review the SAP action payload and authorize execution</p>
+          <p className="text-slate-500 dark:text-neutral-400 mt-1">Review the SAP action payload and authorize execution</p>
         </div>
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
         <div className="space-y-6">
-          <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm p-6">
+          <div className="bg-white dark:bg-[#1c1c1e] border border-slate-200 dark:border-neutral-800 rounded-xl shadow-sm p-6">
             <h3 className="font-bold text-slate-900 dark:text-white mb-4">Action Summary</h3>
             <div className="space-y-3 text-sm">
               <div className="flex justify-between">
-                <span className="text-slate-500 dark:text-slate-400">Operation</span>
-                <span className="font-semibold text-slate-900 dark:text-slate-100">{plan.strategy}</span>
+                <span className="text-slate-500 dark:text-neutral-400">Operation</span>
+                <span className="font-semibold text-slate-900 dark:text-neutral-100">{plan.strategy}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-slate-500 dark:text-slate-400">Target Supplier</span>
-                <span className="font-semibold text-slate-900 dark:text-slate-100">{plan.supplier_id}</span>
+                <span className="text-slate-500 dark:text-neutral-400">Target Supplier</span>
+                <span className="font-semibold text-slate-900 dark:text-neutral-100">{plan.supplier_id}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-slate-500 dark:text-slate-400">Total Plan Cost</span>
-                <span className="font-semibold text-slate-900 dark:text-slate-100 font-mono">{formatCurrency(plan.total_cost)}</span>
+                <span className="text-slate-500 dark:text-neutral-400">Total Plan Cost</span>
+                <span className="font-semibold text-slate-900 dark:text-neutral-100 font-mono">{formatCurrency(plan.total_cost)}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-slate-500 dark:text-slate-400">Max Delay</span>
-                <span className="font-semibold text-slate-900 dark:text-slate-100">{plan.max_delay_days} days</span>
+                <span className="text-slate-500 dark:text-neutral-400">Max Delay</span>
+                <span className="font-semibold text-slate-900 dark:text-neutral-100">{plan.max_delay_days} days</span>
               </div>
-              <div className="flex justify-between pt-3 border-t border-slate-100 dark:border-slate-800">
-                <span className="text-slate-500 dark:text-slate-400">Requested By</span>
-                <span className="text-slate-900 dark:text-slate-100">AI Recovery Agent</span>
+              <div className="flex justify-between pt-3 border-t border-slate-100 dark:border-neutral-800">
+                <span className="text-slate-500 dark:text-neutral-400">Requested By</span>
+                <span className="text-slate-900 dark:text-neutral-100">AI Recovery Agent</span>
               </div>
             </div>
           </div>
@@ -122,7 +122,7 @@ function PageContent({ id }: { id: string }) {
             <button 
               onClick={handleReject}
               disabled={updating || approved}
-              className="flex-1 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold py-3 rounded-lg shadow-sm flex justify-center items-center disabled:opacity-50"
+              className="flex-1 bg-white dark:bg-neutral-900 border border-slate-300 dark:border-neutral-700 hover:bg-slate-50 dark:hover:bg-neutral-800 text-slate-700 dark:text-neutral-200 font-semibold py-3 rounded-lg shadow-sm flex justify-center items-center disabled:opacity-50"
             >
               <X className="w-5 h-5 mr-2 text-red-500" /> Reject
             </button>

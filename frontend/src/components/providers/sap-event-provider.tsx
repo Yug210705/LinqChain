@@ -54,7 +54,7 @@ export function SapEventProvider({ children }: { children: React.ReactNode }) {
       eventSource.addEventListener('connection', (e) => {
         const data = JSON.parse(e.data);
         setIsConnected(true);
-        addToast('success', 'SAP Event Mesh', data.status);
+        // Silent connection handshake: do not show intrusive popup on every page load/reconnect
       });
 
       eventSource.addEventListener('SAP_DISRUPTION_EVENT', (e) => {
@@ -101,7 +101,7 @@ export function SapEventProvider({ children }: { children: React.ReactNode }) {
   return (
     <SapEventContext.Provider value={{ isConnected, lastEvent, triggerBapiToast }}>
       {children}
-      <div className="fixed top-20 right-6 z-[9999] flex flex-col space-y-3 max-w-md w-full pointer-events-none">
+      <div className="no-print print:hidden fixed top-20 right-6 z-[9999] flex flex-col space-y-3 max-w-md w-full pointer-events-none">
         {toasts.map(t => (
           <div key={t.id} className="pointer-events-auto shadow-2xl">
             <RealtimeToast type={t.type} title={t.title} message={t.message} onClose={() => setToasts(prev => prev.filter(x => x.id !== t.id))} />

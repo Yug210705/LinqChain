@@ -138,7 +138,7 @@ export default function ScenarioPanel({ graphData, onScenarioCreated, activeScen
                   <select 
                     value={targetId}
                     onChange={(e) => setTargetId(e.target.value)}
-                    className="w-full bg-slate-50 border border-slate-200 rounded py-2 px-3 text-sm font-medium text-slate-700 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                    className="w-full bg-slate-50 border border-slate-200 rounded py-2 px-3 text-sm font-medium text-slate-700 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-amber-500"
                   >
                     {suppliers.map(s => (
                       <option key={s.id} value={s.id}>{s.label} ({s.id})</option>
@@ -148,14 +148,14 @@ export default function ScenarioPanel({ graphData, onScenarioCreated, activeScen
 
                 <div>
                   <label className="block text-[11px] font-bold text-slate-600 uppercase mb-1.5 tracking-wide">Event Type</label>
-                  <select className="w-full bg-slate-50 border border-slate-200 rounded py-2 px-3 text-sm font-medium text-slate-700 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500">
+                  <select className="w-full bg-slate-50 border border-slate-200 rounded py-2 px-3 text-sm font-medium text-slate-700 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-amber-500">
                     <option>Supplier Failure</option>
                   </select>
                 </div>
 
                 <div>
                   <label className="block text-[11px] font-bold text-slate-600 uppercase mb-1.5 tracking-wide">Severity</label>
-                  <select className="w-full bg-slate-50 border border-slate-200 rounded py-2 px-3 text-sm font-medium text-slate-700 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500">
+                  <select className="w-full bg-slate-50 border border-slate-200 rounded py-2 px-3 text-sm font-medium text-slate-700 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-amber-500">
                     <option>CRITICAL</option>
                   </select>
                 </div>

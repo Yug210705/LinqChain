@@ -20,44 +20,39 @@ def _normalize_material_id(material_id: str) -> str:
 def _real_suppliers(material_id: str) -> list:
     """Loads the suppliers that actually supply this material from the
     impact-engine master DB, so recovery supplier ids match the rest of the
-    app (SUP-001…SUP-025) instead of the old mock SUP-A/B/C."""
-    here = os.path.dirname(os.path.abspath(__file__))        # .../app/adapters
-    backend_dir = os.path.dirname(os.path.dirname(here))     # backend/
-    candidates = [
-        os.path.join(backend_dir, "data", "resilience.db"),
-        os.path.join(os.getcwd(), "data", "resilience.db"),
-    ]
-    dbf = next((c for c in candidates if os.path.exists(c)), None)
-    if not dbf:
-        logger.warning("[MOCK SAP] impact-engine DB not found — using fallback supplier ids", candidates=candidates)
-        return []
+    app (SUP-001…SUP-025) across SQLite, PostgreSQL, and SAP HANA."""
     try:
-        conn = sqlite3.connect(dbf)
-        conn.row_factory = sqlite3.Row
-        rows = conn.execute(
-            """
-            SELECT s.id, s.risk_score, sm.capacity_per_day, sm.lead_time_days, sm.unit_cost
-            FROM suppliers s
-            JOIN supplier_materials sm ON sm.supplier_id = s.id
-            WHERE sm.material_id = ?
-            ORDER BY sm.is_primary DESC, sm.capacity_per_day DESC
-            LIMIT 5
-            """,
-            (_normalize_material_id(material_id),),
-        ).fetchall()
-        conn.close()
-        out = []
-        for r in rows:
-            out.append({
-                "id": r["id"],
-                "capacity": int(r["capacity_per_day"] or 0),
-                "unit_cost": float(r["unit_cost"] or 0.0),
-                "lead_time_days": float(r["lead_time_days"] or 0.0),
-                "risk_score": round((float(r["risk_score"] or 50.0)) / 100.0, 2),
-            })
-        return out
+        from app.core.database import SessionLocal
+        from app.models import Supplier, SupplierMaterial
+        normalized_mat_id = _normalize_material_id(material_id)
+
+        with SessionLocal() as db:
+            results = (
+                db.query(
+                    Supplier.id,
+                    Supplier.risk_score,
+                    SupplierMaterial.capacity_per_day,
+                    SupplierMaterial.lead_time_days,
+                    SupplierMaterial.unit_cost,
+                )
+                .join(SupplierMaterial, SupplierMaterial.supplier_id == Supplier.id)
+                .filter(SupplierMaterial.material_id == normalized_mat_id)
+                .order_by(SupplierMaterial.is_primary.desc(), SupplierMaterial.capacity_per_day.desc())
+                .limit(5)
+                .all()
+            )
+            out = []
+            for r in results:
+                out.append({
+                    "id": r[0],
+                    "capacity": int(r[2] or 0),
+                    "unit_cost": float(r[4] or 0.0),
+                    "lead_time_days": float(r[3] or 0.0),
+                    "risk_score": round((float(r[1] or 50.0)) / 100.0, 2),
+                })
+            return out
     except Exception as exc:
-        logger.warning("[MOCK SAP] failed to read impact-engine DB", err=str(exc))
+        logger.warning("[MOCK SAP] failed to read master DB via SQLAlchemy", err=str(exc))
         return []
 
 

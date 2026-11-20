@@ -1,4 +1,4 @@
-"""RESILIENCE OS — unified backend package.
+"""LINQCHAIN — unified backend package.
 
 Single API on :8000 combining the Impact Engine (topology / disruptions) and
 the AI & SAP service (recovery / scenarios / plans / audit).
