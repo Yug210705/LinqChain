@@ -8,6 +8,7 @@ import { useManufacturerStore } from '@/stores/useManufacturerStore';
 import { useAdminStore } from '@/stores/useAdminStore';
 import { useAuthorizedUsersStore } from '@/stores/useAuthorizedUsersStore';
 import { isSupabaseConfigured } from '@/lib/supabase';
+import { EnterpriseSsoModal } from '@/components/auth/EnterpriseSsoModal';
 import {
   Globe,
   Bot,
@@ -34,7 +35,7 @@ export default function LoginPage() {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isGuestLoading, setIsGuestLoading] = useState(false);
-  const [isSsoLoading, setIsSsoLoading] = useState<string | null>(null);
+  const [activeSsoModal, setActiveSsoModal] = useState<'microsoft' | 'sap' | null>(null);
   const [selectedLang, setSelectedLang] = useState('English');
   const [showLangMenu, setShowLangMenu] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -107,37 +108,27 @@ export default function LoginPage() {
     }
   };
 
-  const handleMicrosoftLogin = async () => {
+  const handleMicrosoftLogin = () => {
     setError(null);
-    setIsSsoLoading('microsoft');
-    try {
-      if (typeof window !== 'undefined') {
-        localStorage.setItem('linqchain.active_portal', 'OPERATOR');
-        localStorage.setItem('linqchain.user_email', 'operator@resilienceos.com');
-      }
-      await loginWithMicrosoft();
-      router.push('/command-center');
-    } catch (err: any) {
-      setError(err.message || 'Microsoft Azure AD SSO initiation failed.');
-    } finally {
-      setIsSsoLoading(null);
-    }
+    setActiveSsoModal('microsoft');
   };
 
-  const handleSapLogin = async () => {
+  const handleSapLogin = () => {
     setError(null);
-    setIsSsoLoading('sap');
+    setActiveSsoModal('sap');
+  };
+
+  const handleSsoSuccess = async (profile: { email: string; displayName: string }) => {
+    setError(null);
     try {
-      if (typeof window !== 'undefined') {
-        localStorage.setItem('linqchain.active_portal', 'OPERATOR');
-        localStorage.setItem('linqchain.user_email', 'operator@resilienceos.com');
+      if (activeSsoModal === 'microsoft') {
+        await loginWithMicrosoft(profile);
+      } else if (activeSsoModal === 'sap') {
+        await loginWithSAP(profile);
       }
-      await loginWithSAP();
       router.push('/command-center');
     } catch (err: any) {
-      setError(err.message || 'SAP Identity Authentication initiation failed.');
-    } finally {
-      setIsSsoLoading(null);
+      setError(err?.message || 'Single Sign-On authentication failed.');
     }
   };
 
@@ -329,18 +320,14 @@ export default function LoginPage() {
               <button
                 type="button"
                 onClick={handleSapLogin}
-                disabled={isSsoLoading !== null || isLoading || isGuestLoading}
+                disabled={isLoading || isGuestLoading}
                 className="w-full py-2.5 px-4 bg-white hover:bg-neutral-50 active:bg-neutral-100 border border-neutral-200 hover:border-neutral-300 rounded-xl text-neutral-800 text-sm font-medium flex items-center justify-center gap-3 transition-colors cursor-pointer shadow-xs disabled:opacity-50"
               >
-                {isSsoLoading === 'sap' ? (
-                  <div className="w-4 h-4 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin" />
-                ) : (
-                  <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none">
-                    <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="#008FD3" />
-                    <path d="M2 17L12 22V12L2 7V17Z" fill="#0070B8" />
-                    <path d="M22 17L12 22V12L22 7V17Z" fill="#18A0E3" />
-                  </svg>
-                )}
+                <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none">
+                  <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="#008FD3" />
+                  <path d="M2 17L12 22V12L2 7V17Z" fill="#0070B8" />
+                  <path d="M22 17L12 22V12L22 7V17Z" fill="#18A0E3" />
+                </svg>
                 <span>Continue with SAP</span>
               </button>
 
@@ -348,19 +335,15 @@ export default function LoginPage() {
               <button
                 type="button"
                 onClick={handleMicrosoftLogin}
-                disabled={isSsoLoading !== null || isLoading || isGuestLoading}
+                disabled={isLoading || isGuestLoading}
                 className="w-full py-2.5 px-4 bg-white hover:bg-neutral-50 active:bg-neutral-100 border border-neutral-200 hover:border-neutral-300 rounded-xl text-neutral-800 text-sm font-medium flex items-center justify-center gap-3 transition-colors cursor-pointer shadow-xs disabled:opacity-50"
               >
-                {isSsoLoading === 'microsoft' ? (
-                  <div className="w-4 h-4 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
-                ) : (
-                  <div className="grid grid-cols-2 gap-0.5 w-3.5 h-3.5 shrink-0">
-                    <div className="w-1.5 h-1.5 bg-[#f25022]" />
-                    <div className="w-1.5 h-1.5 bg-[#7fba00]" />
-                    <div className="w-1.5 h-1.5 bg-[#00a4ef]" />
-                    <div className="w-1.5 h-1.5 bg-[#ffb900]" />
-                  </div>
-                )}
+                <div className="grid grid-cols-2 gap-0.5 w-3.5 h-3.5 shrink-0">
+                  <div className="w-1.5 h-1.5 bg-[#f25022]" />
+                  <div className="w-1.5 h-1.5 bg-[#7fba00]" />
+                  <div className="w-1.5 h-1.5 bg-[#00a4ef]" />
+                  <div className="w-1.5 h-1.5 bg-[#ffb900]" />
+                </div>
                 <span>Continue with Microsoft</span>
               </button>
 
@@ -368,7 +351,7 @@ export default function LoginPage() {
               <button
                 type="button"
                 onClick={handleGuestLogin}
-                disabled={isGuestLoading || isLoading || isSsoLoading !== null}
+                disabled={isGuestLoading || isLoading}
                 className="w-full py-2.5 px-4 bg-white hover:bg-neutral-50 active:bg-neutral-100 border border-neutral-200 hover:border-neutral-300 rounded-xl text-neutral-800 text-sm font-medium flex items-center justify-center gap-2.5 transition-colors cursor-pointer shadow-xs disabled:opacity-50"
               >
                 {isGuestLoading ? (
@@ -474,7 +457,7 @@ export default function LoginPage() {
               {/* Solid Indigo Sign In Button */}
               <button
                 type="submit"
-                disabled={isLoading || isGuestLoading || isSsoLoading !== null}
+                disabled={isLoading || isGuestLoading}
                 className="w-full py-3 px-4 bg-[#5057ea] hover:bg-[#434ad8] active:bg-[#383ec4] text-white font-semibold text-sm rounded-xl shadow-md shadow-indigo-600/20 transition-all cursor-pointer flex items-center justify-center mt-3 disabled:opacity-50"
               >
                 {isLoading ? (
@@ -617,6 +600,13 @@ export default function LoginPage() {
           </div>
         </div>
       </div>
+
+      <EnterpriseSsoModal
+        isOpen={activeSsoModal !== null}
+        onClose={() => setActiveSsoModal(null)}
+        provider={activeSsoModal}
+        onSuccess={handleSsoSuccess}
+      />
     </div>
   );
 }

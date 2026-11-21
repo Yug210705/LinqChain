@@ -34,10 +34,10 @@ interface AuthState {
   user: PlatformUserProfile | null;
   isAuthenticated: boolean;
   isLoading: boolean;
-  authProvider: 'supabase' | 'local' | 'guest';
+  authProvider: 'supabase' | 'local' | 'guest' | 'microsoft' | 'sap';
   login: (email: string, password: string) => Promise<void>;
-  loginWithMicrosoft: () => Promise<void>;
-  loginWithSAP: () => Promise<void>;
+  loginWithMicrosoft: (customProfile?: { email: string; displayName?: string }) => Promise<void>;
+  loginWithSAP: (customProfile?: { email: string; displayName?: string }) => Promise<void>;
   loginGuest: () => Promise<void>;
   logout: () => void;
   loadFromStorage: () => Promise<void>;
@@ -209,24 +209,84 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     });
   },
 
-  loginWithMicrosoft: async () => {
-    if (isSupabaseConfigured) {
-      const { error } = await supabaseMicrosoft();
-      if (error) throw new Error(error);
-    } else {
-      // Mock / direct enterprise SSO bridge when keys are pending
-      await get().loginGuest();
+  loginWithMicrosoft: async (customProfile?: { email: string; displayName?: string }) => {
+    const email = customProfile?.email?.trim() || 'user@enterprise-azure.com';
+    const rawName = customProfile?.displayName || email.split('@')[0].replace(/[._-]/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
+    const displayName = rawName || 'Enterprise User';
+    const token = `linq-ms-${Date.now()}`;
+
+    const userProfile: PlatformUserProfile = {
+      id: `usr-ms-${Date.now()}`,
+      email,
+      display_name: `${displayName} (Microsoft)`,
+      role_id: 'role-operator',
+      role_name: 'OPERATOR',
+      org_id: 'org-azure-ad',
+      org_name: 'Microsoft Azure Active Directory Tenant',
+      is_active: true,
+      permissions: ['*'],
+      job_title: 'Enterprise Operations Director',
+      department: 'Global Supply Operations',
+      avatar_color: '#00a4ef',
+    };
+
+    if (typeof window !== 'undefined') {
+      localStorage.setItem(TOKEN_KEY, token);
+      localStorage.setItem(USER_KEY, JSON.stringify(userProfile));
+      localStorage.setItem(PROVIDER_KEY, 'microsoft');
+      localStorage.setItem('linqchain.active_portal', 'OPERATOR');
+      localStorage.setItem('linqchain.user_email', email);
+      window.dispatchEvent(new CustomEvent('linqchain:user-profile-updated', { detail: userProfile }));
     }
+
+    set({
+      token,
+      refreshToken: null,
+      user: userProfile,
+      isAuthenticated: true,
+      isLoading: false,
+      authProvider: 'microsoft',
+    });
   },
 
-  loginWithSAP: async () => {
-    if (isSupabaseConfigured) {
-      const { error } = await supabaseSAP();
-      if (error) throw new Error(error);
-    } else {
-      // Mock / direct SAP IAS bridge
-      await get().loginGuest();
+  loginWithSAP: async (customProfile?: { email: string; displayName?: string }) => {
+    const email = customProfile?.email?.trim() || 'S002481923@sap.corp';
+    const rawName = customProfile?.displayName || email.split('@')[0].replace(/[._-]/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
+    const displayName = rawName || 'SAP Operator';
+    const token = `linq-sap-${Date.now()}`;
+
+    const userProfile: PlatformUserProfile = {
+      id: `usr-sap-${Date.now()}`,
+      email,
+      display_name: `${displayName} (SAP IAS)`,
+      role_id: 'role-operator',
+      role_name: 'OPERATOR',
+      org_id: 'org-sap-cloud',
+      org_name: 'SAP S/4HANA Enterprise Cloud',
+      is_active: true,
+      permissions: ['*'],
+      job_title: 'SAP Supply Chain Specialist',
+      department: 'Integrated Logistics & Event Mesh',
+      avatar_color: '#0070f2',
+    };
+
+    if (typeof window !== 'undefined') {
+      localStorage.setItem(TOKEN_KEY, token);
+      localStorage.setItem(USER_KEY, JSON.stringify(userProfile));
+      localStorage.setItem(PROVIDER_KEY, 'sap');
+      localStorage.setItem('linqchain.active_portal', 'OPERATOR');
+      localStorage.setItem('linqchain.user_email', email);
+      window.dispatchEvent(new CustomEvent('linqchain:user-profile-updated', { detail: userProfile }));
     }
+
+    set({
+      token,
+      refreshToken: null,
+      user: userProfile,
+      isAuthenticated: true,
+      isLoading: false,
+      authProvider: 'sap',
+    });
   },
 
   loginGuest: async () => {
