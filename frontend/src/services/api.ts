@@ -1,3 +1,5 @@
+import fallbackGraph from '@/data/fallback-graph.json';
+
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
 // v2.0: single unified backend on :8000 (impact engine + AI/SAP service).
 const AI_API_URL = process.env.NEXT_PUBLIC_AI_API_URL || 'http://127.0.0.1:8000';
@@ -70,15 +72,62 @@ async function authFetch(input: RequestInfo | URL, init?: RequestInit): Promise<
 }
 
 export async function fetchGraph() {
-  const res = await authFetch(`${API_URL}/api/supply-chain/graph`);
-  if (!res.ok) throw new Error("Failed to fetch graph");
-  return res.json();
+  try {
+    const res = await authFetch(`${API_URL}/api/supply-chain/graph`);
+    if (res.ok) {
+      const data = await res.json();
+      if (data && Array.isArray(data.nodes) && data.nodes.length > 0) {
+        if (typeof window !== 'undefined') {
+          try {
+            localStorage.setItem('linqchain.cached_graph', JSON.stringify(data));
+          } catch {}
+        }
+        return data;
+      }
+    }
+  } catch (e) {
+    console.warn('[api] Failed to fetch live graph from backend, activating offline topology fallback:', e);
+  }
+
+  // 1. Try local storage cache
+  if (typeof window !== 'undefined') {
+    try {
+      const cached = localStorage.getItem('linqchain.cached_graph');
+      if (cached) {
+        const parsed = JSON.parse(cached);
+        if (parsed?.nodes?.length) return parsed;
+      }
+    } catch {}
+  }
+
+  // 2. Return high-fidelity pre-compiled topology snapshot
+  return fallbackGraph;
 }
 
 export async function fetchDisruptions() {
-  const res = await authFetch(`${API_URL}/api/disruptions`);
-  if (!res.ok) throw new Error("Failed to fetch disruptions");
-  return res.json(); // { active: DisruptionListItem[], history: DisruptionListItem[] }
+  try {
+    const res = await authFetch(`${API_URL}/api/disruptions`);
+    if (res.ok) {
+      const data = await res.json();
+      if (typeof window !== 'undefined') {
+        try {
+          localStorage.setItem('linqchain.cached_disruptions', JSON.stringify(data));
+        } catch {}
+      }
+      return data;
+    }
+  } catch (e) {
+    console.warn('[api] Failed to fetch disruptions from backend, falling back to cache:', e);
+  }
+
+  if (typeof window !== 'undefined') {
+    try {
+      const cached = localStorage.getItem('linqchain.cached_disruptions');
+      if (cached) return JSON.parse(cached);
+    } catch {}
+  }
+
+  return { active: [], history: [] };
 }
 
 export async function fetchDisruption(id: string) {
@@ -123,9 +172,13 @@ export async function simulateDisruption(payload: any) {
 }
 
 export async function fetchVulnerabilities() {
-  const res = await authFetch(`${API_URL}/api/supply-chain/vulnerabilities`);
-  if (!res.ok) throw new Error("Failed to fetch vulnerabilities");
-  return res.json();
+  try {
+    const res = await authFetch(`${API_URL}/api/supply-chain/vulnerabilities`);
+    if (res.ok) return await res.json();
+  } catch (e) {
+    console.warn('[api] Failed to fetch vulnerabilities from backend, falling back:', e);
+  }
+  return { analysis_type: "Network Topology Vulnerability", top_bottlenecks: [], top_systemic_risks: [] };
 }
 
 // For the Disruption -> Recovery Options page

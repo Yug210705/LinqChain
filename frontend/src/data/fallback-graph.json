@@ -1,0 +1,2290 @@
+{
+  "nodes": [
+    {
+      "id": "port:PORT-001",
+      "type": "port",
+      "label": "Port 1",
+      "risk": 32.002345469529544
+    },
+    {
+      "id": "port:PORT-002",
+      "type": "port",
+      "label": "Port 2",
+      "risk": 64.1359589938329
+    },
+    {
+      "id": "port:PORT-003",
+      "type": "port",
+      "label": "Port 3",
+      "risk": 43.753745574821636
+    },
+    {
+      "id": "port:PORT-004",
+      "type": "port",
+      "label": "Port 4",
+      "risk": 50.42842304826899
+    },
+    {
+      "id": "port:PORT-005",
+      "type": "port",
+      "label": "Port 5",
+      "risk": 61.99075502236185
+    },
+    {
+      "id": "port:PORT-006",
+      "type": "port",
+      "label": "Port 6",
+      "risk": 57.1412547100727
+    },
+    {
+      "id": "port:PORT-007",
+      "type": "port",
+      "label": "Port 7",
+      "risk": 74.46554014662463
+    },
+    {
+      "id": "port:PORT-008",
+      "type": "port",
+      "label": "Port 8",
+      "risk": 22.438359984942522
+    },
+    {
+      "id": "port:PORT-009",
+      "type": "port",
+      "label": "Port 9",
+      "risk": 17.41966747041183
+    },
+    {
+      "id": "port:PORT-010",
+      "type": "port",
+      "label": "Port 10",
+      "risk": 58.29808250935129
+    },
+    {
+      "id": "route:ROUTE-001",
+      "type": "route",
+      "label": "PORT-001 to PLANT-004",
+      "risk": 11.979001291600376
+    },
+    {
+      "id": "plant:PLANT-004",
+      "type": "plant",
+      "label": "Plant 4"
+    },
+    {
+      "id": "route:ROUTE-002",
+      "type": "route",
+      "label": "PORT-001 to PLANT-005",
+      "risk": 27.96545225975663
+    },
+    {
+      "id": "plant:PLANT-005",
+      "type": "plant",
+      "label": "Plant 5"
+    },
+    {
+      "id": "route:ROUTE-003",
+      "type": "route",
+      "label": "PORT-002 to PLANT-004",
+      "risk": 25.318732023214725
+    },
+    {
+      "id": "route:ROUTE-004",
+      "type": "route",
+      "label": "PORT-002 to PLANT-003",
+      "risk": 59.09632484945522
+    },
+    {
+      "id": "plant:PLANT-003",
+      "type": "plant",
+      "label": "Plant 3"
+    },
+    {
+      "id": "route:ROUTE-005",
+      "type": "route",
+      "label": "PORT-002 to PLANT-002",
+      "risk": 76.3158170295076
+    },
+    {
+      "id": "plant:PLANT-002",
+      "type": "plant",
+      "label": "Plant 2"
+    },
+    {
+      "id": "route:ROUTE-006",
+      "type": "route",
+      "label": "PORT-003 to PLANT-002",
+      "risk": 49.75930553842263
+    },
+    {
+      "id": "route:ROUTE-007",
+      "type": "route",
+      "label": "PORT-003 to PLANT-005",
+      "risk": 27.218484744885835
+    },
+    {
+      "id": "route:ROUTE-008",
+      "type": "route",
+      "label": "PORT-004 to PLANT-002",
+      "risk": 78.07211983270534
+    },
+    {
+      "id": "route:ROUTE-009",
+      "type": "route",
+      "label": "PORT-004 to PLANT-003",
+      "risk": 52.84022413294456
+    },
+    {
+      "id": "route:ROUTE-010",
+      "type": "route",
+      "label": "PORT-004 to PLANT-001",
+      "risk": 48.05481647197492
+    },
+    {
+      "id": "plant:PLANT-001",
+      "type": "plant",
+      "label": "Plant 1"
+    },
+    {
+      "id": "route:ROUTE-011",
+      "type": "route",
+      "label": "PORT-005 to PLANT-004",
+      "risk": 75.57976975760775
+    },
+    {
+      "id": "route:ROUTE-012",
+      "type": "route",
+      "label": "PORT-005 to PLANT-005",
+      "risk": 35.05305816889548
+    },
+    {
+      "id": "route:ROUTE-013",
+      "type": "route",
+      "label": "PORT-005 to PLANT-002",
+      "risk": 16.37952552132173
+    },
+    {
+      "id": "route:ROUTE-014",
+      "type": "route",
+      "label": "PORT-006 to PLANT-001",
+      "risk": 63.1770154773663
+    },
+    {
+      "id": "route:ROUTE-015",
+      "type": "route",
+      "label": "PORT-006 to PLANT-002",
+      "risk": 27.30148493880405
+    },
+    {
+      "id": "route:ROUTE-016",
+      "type": "route",
+      "label": "PORT-006 to PLANT-005",
+      "risk": 50.72231841838477
+    },
+    {
+      "id": "route:ROUTE-017",
+      "type": "route",
+      "label": "PORT-007 to PLANT-002",
+      "risk": 16.779282003565786
+    },
+    {
+      "id": "route:ROUTE-018",
+      "type": "route",
+      "label": "PORT-007 to PLANT-005",
+      "risk": 16.73994615823536
+    },
+    {
+      "id": "route:ROUTE-019",
+      "type": "route",
+      "label": "PORT-008 to PLANT-004",
+      "risk": 58.0216872409275
+    },
+    {
+      "id": "route:ROUTE-020",
+      "type": "route",
+      "label": "PORT-008 to PLANT-005",
+      "risk": 74.29332833619115
+    },
+    {
+      "id": "route:ROUTE-021",
+      "type": "route",
+      "label": "PORT-008 to PLANT-002",
+      "risk": 45.8421784032934
+    },
+    {
+      "id": "route:ROUTE-022",
+      "type": "route",
+      "label": "PORT-009 to PLANT-003",
+      "risk": 64.44714246743087
+    },
+    {
+      "id": "route:ROUTE-023",
+      "type": "route",
+      "label": "PORT-009 to PLANT-002",
+      "risk": 40.15234777071214
+    },
+    {
+      "id": "route:ROUTE-024",
+      "type": "route",
+      "label": "PORT-010 to PLANT-004",
+      "risk": 49.852749653082775
+    },
+    {
+      "id": "route:ROUTE-025",
+      "type": "route",
+      "label": "PORT-010 to PLANT-003",
+      "risk": 50.278523070943294
+    },
+    {
+      "id": "route:ROUTE-026",
+      "type": "route",
+      "label": "PORT-010 to PLANT-005",
+      "risk": 77.14333266446275
+    },
+    {
+      "id": "supplier:SUP-001",
+      "type": "supplier",
+      "label": "Supplier 1",
+      "risk": 52.89824731637606
+    },
+    {
+      "id": "supplier:SUP-002",
+      "type": "supplier",
+      "label": "Supplier 2",
+      "risk": 76.35237314023959
+    },
+    {
+      "id": "supplier:SUP-003",
+      "type": "supplier",
+      "label": "Supplier 3",
+      "risk": 66.36574689719387
+    },
+    {
+      "id": "supplier:SUP-004",
+      "type": "supplier",
+      "label": "Supplier 4",
+      "risk": 16.3833581538902
+    },
+    {
+      "id": "supplier:SUP-005",
+      "type": "supplier",
+      "label": "Supplier 5",
+      "risk": 60.85475554115202
+    },
+    {
+      "id": "supplier:SUP-006",
+      "type": "supplier",
+      "label": "Supplier 6",
+      "risk": 31.35822576392907
+    },
+    {
+      "id": "supplier:SUP-007",
+      "type": "supplier",
+      "label": "Supplier 7",
+      "risk": 23.69109185584776
+    },
+    {
+      "id": "supplier:SUP-008",
+      "type": "supplier",
+      "label": "Supplier 8",
+      "risk": 89.16186805092762
+    },
+    {
+      "id": "supplier:SUP-009",
+      "type": "supplier",
+      "label": "Supplier 9",
+      "risk": 77.42815361518477
+    },
+    {
+      "id": "supplier:SUP-010",
+      "type": "supplier",
+      "label": "Supplier 10",
+      "risk": 35.23624384472655
+    },
+    {
+      "id": "supplier:SUP-011",
+      "type": "supplier",
+      "label": "Supplier 11",
+      "risk": 80.10941011781351
+    },
+    {
+      "id": "supplier:SUP-012",
+      "type": "supplier",
+      "label": "Supplier 12",
+      "risk": 83.16380717924348
+    },
+    {
+      "id": "supplier:SUP-013",
+      "type": "supplier",
+      "label": "Supplier 13",
+      "risk": 54.90945073305206
+    },
+    {
+      "id": "supplier:SUP-014",
+      "type": "supplier",
+      "label": "Supplier 14",
+      "risk": 41.95204041123178
+    },
+    {
+      "id": "supplier:SUP-015",
+      "type": "supplier",
+      "label": "Supplier 15",
+      "risk": 17.27275297390351
+    },
+    {
+      "id": "supplier:SUP-016",
+      "type": "supplier",
+      "label": "Supplier 16",
+      "risk": 73.36634914903712
+    },
+    {
+      "id": "supplier:SUP-017",
+      "type": "supplier",
+      "label": "Supplier 17",
+      "risk": 89.68971041920774
+    },
+    {
+      "id": "supplier:SUP-018",
+      "type": "supplier",
+      "label": "Supplier 18",
+      "risk": 10.91848175542557
+    },
+    {
+      "id": "supplier:SUP-019",
+      "type": "supplier",
+      "label": "Supplier 19",
+      "risk": 31.346015196203425
+    },
+    {
+      "id": "supplier:SUP-020",
+      "type": "supplier",
+      "label": "Supplier 20",
+      "risk": 46.297896506336514
+    },
+    {
+      "id": "supplier:SUP-021",
+      "type": "supplier",
+      "label": "Supplier 21",
+      "risk": 50.046889044023864
+    },
+    {
+      "id": "supplier:SUP-022",
+      "type": "supplier",
+      "label": "Supplier 22",
+      "risk": 33.87558331589063
+    },
+    {
+      "id": "supplier:SUP-023",
+      "type": "supplier",
+      "label": "Supplier 23",
+      "risk": 71.00086400601211
+    },
+    {
+      "id": "supplier:SUP-024",
+      "type": "supplier",
+      "label": "Supplier 24",
+      "risk": 10.04575169023548
+    },
+    {
+      "id": "supplier:SUP-025",
+      "type": "supplier",
+      "label": "Supplier 25",
+      "risk": 80.29775022585474
+    },
+    {
+      "id": "material:MAT-001",
+      "type": "material",
+      "label": "Material 1"
+    },
+    {
+      "id": "material:MAT-002",
+      "type": "material",
+      "label": "Material 2"
+    },
+    {
+      "id": "material:MAT-003",
+      "type": "material",
+      "label": "Material 3"
+    },
+    {
+      "id": "material:MAT-004",
+      "type": "material",
+      "label": "Material 4"
+    },
+    {
+      "id": "material:MAT-005",
+      "type": "material",
+      "label": "Material 5"
+    },
+    {
+      "id": "material:MAT-006",
+      "type": "material",
+      "label": "Material 6"
+    },
+    {
+      "id": "material:MAT-007",
+      "type": "material",
+      "label": "Material 7"
+    },
+    {
+      "id": "material:MAT-008",
+      "type": "material",
+      "label": "Material 8"
+    },
+    {
+      "id": "material:MAT-009",
+      "type": "material",
+      "label": "Material 9"
+    },
+    {
+      "id": "material:MAT-010",
+      "type": "material",
+      "label": "Material 10"
+    },
+    {
+      "id": "material:MAT-011",
+      "type": "material",
+      "label": "Material 11"
+    },
+    {
+      "id": "material:MAT-012",
+      "type": "material",
+      "label": "Material 12"
+    },
+    {
+      "id": "material:MAT-013",
+      "type": "material",
+      "label": "Material 13"
+    },
+    {
+      "id": "material:MAT-014",
+      "type": "material",
+      "label": "Material 14"
+    },
+    {
+      "id": "material:MAT-015",
+      "type": "material",
+      "label": "Material 15"
+    },
+    {
+      "id": "product:PR-001",
+      "type": "product",
+      "label": "Product 1"
+    },
+    {
+      "id": "product:PR-002",
+      "type": "product",
+      "label": "Product 2"
+    },
+    {
+      "id": "product:PR-003",
+      "type": "product",
+      "label": "Product 3"
+    },
+    {
+      "id": "product:PR-004",
+      "type": "product",
+      "label": "Product 4"
+    },
+    {
+      "id": "product:PR-005",
+      "type": "product",
+      "label": "Product 5"
+    },
+    {
+      "id": "product:PR-006",
+      "type": "product",
+      "label": "Product 6"
+    },
+    {
+      "id": "product:PR-007",
+      "type": "product",
+      "label": "Product 7"
+    },
+    {
+      "id": "product:PR-008",
+      "type": "product",
+      "label": "Product 8"
+    },
+    {
+      "id": "product:PR-009",
+      "type": "product",
+      "label": "Product 9"
+    },
+    {
+      "id": "product:PR-010",
+      "type": "product",
+      "label": "Product 10"
+    },
+    {
+      "id": "product:PR-011",
+      "type": "product",
+      "label": "Product 11"
+    },
+    {
+      "id": "product:PR-012",
+      "type": "product",
+      "label": "Product 12"
+    },
+    {
+      "id": "order:ORD-0001",
+      "type": "order",
+      "label": "ORD-0001",
+      "qty": 128,
+      "val": 207903.5857895122
+    },
+    {
+      "id": "order:ORD-0002",
+      "type": "order",
+      "label": "ORD-0002",
+      "qty": 204,
+      "val": 106615.30892069954
+    },
+    {
+      "id": "order:ORD-0003",
+      "type": "order",
+      "label": "ORD-0003",
+      "qty": 735,
+      "val": 1303626.8185531127
+    },
+    {
+      "id": "order:ORD-0004",
+      "type": "order",
+      "label": "ORD-0004",
+      "qty": 542,
+      "val": 961313.9260622954
+    },
+    {
+      "id": "order:ORD-0005",
+      "type": "order",
+      "label": "ORD-0005",
+      "qty": 746,
+      "val": 469491.97869400575
+    },
+    {
+      "id": "order:ORD-0006",
+      "type": "order",
+      "label": "ORD-0006",
+      "qty": 451,
+      "val": 75972.51150432574
+    },
+    {
+      "id": "order:ORD-0007",
+      "type": "order",
+      "label": "ORD-0007",
+      "qty": 952,
+      "val": 599137.2167784094
+    },
+    {
+      "id": "order:ORD-0008",
+      "type": "order",
+      "label": "ORD-0008",
+      "qty": 331,
+      "val": 172988.56496446836
+    },
+    {
+      "id": "order:ORD-0009",
+      "type": "order",
+      "label": "ORD-0009",
+      "qty": 931,
+      "val": 1644493.2462360086
+    },
+    {
+      "id": "order:ORD-0010",
+      "type": "order",
+      "label": "ORD-0010",
+      "qty": 326,
+      "val": 529504.4450576638
+    },
+    {
+      "id": "order:ORD-0011",
+      "type": "order",
+      "label": "ORD-0011",
+      "qty": 422,
+      "val": 71087.36109717398
+    },
+    {
+      "id": "order:ORD-0012",
+      "type": "order",
+      "label": "ORD-0012",
+      "qty": 140,
+      "val": 227394.54695727897
+    },
+    {
+      "id": "order:ORD-0013",
+      "type": "order",
+      "label": "ORD-0013",
+      "qty": 690,
+      "val": 1247490.1984862082
+    },
+    {
+      "id": "order:ORD-0014",
+      "type": "order",
+      "label": "ORD-0014",
+      "qty": 776,
+      "val": 488372.353172317
+    },
+    {
+      "id": "order:ORD-0015",
+      "type": "order",
+      "label": "ORD-0015",
+      "qty": 592,
+      "val": 309393.4454953634
+    },
+    {
+      "id": "order:ORD-0016",
+      "type": "order",
+      "label": "ORD-0016",
+      "qty": 571,
+      "val": 1032343.3381675722
+    },
+    {
+      "id": "order:ORD-0017",
+      "type": "order",
+      "label": "ORD-0017",
+      "qty": 303,
+      "val": 436552.7490997266
+    },
+    {
+      "id": "order:ORD-0018",
+      "type": "order",
+      "label": "ORD-0018",
+      "qty": 814,
+      "val": 1471676.8428518455
+    },
+    {
+      "id": "order:ORD-0019",
+      "type": "order",
+      "label": "ORD-0019",
+      "qty": 680,
+      "val": 355384.36306899844
+    },
+    {
+      "id": "order:ORD-0020",
+      "type": "order",
+      "label": "ORD-0020",
+      "qty": 462,
+      "val": 704091.4470617988
+    },
+    {
+      "id": "order:ORD-0021",
+      "type": "order",
+      "label": "ORD-0021",
+      "qty": 228,
+      "val": 143490.84603516528
+    },
+    {
+      "id": "order:ORD-0022",
+      "type": "order",
+      "label": "ORD-0022",
+      "qty": 822,
+      "val": 1252734.1330839796
+    },
+    {
+      "id": "order:ORD-0023",
+      "type": "order",
+      "label": "ORD-0023",
+      "qty": 96,
+      "val": 60417.198330595915
+    },
+    {
+      "id": "order:ORD-0024",
+      "type": "order",
+      "label": "ORD-0024",
+      "qty": 689,
+      "val": 1119106.0203826088
+    },
+    {
+      "id": "order:ORD-0025",
+      "type": "order",
+      "label": "ORD-0025",
+      "qty": 105,
+      "val": 17687.613543135707
+    },
+    {
+      "id": "order:ORD-0026",
+      "type": "order",
+      "label": "ORD-0026",
+      "qty": 327,
+      "val": 205796.08181359232
+    },
+    {
+      "id": "order:ORD-0027",
+      "type": "order",
+      "label": "ORD-0027",
+      "qty": 160,
+      "val": 164513.6830534105
+    },
+    {
+      "id": "order:ORD-0028",
+      "type": "order",
+      "label": "ORD-0028",
+      "qty": 260,
+      "val": 461146.9018011011
+    },
+    {
+      "id": "order:ORD-0029",
+      "type": "order",
+      "label": "ORD-0029",
+      "qty": 880,
+      "val": 459909.17573635094
+    },
+    {
+      "id": "order:ORD-0030",
+      "type": "order",
+      "label": "ORD-0030",
+      "qty": 434,
+      "val": 661419.2381489625
+    },
+    {
+      "id": "order:ORD-0031",
+      "type": "order",
+      "label": "ORD-0031",
+      "qty": 745,
+      "val": 766016.8367174426
+    },
+    {
+      "id": "order:ORD-0032",
+      "type": "order",
+      "label": "ORD-0032",
+      "qty": 419,
+      "val": 638559.1262313715
+    },
+    {
+      "id": "order:ORD-0033",
+      "type": "order",
+      "label": "ORD-0033",
+      "qty": 681,
+      "val": 1219299.2715946871
+    },
+    {
+      "id": "order:ORD-0034",
+      "type": "order",
+      "label": "ORD-0034",
+      "qty": 807,
+      "val": 1104734.6502525045
+    },
+    {
+      "id": "order:ORD-0035",
+      "type": "order",
+      "label": "ORD-0035",
+      "qty": 190,
+      "val": 195359.99862592496
+    },
+    {
+      "id": "order:ORD-0036",
+      "type": "order",
+      "label": "ORD-0036",
+      "qty": 61,
+      "val": 92964.4551315362
+    },
+    {
+      "id": "order:ORD-0037",
+      "type": "order",
+      "label": "ORD-0037",
+      "qty": 949,
+      "val": 975771.782610541
+    },
+    {
+      "id": "order:ORD-0038",
+      "type": "order",
+      "label": "ORD-0038",
+      "qty": 146,
+      "val": 222505.08933121778
+    },
+    {
+      "id": "order:ORD-0039",
+      "type": "order",
+      "label": "ORD-0039",
+      "qty": 553,
+      "val": 348028.2362168702
+    },
+    {
+      "id": "order:ORD-0040",
+      "type": "order",
+      "label": "ORD-0040",
+      "qty": 334,
+      "val": 174556.43715447866
+    },
+    {
+      "id": "order:ORD-0041",
+      "type": "order",
+      "label": "ORD-0041",
+      "qty": 844,
+      "val": 441094.7094562275
+    },
+    {
+      "id": "order:ORD-0042",
+      "type": "order",
+      "label": "ORD-0042",
+      "qty": 860,
+      "val": 1554842.8560842595
+    },
+    {
+      "id": "order:ORD-0043",
+      "type": "order",
+      "label": "ORD-0043",
+      "qty": 928,
+      "val": 1414278.9239682883
+    },
+    {
+      "id": "order:ORD-0044",
+      "type": "order",
+      "label": "ORD-0044",
+      "qty": 892,
+      "val": 1575604.6999382596
+    },
+    {
+      "id": "order:ORD-0045",
+      "type": "order",
+      "label": "ORD-0045",
+      "qty": 275,
+      "val": 419102.05182249926
+    },
+    {
+      "id": "order:ORD-0046",
+      "type": "order",
+      "label": "ORD-0046",
+      "qty": 293,
+      "val": 184398.32407150627
+    },
+    {
+      "id": "order:ORD-0047",
+      "type": "order",
+      "label": "ORD-0047",
+      "qty": 651,
+      "val": 992128.8572234437
+    },
+    {
+      "id": "order:ORD-0048",
+      "type": "order",
+      "label": "ORD-0048",
+      "qty": 460,
+      "val": 662753.3484682319
+    },
+    {
+      "id": "order:ORD-0049",
+      "type": "order",
+      "label": "ORD-0049",
+      "qty": 302,
+      "val": 533444.6405620564
+    },
+    {
+      "id": "order:ORD-0050",
+      "type": "order",
+      "label": "ORD-0050",
+      "qty": 353,
+      "val": 508591.15654192574
+    },
+    {
+      "id": "order:ORD-0051",
+      "type": "order",
+      "label": "ORD-0051",
+      "qty": 92,
+      "val": 149430.7022862119
+    },
+    {
+      "id": "order:ORD-0052",
+      "type": "order",
+      "label": "ORD-0052",
+      "qty": 246,
+      "val": 440451.7192544685
+    },
+    {
+      "id": "order:ORD-0053",
+      "type": "order",
+      "label": "ORD-0053",
+      "qty": 166,
+      "val": 293217.9150109317
+    },
+    {
+      "id": "order:ORD-0054",
+      "type": "order",
+      "label": "ORD-0054",
+      "qty": 434,
+      "val": 594119.9977813965
+    },
+    {
+      "id": "order:ORD-0055",
+      "type": "order",
+      "label": "ORD-0055",
+      "qty": 565,
+      "val": 95176.20620830165
+    },
+    {
+      "id": "order:ORD-0056",
+      "type": "order",
+      "label": "ORD-0056",
+      "qty": 73,
+      "val": 131980.84708622203
+    },
+    {
+      "id": "order:ORD-0057",
+      "type": "order",
+      "label": "ORD-0057",
+      "qty": 408,
+      "val": 737646.378235323
+    },
+    {
+      "id": "order:ORD-0058",
+      "type": "order",
+      "label": "ORD-0058",
+      "qty": 30,
+      "val": 52991.189459806934
+    },
+    {
+      "id": "order:ORD-0059",
+      "type": "order",
+      "label": "ORD-0059",
+      "qty": 498,
+      "val": 900362.4910813503
+    },
+    {
+      "id": "order:ORD-0060",
+      "type": "order",
+      "label": "ORD-0060",
+      "qty": 315,
+      "val": 53062.84062940712
+    },
+    {
+      "id": "order:ORD-0061",
+      "type": "order",
+      "label": "ORD-0061",
+      "qty": 561,
+      "val": 1014263.7700735691
+    },
+    {
+      "id": "order:ORD-0062",
+      "type": "order",
+      "label": "ORD-0062",
+      "qty": 929,
+      "val": 485517.75483985234
+    },
+    {
+      "id": "order:ORD-0063",
+      "type": "order",
+      "label": "ORD-0063",
+      "qty": 234,
+      "val": 356617.74591441755
+    },
+    {
+      "id": "order:ORD-0064",
+      "type": "order",
+      "label": "ORD-0064",
+      "qty": 507,
+      "val": 916634.1023659529
+    }
+  ],
+  "edges": [
+    {
+      "source": "port:PORT-001",
+      "target": "route:ROUTE-001",
+      "type": "USES_ROUTE"
+    },
+    {
+      "source": "port:PORT-001",
+      "target": "route:ROUTE-002",
+      "type": "USES_ROUTE"
+    },
+    {
+      "source": "port:PORT-002",
+      "target": "route:ROUTE-003",
+      "type": "USES_ROUTE"
+    },
+    {
+      "source": "port:PORT-002",
+      "target": "route:ROUTE-004",
+      "type": "USES_ROUTE"
+    },
+    {
+      "source": "port:PORT-002",
+      "target": "route:ROUTE-005",
+      "type": "USES_ROUTE"
+    },
+    {
+      "source": "port:PORT-003",
+      "target": "route:ROUTE-006",
+      "type": "USES_ROUTE"
+    },
+    {
+      "source": "port:PORT-003",
+      "target": "route:ROUTE-007",
+      "type": "USES_ROUTE"
+    },
+    {
+      "source": "port:PORT-004",
+      "target": "route:ROUTE-008",
+      "type": "USES_ROUTE"
+    },
+    {
+      "source": "port:PORT-004",
+      "target": "route:ROUTE-009",
+      "type": "USES_ROUTE"
+    },
+    {
+      "source": "port:PORT-004",
+      "target": "route:ROUTE-010",
+      "type": "USES_ROUTE"
+    },
+    {
+      "source": "port:PORT-005",
+      "target": "route:ROUTE-011",
+      "type": "USES_ROUTE"
+    },
+    {
+      "source": "port:PORT-005",
+      "target": "route:ROUTE-012",
+      "type": "USES_ROUTE"
+    },
+    {
+      "source": "port:PORT-005",
+      "target": "route:ROUTE-013",
+      "type": "USES_ROUTE"
+    },
+    {
+      "source": "port:PORT-006",
+      "target": "route:ROUTE-014",
+      "type": "USES_ROUTE"
+    },
+    {
+      "source": "port:PORT-006",
+      "target": "route:ROUTE-015",
+      "type": "USES_ROUTE"
+    },
+    {
+      "source": "port:PORT-006",
+      "target": "route:ROUTE-016",
+      "type": "USES_ROUTE"
+    },
+    {
+      "source": "port:PORT-007",
+      "target": "route:ROUTE-017",
+      "type": "USES_ROUTE"
+    },
+    {
+      "source": "port:PORT-007",
+      "target": "route:ROUTE-018",
+      "type": "USES_ROUTE"
+    },
+    {
+      "source": "port:PORT-008",
+      "target": "route:ROUTE-019",
+      "type": "USES_ROUTE"
+    },
+    {
+      "source": "port:PORT-008",
+      "target": "route:ROUTE-020",
+      "type": "USES_ROUTE"
+    },
+    {
+      "source": "port:PORT-008",
+      "target": "route:ROUTE-021",
+      "type": "USES_ROUTE"
+    },
+    {
+      "source": "port:PORT-009",
+      "target": "route:ROUTE-022",
+      "type": "USES_ROUTE"
+    },
+    {
+      "source": "port:PORT-009",
+      "target": "route:ROUTE-023",
+      "type": "USES_ROUTE"
+    },
+    {
+      "source": "port:PORT-010",
+      "target": "route:ROUTE-024",
+      "type": "USES_ROUTE"
+    },
+    {
+      "source": "port:PORT-010",
+      "target": "route:ROUTE-025",
+      "type": "USES_ROUTE"
+    },
+    {
+      "source": "port:PORT-010",
+      "target": "route:ROUTE-026",
+      "type": "USES_ROUTE"
+    },
+    {
+      "source": "route:ROUTE-001",
+      "target": "plant:PLANT-004",
+      "type": "DELIVERS_TO"
+    },
+    {
+      "source": "plant:PLANT-004",
+      "target": "product:PR-010",
+      "type": "PRODUCES"
+    },
+    {
+      "source": "route:ROUTE-002",
+      "target": "plant:PLANT-005",
+      "type": "DELIVERS_TO"
+    },
+    {
+      "source": "plant:PLANT-005",
+      "target": "product:PR-002",
+      "type": "PRODUCES"
+    },
+    {
+      "source": "plant:PLANT-005",
+      "target": "product:PR-003",
+      "type": "PRODUCES"
+    },
+    {
+      "source": "plant:PLANT-005",
+      "target": "product:PR-005",
+      "type": "PRODUCES"
+    },
+    {
+      "source": "route:ROUTE-003",
+      "target": "plant:PLANT-004",
+      "type": "DELIVERS_TO"
+    },
+    {
+      "source": "route:ROUTE-004",
+      "target": "plant:PLANT-003",
+      "type": "DELIVERS_TO"
+    },
+    {
+      "source": "plant:PLANT-003",
+      "target": "product:PR-006",
+      "type": "PRODUCES"
+    },
+    {
+      "source": "plant:PLANT-003",
+      "target": "product:PR-012",
+      "type": "PRODUCES"
+    },
+    {
+      "source": "route:ROUTE-005",
+      "target": "plant:PLANT-002",
+      "type": "DELIVERS_TO"
+    },
+    {
+      "source": "plant:PLANT-002",
+      "target": "product:PR-001",
+      "type": "PRODUCES"
+    },
+    {
+      "source": "plant:PLANT-002",
+      "target": "product:PR-007",
+      "type": "PRODUCES"
+    },
+    {
+      "source": "plant:PLANT-002",
+      "target": "product:PR-008",
+      "type": "PRODUCES"
+    },
+    {
+      "source": "plant:PLANT-002",
+      "target": "product:PR-009",
+      "type": "PRODUCES"
+    },
+    {
+      "source": "route:ROUTE-006",
+      "target": "plant:PLANT-002",
+      "type": "DELIVERS_TO"
+    },
+    {
+      "source": "route:ROUTE-007",
+      "target": "plant:PLANT-005",
+      "type": "DELIVERS_TO"
+    },
+    {
+      "source": "route:ROUTE-008",
+      "target": "plant:PLANT-002",
+      "type": "DELIVERS_TO"
+    },
+    {
+      "source": "route:ROUTE-009",
+      "target": "plant:PLANT-003",
+      "type": "DELIVERS_TO"
+    },
+    {
+      "source": "route:ROUTE-010",
+      "target": "plant:PLANT-001",
+      "type": "DELIVERS_TO"
+    },
+    {
+      "source": "plant:PLANT-001",
+      "target": "product:PR-004",
+      "type": "PRODUCES"
+    },
+    {
+      "source": "plant:PLANT-001",
+      "target": "product:PR-011",
+      "type": "PRODUCES"
+    },
+    {
+      "source": "route:ROUTE-011",
+      "target": "plant:PLANT-004",
+      "type": "DELIVERS_TO"
+    },
+    {
+      "source": "route:ROUTE-012",
+      "target": "plant:PLANT-005",
+      "type": "DELIVERS_TO"
+    },
+    {
+      "source": "route:ROUTE-013",
+      "target": "plant:PLANT-002",
+      "type": "DELIVERS_TO"
+    },
+    {
+      "source": "route:ROUTE-014",
+      "target": "plant:PLANT-001",
+      "type": "DELIVERS_TO"
+    },
+    {
+      "source": "route:ROUTE-015",
+      "target": "plant:PLANT-002",
+      "type": "DELIVERS_TO"
+    },
+    {
+      "source": "route:ROUTE-016",
+      "target": "plant:PLANT-005",
+      "type": "DELIVERS_TO"
+    },
+    {
+      "source": "route:ROUTE-017",
+      "target": "plant:PLANT-002",
+      "type": "DELIVERS_TO"
+    },
+    {
+      "source": "route:ROUTE-018",
+      "target": "plant:PLANT-005",
+      "type": "DELIVERS_TO"
+    },
+    {
+      "source": "route:ROUTE-019",
+      "target": "plant:PLANT-004",
+      "type": "DELIVERS_TO"
+    },
+    {
+      "source": "route:ROUTE-020",
+      "target": "plant:PLANT-005",
+      "type": "DELIVERS_TO"
+    },
+    {
+      "source": "route:ROUTE-021",
+      "target": "plant:PLANT-002",
+      "type": "DELIVERS_TO"
+    },
+    {
+      "source": "route:ROUTE-022",
+      "target": "plant:PLANT-003",
+      "type": "DELIVERS_TO"
+    },
+    {
+      "source": "route:ROUTE-023",
+      "target": "plant:PLANT-002",
+      "type": "DELIVERS_TO"
+    },
+    {
+      "source": "route:ROUTE-024",
+      "target": "plant:PLANT-004",
+      "type": "DELIVERS_TO"
+    },
+    {
+      "source": "route:ROUTE-025",
+      "target": "plant:PLANT-003",
+      "type": "DELIVERS_TO"
+    },
+    {
+      "source": "route:ROUTE-026",
+      "target": "plant:PLANT-005",
+      "type": "DELIVERS_TO"
+    },
+    {
+      "source": "supplier:SUP-001",
+      "target": "port:PORT-002",
+      "type": "USES_PORT"
+    },
+    {
+      "source": "supplier:SUP-002",
+      "target": "port:PORT-003",
+      "type": "USES_PORT"
+    },
+    {
+      "source": "supplier:SUP-002",
+      "target": "material:MAT-009",
+      "type": "SUPPLIES"
+    },
+    {
+      "source": "supplier:SUP-002",
+      "target": "material:MAT-015",
+      "type": "SUPPLIES"
+    },
+    {
+      "source": "supplier:SUP-003",
+      "target": "port:PORT-004",
+      "type": "USES_PORT"
+    },
+    {
+      "source": "supplier:SUP-003",
+      "target": "material:MAT-005",
+      "type": "SUPPLIES"
+    },
+    {
+      "source": "supplier:SUP-003",
+      "target": "material:MAT-014",
+      "type": "SUPPLIES"
+    },
+    {
+      "source": "supplier:SUP-004",
+      "target": "port:PORT-005",
+      "type": "USES_PORT"
+    },
+    {
+      "source": "supplier:SUP-004",
+      "target": "material:MAT-008",
+      "type": "SUPPLIES"
+    },
+    {
+      "source": "supplier:SUP-004",
+      "target": "material:MAT-009",
+      "type": "SUPPLIES"
+    },
+    {
+      "source": "supplier:SUP-005",
+      "target": "port:PORT-006",
+      "type": "USES_PORT"
+    },
+    {
+      "source": "supplier:SUP-005",
+      "target": "material:MAT-002",
+      "type": "SUPPLIES"
+    },
+    {
+      "source": "supplier:SUP-006",
+      "target": "port:PORT-007",
+      "type": "USES_PORT"
+    },
+    {
+      "source": "supplier:SUP-007",
+      "target": "port:PORT-008",
+      "type": "USES_PORT"
+    },
+    {
+      "source": "supplier:SUP-007",
+      "target": "material:MAT-008",
+      "type": "SUPPLIES"
+    },
+    {
+      "source": "supplier:SUP-007",
+      "target": "material:MAT-012",
+      "type": "SUPPLIES"
+    },
+    {
+      "source": "supplier:SUP-008",
+      "target": "port:PORT-009",
+      "type": "USES_PORT"
+    },
+    {
+      "source": "supplier:SUP-008",
+      "target": "material:MAT-001",
+      "type": "SUPPLIES"
+    },
+    {
+      "source": "supplier:SUP-008",
+      "target": "material:MAT-007",
+      "type": "SUPPLIES"
+    },
+    {
+      "source": "supplier:SUP-008",
+      "target": "material:MAT-008",
+      "type": "SUPPLIES"
+    },
+    {
+      "source": "supplier:SUP-008",
+      "target": "material:MAT-015",
+      "type": "SUPPLIES"
+    },
+    {
+      "source": "supplier:SUP-009",
+      "target": "port:PORT-010",
+      "type": "USES_PORT"
+    },
+    {
+      "source": "supplier:SUP-010",
+      "target": "port:PORT-001",
+      "type": "USES_PORT"
+    },
+    {
+      "source": "supplier:SUP-010",
+      "target": "material:MAT-012",
+      "type": "SUPPLIES"
+    },
+    {
+      "source": "supplier:SUP-011",
+      "target": "port:PORT-002",
+      "type": "USES_PORT"
+    },
+    {
+      "source": "supplier:SUP-012",
+      "target": "port:PORT-003",
+      "type": "USES_PORT"
+    },
+    {
+      "source": "supplier:SUP-012",
+      "target": "material:MAT-004",
+      "type": "SUPPLIES"
+    },
+    {
+      "source": "supplier:SUP-013",
+      "target": "port:PORT-004",
+      "type": "USES_PORT"
+    },
+    {
+      "source": "supplier:SUP-013",
+      "target": "material:MAT-010",
+      "type": "SUPPLIES"
+    },
+    {
+      "source": "supplier:SUP-014",
+      "target": "port:PORT-005",
+      "type": "USES_PORT"
+    },
+    {
+      "source": "supplier:SUP-014",
+      "target": "material:MAT-007",
+      "type": "SUPPLIES"
+    },
+    {
+      "source": "supplier:SUP-015",
+      "target": "port:PORT-006",
+      "type": "USES_PORT"
+    },
+    {
+      "source": "supplier:SUP-016",
+      "target": "port:PORT-007",
+      "type": "USES_PORT"
+    },
+    {
+      "source": "supplier:SUP-016",
+      "target": "material:MAT-007",
+      "type": "SUPPLIES"
+    },
+    {
+      "source": "supplier:SUP-017",
+      "target": "port:PORT-008",
+      "type": "USES_PORT"
+    },
+    {
+      "source": "supplier:SUP-017",
+      "target": "material:MAT-014",
+      "type": "SUPPLIES"
+    },
+    {
+      "source": "supplier:SUP-018",
+      "target": "port:PORT-009",
+      "type": "USES_PORT"
+    },
+    {
+      "source": "supplier:SUP-018",
+      "target": "material:MAT-003",
+      "type": "SUPPLIES"
+    },
+    {
+      "source": "supplier:SUP-018",
+      "target": "material:MAT-009",
+      "type": "SUPPLIES"
+    },
+    {
+      "source": "supplier:SUP-019",
+      "target": "port:PORT-010",
+      "type": "USES_PORT"
+    },
+    {
+      "source": "supplier:SUP-019",
+      "target": "material:MAT-001",
+      "type": "SUPPLIES"
+    },
+    {
+      "source": "supplier:SUP-019",
+      "target": "material:MAT-007",
+      "type": "SUPPLIES"
+    },
+    {
+      "source": "supplier:SUP-019",
+      "target": "material:MAT-013",
+      "type": "SUPPLIES"
+    },
+    {
+      "source": "supplier:SUP-019",
+      "target": "material:MAT-015",
+      "type": "SUPPLIES"
+    },
+    {
+      "source": "supplier:SUP-020",
+      "target": "port:PORT-001",
+      "type": "USES_PORT"
+    },
+    {
+      "source": "supplier:SUP-020",
+      "target": "material:MAT-015",
+      "type": "SUPPLIES"
+    },
+    {
+      "source": "supplier:SUP-021",
+      "target": "port:PORT-002",
+      "type": "USES_PORT"
+    },
+    {
+      "source": "supplier:SUP-021",
+      "target": "material:MAT-004",
+      "type": "SUPPLIES"
+    },
+    {
+      "source": "supplier:SUP-021",
+      "target": "material:MAT-009",
+      "type": "SUPPLIES"
+    },
+    {
+      "source": "supplier:SUP-022",
+      "target": "port:PORT-003",
+      "type": "USES_PORT"
+    },
+    {
+      "source": "supplier:SUP-022",
+      "target": "material:MAT-002",
+      "type": "SUPPLIES"
+    },
+    {
+      "source": "supplier:SUP-022",
+      "target": "material:MAT-004",
+      "type": "SUPPLIES"
+    },
+    {
+      "source": "supplier:SUP-022",
+      "target": "material:MAT-006",
+      "type": "SUPPLIES"
+    },
+    {
+      "source": "supplier:SUP-023",
+      "target": "port:PORT-004",
+      "type": "USES_PORT"
+    },
+    {
+      "source": "supplier:SUP-023",
+      "target": "material:MAT-005",
+      "type": "SUPPLIES"
+    },
+    {
+      "source": "supplier:SUP-023",
+      "target": "material:MAT-011",
+      "type": "SUPPLIES"
+    },
+    {
+      "source": "supplier:SUP-024",
+      "target": "port:PORT-005",
+      "type": "USES_PORT"
+    },
+    {
+      "source": "supplier:SUP-025",
+      "target": "port:PORT-006",
+      "type": "USES_PORT"
+    },
+    {
+      "source": "material:MAT-001",
+      "target": "plant:PLANT-001",
+      "type": "CONSUMED_AT"
+    },
+    {
+      "source": "material:MAT-001",
+      "target": "plant:PLANT-003",
+      "type": "CONSUMED_AT"
+    },
+    {
+      "source": "material:MAT-001",
+      "target": "plant:PLANT-002",
+      "type": "CONSUMED_AT"
+    },
+    {
+      "source": "material:MAT-001",
+      "target": "product:PR-004",
+      "type": "CONSUMES"
+    },
+    {
+      "source": "material:MAT-001",
+      "target": "product:PR-006",
+      "type": "CONSUMES"
+    },
+    {
+      "source": "material:MAT-001",
+      "target": "product:PR-008",
+      "type": "CONSUMES"
+    },
+    {
+      "source": "material:MAT-001",
+      "target": "product:PR-012",
+      "type": "CONSUMES"
+    },
+    {
+      "source": "material:MAT-002",
+      "target": "plant:PLANT-005",
+      "type": "CONSUMED_AT"
+    },
+    {
+      "source": "material:MAT-002",
+      "target": "plant:PLANT-002",
+      "type": "CONSUMED_AT"
+    },
+    {
+      "source": "material:MAT-002",
+      "target": "plant:PLANT-003",
+      "type": "CONSUMED_AT"
+    },
+    {
+      "source": "material:MAT-002",
+      "target": "product:PR-005",
+      "type": "CONSUMES"
+    },
+    {
+      "source": "material:MAT-002",
+      "target": "product:PR-007",
+      "type": "CONSUMES"
+    },
+    {
+      "source": "material:MAT-002",
+      "target": "product:PR-009",
+      "type": "CONSUMES"
+    },
+    {
+      "source": "material:MAT-002",
+      "target": "product:PR-012",
+      "type": "CONSUMES"
+    },
+    {
+      "source": "material:MAT-003",
+      "target": "plant:PLANT-002",
+      "type": "CONSUMED_AT"
+    },
+    {
+      "source": "material:MAT-003",
+      "target": "plant:PLANT-005",
+      "type": "CONSUMED_AT"
+    },
+    {
+      "source": "material:MAT-003",
+      "target": "plant:PLANT-003",
+      "type": "CONSUMED_AT"
+    },
+    {
+      "source": "material:MAT-003",
+      "target": "product:PR-001",
+      "type": "CONSUMES"
+    },
+    {
+      "source": "material:MAT-003",
+      "target": "product:PR-002",
+      "type": "CONSUMES"
+    },
+    {
+      "source": "material:MAT-003",
+      "target": "product:PR-006",
+      "type": "CONSUMES"
+    },
+    {
+      "source": "material:MAT-004",
+      "target": "plant:PLANT-005",
+      "type": "CONSUMED_AT"
+    },
+    {
+      "source": "material:MAT-004",
+      "target": "plant:PLANT-004",
+      "type": "CONSUMED_AT"
+    },
+    {
+      "source": "material:MAT-004",
+      "target": "product:PR-003",
+      "type": "CONSUMES"
+    },
+    {
+      "source": "material:MAT-004",
+      "target": "product:PR-010",
+      "type": "CONSUMES"
+    },
+    {
+      "source": "material:MAT-005",
+      "target": "plant:PLANT-005",
+      "type": "CONSUMED_AT"
+    },
+    {
+      "source": "material:MAT-005",
+      "target": "plant:PLANT-001",
+      "type": "CONSUMED_AT"
+    },
+    {
+      "source": "material:MAT-005",
+      "target": "product:PR-003",
+      "type": "CONSUMES"
+    },
+    {
+      "source": "material:MAT-005",
+      "target": "product:PR-004",
+      "type": "CONSUMES"
+    },
+    {
+      "source": "material:MAT-006",
+      "target": "plant:PLANT-001",
+      "type": "CONSUMED_AT"
+    },
+    {
+      "source": "material:MAT-006",
+      "target": "plant:PLANT-002",
+      "type": "CONSUMED_AT"
+    },
+    {
+      "source": "material:MAT-006",
+      "target": "product:PR-004",
+      "type": "CONSUMES"
+    },
+    {
+      "source": "material:MAT-006",
+      "target": "product:PR-007",
+      "type": "CONSUMES"
+    },
+    {
+      "source": "material:MAT-006",
+      "target": "product:PR-011",
+      "type": "CONSUMES"
+    },
+    {
+      "source": "material:MAT-007",
+      "target": "plant:PLANT-003",
+      "type": "CONSUMED_AT"
+    },
+    {
+      "source": "material:MAT-007",
+      "target": "plant:PLANT-002",
+      "type": "CONSUMED_AT"
+    },
+    {
+      "source": "material:MAT-007",
+      "target": "plant:PLANT-001",
+      "type": "CONSUMED_AT"
+    },
+    {
+      "source": "material:MAT-007",
+      "target": "product:PR-006",
+      "type": "CONSUMES"
+    },
+    {
+      "source": "material:MAT-007",
+      "target": "product:PR-008",
+      "type": "CONSUMES"
+    },
+    {
+      "source": "material:MAT-007",
+      "target": "product:PR-011",
+      "type": "CONSUMES"
+    },
+    {
+      "source": "material:MAT-007",
+      "target": "product:PR-012",
+      "type": "CONSUMES"
+    },
+    {
+      "source": "material:MAT-008",
+      "target": "plant:PLANT-002",
+      "type": "CONSUMED_AT"
+    },
+    {
+      "source": "material:MAT-008",
+      "target": "product:PR-001",
+      "type": "CONSUMES"
+    },
+    {
+      "source": "material:MAT-009",
+      "target": "plant:PLANT-002",
+      "type": "CONSUMED_AT"
+    },
+    {
+      "source": "material:MAT-009",
+      "target": "plant:PLANT-001",
+      "type": "CONSUMED_AT"
+    },
+    {
+      "source": "material:MAT-009",
+      "target": "product:PR-001",
+      "type": "CONSUMES"
+    },
+    {
+      "source": "material:MAT-009",
+      "target": "product:PR-011",
+      "type": "CONSUMES"
+    },
+    {
+      "source": "material:MAT-010",
+      "target": "plant:PLANT-005",
+      "type": "CONSUMED_AT"
+    },
+    {
+      "source": "material:MAT-010",
+      "target": "plant:PLANT-003",
+      "type": "CONSUMED_AT"
+    },
+    {
+      "source": "material:MAT-010",
+      "target": "product:PR-003",
+      "type": "CONSUMES"
+    },
+    {
+      "source": "material:MAT-010",
+      "target": "product:PR-012",
+      "type": "CONSUMES"
+    },
+    {
+      "source": "material:MAT-011",
+      "target": "plant:PLANT-002",
+      "type": "CONSUMED_AT"
+    },
+    {
+      "source": "material:MAT-011",
+      "target": "plant:PLANT-001",
+      "type": "CONSUMED_AT"
+    },
+    {
+      "source": "material:MAT-011",
+      "target": "product:PR-007",
+      "type": "CONSUMES"
+    },
+    {
+      "source": "material:MAT-011",
+      "target": "product:PR-011",
+      "type": "CONSUMES"
+    },
+    {
+      "source": "material:MAT-012",
+      "target": "plant:PLANT-002",
+      "type": "CONSUMED_AT"
+    },
+    {
+      "source": "material:MAT-012",
+      "target": "plant:PLANT-005",
+      "type": "CONSUMED_AT"
+    },
+    {
+      "source": "material:MAT-012",
+      "target": "product:PR-001",
+      "type": "CONSUMES"
+    },
+    {
+      "source": "material:MAT-012",
+      "target": "product:PR-003",
+      "type": "CONSUMES"
+    },
+    {
+      "source": "material:MAT-012",
+      "target": "product:PR-005",
+      "type": "CONSUMES"
+    },
+    {
+      "source": "material:MAT-012",
+      "target": "product:PR-009",
+      "type": "CONSUMES"
+    },
+    {
+      "source": "material:MAT-013",
+      "target": "plant:PLANT-001",
+      "type": "CONSUMED_AT"
+    },
+    {
+      "source": "material:MAT-013",
+      "target": "plant:PLANT-002",
+      "type": "CONSUMED_AT"
+    },
+    {
+      "source": "material:MAT-013",
+      "target": "plant:PLANT-004",
+      "type": "CONSUMED_AT"
+    },
+    {
+      "source": "material:MAT-013",
+      "target": "product:PR-004",
+      "type": "CONSUMES"
+    },
+    {
+      "source": "material:MAT-013",
+      "target": "product:PR-009",
+      "type": "CONSUMES"
+    },
+    {
+      "source": "material:MAT-013",
+      "target": "product:PR-010",
+      "type": "CONSUMES"
+    },
+    {
+      "source": "material:MAT-014",
+      "target": "plant:PLANT-001",
+      "type": "CONSUMED_AT"
+    },
+    {
+      "source": "material:MAT-014",
+      "target": "plant:PLANT-004",
+      "type": "CONSUMED_AT"
+    },
+    {
+      "source": "material:MAT-014",
+      "target": "product:PR-004",
+      "type": "CONSUMES"
+    },
+    {
+      "source": "material:MAT-014",
+      "target": "product:PR-010",
+      "type": "CONSUMES"
+    },
+    {
+      "source": "material:MAT-015",
+      "target": "plant:PLANT-005",
+      "type": "CONSUMED_AT"
+    },
+    {
+      "source": "material:MAT-015",
+      "target": "plant:PLANT-002",
+      "type": "CONSUMED_AT"
+    },
+    {
+      "source": "material:MAT-015",
+      "target": "plant:PLANT-004",
+      "type": "CONSUMED_AT"
+    },
+    {
+      "source": "material:MAT-015",
+      "target": "product:PR-002",
+      "type": "CONSUMES"
+    },
+    {
+      "source": "material:MAT-015",
+      "target": "product:PR-008",
+      "type": "CONSUMES"
+    },
+    {
+      "source": "material:MAT-015",
+      "target": "product:PR-010",
+      "type": "CONSUMES"
+    },
+    {
+      "source": "product:PR-001",
+      "target": "order:ORD-0003",
+      "type": "FULFILLS"
+    },
+    {
+      "source": "product:PR-001",
+      "target": "order:ORD-0004",
+      "type": "FULFILLS"
+    },
+    {
+      "source": "product:PR-001",
+      "target": "order:ORD-0028",
+      "type": "FULFILLS"
+    },
+    {
+      "source": "product:PR-002",
+      "target": "order:ORD-0034",
+      "type": "FULFILLS"
+    },
+    {
+      "source": "product:PR-002",
+      "target": "order:ORD-0054",
+      "type": "FULFILLS"
+    },
+    {
+      "source": "product:PR-003",
+      "target": "order:ORD-0033",
+      "type": "FULFILLS"
+    },
+    {
+      "source": "product:PR-003",
+      "target": "order:ORD-0052",
+      "type": "FULFILLS"
+    },
+    {
+      "source": "product:PR-004",
+      "target": "order:ORD-0027",
+      "type": "FULFILLS"
+    },
+    {
+      "source": "product:PR-004",
+      "target": "order:ORD-0031",
+      "type": "FULFILLS"
+    },
+    {
+      "source": "product:PR-004",
+      "target": "order:ORD-0035",
+      "type": "FULFILLS"
+    },
+    {
+      "source": "product:PR-004",
+      "target": "order:ORD-0037",
+      "type": "FULFILLS"
+    },
+    {
+      "source": "product:PR-005",
+      "target": "order:ORD-0017",
+      "type": "FULFILLS"
+    },
+    {
+      "source": "product:PR-005",
+      "target": "order:ORD-0048",
+      "type": "FULFILLS"
+    },
+    {
+      "source": "product:PR-005",
+      "target": "order:ORD-0050",
+      "type": "FULFILLS"
+    },
+    {
+      "source": "product:PR-006",
+      "target": "order:ORD-0006",
+      "type": "FULFILLS"
+    },
+    {
+      "source": "product:PR-006",
+      "target": "order:ORD-0011",
+      "type": "FULFILLS"
+    },
+    {
+      "source": "product:PR-006",
+      "target": "order:ORD-0025",
+      "type": "FULFILLS"
+    },
+    {
+      "source": "product:PR-006",
+      "target": "order:ORD-0055",
+      "type": "FULFILLS"
+    },
+    {
+      "source": "product:PR-006",
+      "target": "order:ORD-0060",
+      "type": "FULFILLS"
+    },
+    {
+      "source": "product:PR-007",
+      "target": "order:ORD-0013",
+      "type": "FULFILLS"
+    },
+    {
+      "source": "product:PR-007",
+      "target": "order:ORD-0016",
+      "type": "FULFILLS"
+    },
+    {
+      "source": "product:PR-007",
+      "target": "order:ORD-0018",
+      "type": "FULFILLS"
+    },
+    {
+      "source": "product:PR-007",
+      "target": "order:ORD-0042",
+      "type": "FULFILLS"
+    },
+    {
+      "source": "product:PR-007",
+      "target": "order:ORD-0056",
+      "type": "FULFILLS"
+    },
+    {
+      "source": "product:PR-007",
+      "target": "order:ORD-0057",
+      "type": "FULFILLS"
+    },
+    {
+      "source": "product:PR-007",
+      "target": "order:ORD-0059",
+      "type": "FULFILLS"
+    },
+    {
+      "source": "product:PR-007",
+      "target": "order:ORD-0061",
+      "type": "FULFILLS"
+    },
+    {
+      "source": "product:PR-007",
+      "target": "order:ORD-0064",
+      "type": "FULFILLS"
+    },
+    {
+      "source": "product:PR-008",
+      "target": "order:ORD-0020",
+      "type": "FULFILLS"
+    },
+    {
+      "source": "product:PR-008",
+      "target": "order:ORD-0022",
+      "type": "FULFILLS"
+    },
+    {
+      "source": "product:PR-008",
+      "target": "order:ORD-0030",
+      "type": "FULFILLS"
+    },
+    {
+      "source": "product:PR-008",
+      "target": "order:ORD-0032",
+      "type": "FULFILLS"
+    },
+    {
+      "source": "product:PR-008",
+      "target": "order:ORD-0036",
+      "type": "FULFILLS"
+    },
+    {
+      "source": "product:PR-008",
+      "target": "order:ORD-0038",
+      "type": "FULFILLS"
+    },
+    {
+      "source": "product:PR-008",
+      "target": "order:ORD-0043",
+      "type": "FULFILLS"
+    },
+    {
+      "source": "product:PR-008",
+      "target": "order:ORD-0045",
+      "type": "FULFILLS"
+    },
+    {
+      "source": "product:PR-008",
+      "target": "order:ORD-0047",
+      "type": "FULFILLS"
+    },
+    {
+      "source": "product:PR-008",
+      "target": "order:ORD-0063",
+      "type": "FULFILLS"
+    },
+    {
+      "source": "product:PR-009",
+      "target": "order:ORD-0001",
+      "type": "FULFILLS"
+    },
+    {
+      "source": "product:PR-009",
+      "target": "order:ORD-0010",
+      "type": "FULFILLS"
+    },
+    {
+      "source": "product:PR-009",
+      "target": "order:ORD-0012",
+      "type": "FULFILLS"
+    },
+    {
+      "source": "product:PR-009",
+      "target": "order:ORD-0024",
+      "type": "FULFILLS"
+    },
+    {
+      "source": "product:PR-009",
+      "target": "order:ORD-0051",
+      "type": "FULFILLS"
+    },
+    {
+      "source": "product:PR-010",
+      "target": "order:ORD-0002",
+      "type": "FULFILLS"
+    },
+    {
+      "source": "product:PR-010",
+      "target": "order:ORD-0008",
+      "type": "FULFILLS"
+    },
+    {
+      "source": "product:PR-010",
+      "target": "order:ORD-0015",
+      "type": "FULFILLS"
+    },
+    {
+      "source": "product:PR-010",
+      "target": "order:ORD-0019",
+      "type": "FULFILLS"
+    },
+    {
+      "source": "product:PR-010",
+      "target": "order:ORD-0029",
+      "type": "FULFILLS"
+    },
+    {
+      "source": "product:PR-010",
+      "target": "order:ORD-0040",
+      "type": "FULFILLS"
+    },
+    {
+      "source": "product:PR-010",
+      "target": "order:ORD-0041",
+      "type": "FULFILLS"
+    },
+    {
+      "source": "product:PR-010",
+      "target": "order:ORD-0062",
+      "type": "FULFILLS"
+    },
+    {
+      "source": "product:PR-011",
+      "target": "order:ORD-0005",
+      "type": "FULFILLS"
+    },
+    {
+      "source": "product:PR-011",
+      "target": "order:ORD-0007",
+      "type": "FULFILLS"
+    },
+    {
+      "source": "product:PR-011",
+      "target": "order:ORD-0014",
+      "type": "FULFILLS"
+    },
+    {
+      "source": "product:PR-011",
+      "target": "order:ORD-0021",
+      "type": "FULFILLS"
+    },
+    {
+      "source": "product:PR-011",
+      "target": "order:ORD-0023",
+      "type": "FULFILLS"
+    },
+    {
+      "source": "product:PR-011",
+      "target": "order:ORD-0026",
+      "type": "FULFILLS"
+    },
+    {
+      "source": "product:PR-011",
+      "target": "order:ORD-0039",
+      "type": "FULFILLS"
+    },
+    {
+      "source": "product:PR-011",
+      "target": "order:ORD-0046",
+      "type": "FULFILLS"
+    },
+    {
+      "source": "product:PR-012",
+      "target": "order:ORD-0009",
+      "type": "FULFILLS"
+    },
+    {
+      "source": "product:PR-012",
+      "target": "order:ORD-0044",
+      "type": "FULFILLS"
+    },
+    {
+      "source": "product:PR-012",
+      "target": "order:ORD-0049",
+      "type": "FULFILLS"
+    },
+    {
+      "source": "product:PR-012",
+      "target": "order:ORD-0053",
+      "type": "FULFILLS"
+    },
+    {
+      "source": "product:PR-012",
+      "target": "order:ORD-0058",
+      "type": "FULFILLS"
+    }
+  ]
+}
