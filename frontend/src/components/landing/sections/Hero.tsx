@@ -122,7 +122,7 @@ export default function Hero() {
         animate={{ opacity: 1, y: 0, rotateX: 0 }}
         transition={{ duration: 1.5, delay: 0.6, ease: "easeOut" }}
       >
-        <div className="w-full min-h-[300px] sm:min-h-[350px] md:min-h-[450px] lg:min-h-[500px] rounded-t-3xl border border-white/20 bg-black/50 backdrop-blur-3xl shadow-[0_-20px_80px_rgba(0,0,0,0.8)] overflow-hidden relative flex flex-col">
+        <div className="w-full min-h-[300px] sm:min-h-[350px] md:min-h-[450px] lg:min-h-[500px] rounded-2xl sm:rounded-3xl border border-white/20 bg-black/50 backdrop-blur-3xl shadow-[0_0_80px_rgba(0,0,0,0.8)] overflow-hidden relative flex flex-col">
           {/* Mockup Header */}
           <div className="h-10 md:h-12 border-b border-white/10 bg-white/5 flex items-center justify-between px-4 md:px-6 gap-4 shrink-0">
             <div className="flex items-center gap-2">
