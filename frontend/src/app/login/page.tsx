@@ -7,7 +7,6 @@ import { useSupplierStore } from '@/stores/useSupplierStore';
 import { useManufacturerStore } from '@/stores/useManufacturerStore';
 import { useAdminStore } from '@/stores/useAdminStore';
 import { useAuthorizedUsersStore } from '@/stores/useAuthorizedUsersStore';
-import { isSupabaseConfigured } from '@/lib/supabase';
 import { EnterpriseSsoModal } from '@/components/auth/EnterpriseSsoModal';
 import {
   Globe,
@@ -27,10 +26,7 @@ import {
 export default function LoginPage() {
   const router = useRouter();
   const { user, login, loginWithMicrosoft, loginWithSAP, loginGuest } = useAuthStore();
-  const [mounted, setMounted] = useState(false);
-  const greetingName = (mounted && user?.display_name)
-    ? user.display_name.replace(/\s*\(.*\)/, '').trim().split(' ')[0] || 'Yug'
-    : 'Yug';
+  const greetingName = user?.display_name?.replace(/\s*\(.*\)/, '').trim().split(' ')[0] || 'Yug';
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -41,10 +37,6 @@ export default function LoginPage() {
   const [activeSsoModal, setActiveSsoModal] = useState<'microsoft' | 'sap' | null>(null);
   const [selectedLang, setSelectedLang] = useState('English');
   const [showLangMenu, setShowLangMenu] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   const handleEmailLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -475,18 +467,9 @@ export default function LoginPage() {
 
             {/* Bottom Links */}
             <div className="mt-8 pt-6 border-t border-neutral-100 flex flex-col items-center gap-2 text-xs text-neutral-500">
-              <div suppressHydrationWarning className="flex items-center gap-1.5 text-neutral-500">
-                <span
-                  suppressHydrationWarning
-                  className={`w-2 h-2 rounded-full ${
-                    mounted && isSupabaseConfigured ? 'bg-emerald-500' : 'bg-amber-500'
-                  }`}
-                />
-                <span suppressHydrationWarning>
-                  {mounted && isSupabaseConfigured
-                    ? 'Connected to Supabase Cloud'
-                    : 'Enterprise Local Hybrid Engine (Supabase Ready)'}
-                </span>
+              <div className="flex items-center gap-1.5 text-neutral-500">
+                <span className="w-2 h-2 rounded-full bg-emerald-500" />
+                <span>Connected to Supabase Cloud</span>
               </div>
               <button
                 type="button"
