@@ -39,6 +39,17 @@ export default function Navbar() {
 
   const productUrl = process.env.NEXT_PUBLIC_APP_URL || "https://resilience-os.vercel.app/command-center";
 
+  // Lock body scroll when mobile menu is active
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      const prevOverflow = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = prevOverflow;
+      };
+    }
+  }, [mobileMenuOpen]);
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
@@ -48,11 +59,13 @@ export default function Navbar() {
   }, []);
 
   return (
-    <header className={cn(
-      "fixed top-0 inset-x-0 z-50 w-full pt-4 md:pt-6 pointer-events-none transition-all duration-300",
-      isScrolled ? "bg-black/80 backdrop-blur-xl md:bg-transparent md:backdrop-blur-none pb-4 md:pb-0" : ""
-    )}>
-      <div className="w-full px-4 md:px-12 flex items-center justify-between pointer-events-auto">
+    <>
+      <header className={cn(
+        "fixed top-0 inset-x-0 z-50 w-full pt-4 md:pt-6 pointer-events-none transition-all duration-300",
+        isScrolled ? "bg-black/80 backdrop-blur-xl md:bg-transparent md:backdrop-blur-none pb-4 md:pb-0" : "",
+        showDesktopModal ? "opacity-0 pointer-events-none" : "opacity-100"
+      )}>
+        <div className="w-full px-4 md:px-12 flex items-center justify-between pointer-events-auto">
         
         {/* Top Left Logo */}
         <div className="flex-1 flex justify-start">
@@ -110,8 +123,8 @@ export default function Navbar() {
       {/* Mobile Menu Drawer */}
       <div
         className={cn(
-          "fixed inset-0 bg-[#09090b]/98 backdrop-blur-2xl z-50 flex flex-col justify-between pt-24 pb-10 px-6 md:hidden transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
-          mobileMenuOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-full pointer-events-none"
+          "fixed inset-0 bg-[#090a0f] z-[100] flex flex-col justify-between pt-24 pb-10 px-6 md:hidden transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
+          mobileMenuOpen ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 -translate-y-full pointer-events-none"
         )}
       >
         {/* Subtle Ambient Glow */}
@@ -173,12 +186,13 @@ export default function Navbar() {
           </span>
         </div>
       </div>
-
-      <DesktopOnlyModal
-        isOpen={showDesktopModal}
-        onClose={() => setShowDesktopModal(false)}
-        destinationUrl="/login"
-      />
     </header>
+
+    <DesktopOnlyModal
+      isOpen={showDesktopModal}
+      onClose={() => setShowDesktopModal(false)}
+      destinationUrl="/login"
+    />
+  </>
   );
 }

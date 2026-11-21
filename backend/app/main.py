@@ -100,13 +100,15 @@ async def security_and_tracing_middleware(request: Request, call_next):
     return response
 
 
-# Safe CORS Configuration (Specific origin allowlist)
+# Safe CORS Configuration (Specific origin allowlist + Vercel wildcard regex)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.allowed_origins_list,
+    allow_origin_regex=r"^https:\/\/([a-zA-Z0-9-]+\.)*vercel\.app$",
     allow_credentials=True,
-    allow_methods=["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    allow_methods=["*"],
     allow_headers=["*"],
+    expose_headers=["*"],
 )
 
 

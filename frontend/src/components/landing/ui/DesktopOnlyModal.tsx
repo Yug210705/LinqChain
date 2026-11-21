@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Monitor, Copy, Check, X, AlertTriangle, Layers, Cpu } from "lucide-react";
 
@@ -16,6 +17,22 @@ export function DesktopOnlyModal({
   destinationUrl = "/login",
 }: DesktopOnlyModalProps) {
   const [copied, setCopied] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Lock body scroll when modal is active
+  useEffect(() => {
+    if (isOpen) {
+      const prevOverflow = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = prevOverflow;
+      };
+    }
+  }, [isOpen]);
 
   const handleCopyLink = () => {
     if (typeof window !== "undefined") {
@@ -25,43 +42,45 @@ export function DesktopOnlyModal({
     }
   };
 
-  return (
+  if (!mounted) return null;
+
+  return createPortal(
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-[99999] flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
           {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="absolute inset-0 bg-black/85 backdrop-blur-xl"
+            className="fixed inset-0 bg-[#070709]/92 backdrop-blur-2xl"
           />
 
           {/* Modal Container */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.92, y: 20 }}
+            initial={{ opacity: 0, scale: 0.94, y: 16 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.92, y: 20 }}
+            exit={{ opacity: 0, scale: 0.94, y: 16 }}
             transition={{ type: "spring", stiffness: 350, damping: 28 }}
-            className="relative w-full max-w-sm rounded-2xl sm:rounded-3xl border border-white/15 bg-[#121214] p-5 sm:p-7 shadow-[0_0_80px_rgba(255,159,104,0.25)] text-white overflow-hidden z-10"
+            className="relative w-full max-w-sm sm:max-w-md my-auto rounded-3xl border border-white/20 bg-[#121216] p-6 sm:p-8 shadow-[0_0_80px_rgba(255,159,104,0.3)] text-white overflow-hidden z-10"
           >
             {/* Ambient Background Glow */}
             <div className="absolute -top-24 -left-24 w-52 h-52 bg-[#FF9F68]/20 rounded-full blur-3xl pointer-events-none" />
             <div className="absolute -bottom-24 -right-24 w-52 h-52 bg-white/10 rounded-full blur-3xl pointer-events-none" />
 
-            {/* Close Button */}
+            {/* Close Button with generous tap area */}
             <button
               onClick={onClose}
-              className="absolute top-5 right-5 p-2 rounded-full bg-white/5 hover:bg-white/15 text-white/70 hover:text-white transition-colors"
+              className="absolute top-5 right-5 p-2.5 rounded-full bg-white/10 hover:bg-white/20 text-white/80 hover:text-white transition-all active:scale-95 border border-white/10 cursor-pointer"
               aria-label="Close dialog"
             >
               <X className="w-4 h-4" />
             </button>
 
             {/* Icon Header */}
-            <div className="flex items-center gap-3 mb-5">
-              <div className="w-12 h-12 rounded-2xl bg-[#FF9F68]/15 border border-[#FF9F68]/30 flex items-center justify-center text-[#FF9F68] shadow-[0_0_20px_rgba(255,159,104,0.3)]">
+            <div className="flex items-center gap-3.5 mb-5 pr-8">
+              <div className="w-12 h-12 rounded-2xl bg-[#FF9F68]/15 border border-[#FF9F68]/30 flex items-center justify-center text-[#FF9F68] shadow-[0_0_20px_rgba(255,159,104,0.3)] shrink-0">
                 <Monitor className="w-6 h-6 animate-pulse" />
               </div>
               <div>
@@ -75,25 +94,25 @@ export function DesktopOnlyModal({
             </div>
 
             {/* Message Body */}
-            <p className="text-sm text-white/70 leading-relaxed mb-6 font-light">
+            <p className="text-sm text-white/70 leading-relaxed mb-5 font-light">
               <strong className="text-white font-medium">LinqChain Platform</strong> is an enterprise command center designed for large, high-resolution desktop monitors.
             </p>
 
             {/* Why Desktop features */}
-            <div className="space-y-2.5 mb-6 bg-white/[0.03] border border-white/10 rounded-2xl p-3.5">
-              <div className="flex items-center gap-3 text-xs text-white/80">
+            <div className="space-y-2.5 mb-6 bg-white/[0.04] border border-white/10 rounded-2xl p-3.5">
+              <div className="flex items-center gap-3 text-xs text-white/85">
                 <div className="w-6 h-6 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center shrink-0 text-[#FF9F68]">
                   <Layers className="w-3.5 h-3.5" />
                 </div>
                 <span>Multi-tier interactive dependency graphs</span>
               </div>
-              <div className="flex items-center gap-3 text-xs text-white/80">
+              <div className="flex items-center gap-3 text-xs text-white/85">
                 <div className="w-6 h-6 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center shrink-0 text-red-400">
                   <AlertTriangle className="w-3.5 h-3.5" />
                 </div>
                 <span>Real-time cascading disruption simulations</span>
               </div>
-              <div className="flex items-center gap-3 text-xs text-white/80">
+              <div className="flex items-center gap-3 text-xs text-white/85">
                 <div className="w-6 h-6 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center shrink-0 text-yellow-400">
                   <Cpu className="w-3.5 h-3.5" />
                 </div>
@@ -105,7 +124,7 @@ export function DesktopOnlyModal({
             <div className="flex flex-col gap-2.5">
               <button
                 onClick={handleCopyLink}
-                className="w-full py-3.5 px-4 rounded-xl bg-[#FF9F68] hover:bg-[#ffb084] text-black font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all shadow-[0_0_25px_rgba(255,159,104,0.3)] cursor-pointer"
+                className="w-full py-3.5 px-4 rounded-xl bg-[#FF9F68] hover:bg-[#ffb084] text-black font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all shadow-[0_0_25px_rgba(255,159,104,0.3)] active:scale-98 cursor-pointer"
               >
                 {copied ? (
                   <>
@@ -122,7 +141,7 @@ export function DesktopOnlyModal({
 
               <button
                 onClick={onClose}
-                className="w-full py-2.5 text-xs text-white/50 hover:text-white transition-colors cursor-pointer"
+                className="w-full py-2.5 text-xs text-white/60 hover:text-white transition-colors cursor-pointer text-center"
               >
                 Stay on Mobile Overview
               </button>
@@ -130,7 +149,7 @@ export function DesktopOnlyModal({
           </motion.div>
         </div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   );
 }
-

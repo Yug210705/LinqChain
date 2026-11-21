@@ -62,7 +62,7 @@ class Settings(BaseSettings):
 
     # CORS & Webhook security
     ALLOWED_ORIGINS: str = Field(
-        default="http://localhost:3000,http://127.0.0.1:3000,http://localhost:3001,http://127.0.0.1:3001",
+        default="http://localhost:3000,http://127.0.0.1:3000,http://localhost:3001,http://127.0.0.1:3001,https://linqchaindev.vercel.app,https://linqchain.vercel.app",
         description="Comma-separated list of allowed CORS origins",
     )
     SAP_WEBHOOK_SECRET: str = Field(
@@ -104,7 +104,18 @@ class Settings(BaseSettings):
 
     @property
     def allowed_origins_list(self) -> List[str]:
-        return [o.strip() for o in self.ALLOWED_ORIGINS.split(",") if o.strip()]
+        base_origins = {
+            "http://localhost:3000",
+            "http://127.0.0.1:3000",
+            "http://localhost:3001",
+            "http://127.0.0.1:3001",
+            "https://linqchaindev.vercel.app",
+            "https://linqchain.vercel.app",
+        }
+        for o in self.ALLOWED_ORIGINS.split(","):
+            if o.strip():
+                base_origins.add(o.strip())
+        return list(base_origins)
 
     def validate_production_readiness(self) -> None:
         """Enforces that production environments do not use default or weak secrets."""
