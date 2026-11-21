@@ -168,52 +168,78 @@ export default function Hero() {
               </div>
 
               {/* Mobile Animated Topology Preview (Displayed on mobile screens) */}
-              <div className="md:hidden w-full rounded-xl bg-white/[0.03] border border-white/10 p-3 flex flex-col gap-2 relative overflow-hidden">
+              <div className="md:hidden w-full rounded-xl bg-white/[0.04] border border-white/10 p-3.5 flex flex-col gap-3 relative overflow-hidden shadow-lg shadow-black/40">
                 <div className="flex items-center justify-between">
-                  <span className="text-[8px] font-mono text-white/50 uppercase tracking-widest">Active Disruption Path</span>
-                  <span className="text-[8px] font-mono text-red-400 bg-red-500/10 border border-red-500/20 px-1.5 py-0.5 rounded">Port Bottleneck</span>
+                  <div className="flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
+                    <span className="text-[9px] font-mono font-semibold text-white/60 uppercase tracking-widest">
+                      Active Disruption Path
+                    </span>
+                  </div>
+                  <span className="text-[9px] font-mono font-medium text-red-400 bg-red-500/10 border border-red-500/25 px-2 py-0.5 rounded-full shadow-xs">
+                    Port Bottleneck
+                  </span>
                 </div>
-                <div className="relative h-12 w-full flex items-center justify-between px-2">
-                  <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 300 40" preserveAspectRatio="none">
-                    <path d="M 30 20 L 150 20" stroke="rgba(239,68,68,0.3)" strokeWidth="2" strokeDasharray="4 4" fill="none" />
-                    <motion.path 
-                      d="M 30 20 L 150 20" 
-                      stroke="#ef4444" 
-                      strokeWidth="2.5" 
-                      strokeDasharray="4 4" 
-                      fill="none" 
-                      initial={{ pathLength: 0 }}
-                      animate={{ pathLength: 1 }}
-                      transition={{ duration: 2.5, repeat: Infinity, ease: "linear" }}
-                    />
-                    <path d="M 150 20 L 270 20" stroke="rgba(250,204,21,0.3)" strokeWidth="2" fill="none" />
-                    <motion.path 
-                      d="M 150 20 L 270 20" 
-                      stroke="#facc15" 
-                      strokeWidth="2.5" 
-                      fill="none" 
-                      initial={{ pathLength: 0 }}
-                      animate={{ pathLength: 1 }}
-                      transition={{ duration: 2.5, repeat: Infinity, delay: 0.5, ease: "linear" }}
-                    />
-                  </svg>
-                  <div className="flex flex-col items-center z-10">
-                    <div className="w-3.5 h-3.5 rounded-full bg-white/20 border-2 border-white flex items-center justify-center">
-                      <div className="w-1.5 h-1.5 rounded-full bg-white" />
+
+                {/* Track + Nodes Container */}
+                <div className="relative w-full py-1">
+                  {/* Perfectly Centered Horizontal Connecting Line (Runs behind nodes at exact center) */}
+                  <div className="absolute top-[16px] left-[18%] right-[18%] h-[2px] -translate-y-1/2 flex items-center z-0 pointer-events-none">
+                    {/* Left Segment: Supplier -> Port Beta (Disrupted Flow) */}
+                    <div className="flex-1 h-full relative overflow-hidden mr-1">
+                      <div className="absolute inset-0 border-t-2 border-dashed border-red-500/40" />
+                      <motion.div 
+                        className="absolute inset-0 bg-gradient-to-r from-transparent via-red-500 to-transparent"
+                        initial={{ x: "-100%" }}
+                        animate={{ x: "100%" }}
+                        transition={{ duration: 2.2, repeat: Infinity, ease: "linear" }}
+                      />
                     </div>
-                    <span className="text-[7px] text-white/60 font-mono mt-1">Supplier</span>
+
+                    {/* Right Segment: Port Beta -> Plant (Downstream Warning Flow) */}
+                    <div className="flex-1 h-full relative overflow-hidden ml-1">
+                      <div className="absolute inset-0 border-t-2 border-dashed border-amber-400/40" />
+                      <motion.div 
+                        className="absolute inset-0 bg-gradient-to-r from-transparent via-amber-400 to-transparent"
+                        initial={{ x: "-100%" }}
+                        animate={{ x: "100%" }}
+                        transition={{ duration: 2.2, repeat: Infinity, delay: 0.6, ease: "linear" }}
+                      />
+                    </div>
                   </div>
-                  <div className="flex flex-col items-center z-10">
-                    <div className="w-4 h-4 rounded-full bg-red-500/20 border-2 border-red-500 animate-pulse flex items-center justify-center shadow-[0_0_12px_rgba(239,68,68,0.8)]">
-                      <div className="w-2 h-2 rounded-full bg-red-500" />
+
+                  {/* Nodes Row with Solid High-Z-Index Bases */}
+                  <div className="relative flex justify-between items-start z-10 px-2 sm:px-4">
+                    {/* 1. Supplier Node */}
+                    <div className="flex flex-col items-center min-w-[64px]">
+                      <div className="w-8 h-8 rounded-full bg-[#111114] border-2 border-white/50 flex items-center justify-center shadow-md relative">
+                        <div className="w-2.5 h-2.5 rounded-full bg-white shadow-[0_0_8px_rgba(255,255,255,0.8)]" />
+                      </div>
+                      <span className="text-[9px] font-mono font-medium text-white/80 mt-1.5 tracking-tight">Supplier</span>
+                      <span className="text-[7.5px] font-mono text-emerald-400/90 font-medium">Optimal</span>
                     </div>
-                    <span className="text-[7px] text-red-400 font-bold font-mono mt-1">Port Beta</span>
-                  </div>
-                  <div className="flex flex-col items-center z-10">
-                    <div className="w-3.5 h-3.5 rounded-full bg-yellow-500/20 border-2 border-yellow-500 flex items-center justify-center">
-                      <div className="w-1.5 h-1.5 rounded-full bg-yellow-500" />
+
+                    {/* 2. Port Beta Node (Disrupted Active Pulse) */}
+                    <div className="flex flex-col items-center min-w-[64px]">
+                      <div className="relative">
+                        <div className="w-8 h-8 rounded-full bg-[#180a0a] border-2 border-red-500 flex items-center justify-center shadow-[0_0_16px_rgba(239,68,68,0.7)] relative z-10">
+                          <div className="w-3 h-3 rounded-full bg-red-500 animate-pulse shadow-[0_0_8px_rgba(239,68,68,1)]" />
+                        </div>
+                        {/* Outer pulsating ring */}
+                        <span className="absolute -inset-1 rounded-full border border-red-500/50 animate-ping pointer-events-none" />
+                      </div>
+                      <span className="text-[9px] font-mono font-bold text-red-400 mt-1.5 tracking-tight">Port Beta</span>
+                      <span className="text-[7.5px] font-mono text-red-400/90 font-bold uppercase">Blocked</span>
                     </div>
-                    <span className="text-[7px] text-yellow-400 font-mono mt-1">Plant</span>
+
+                    {/* 3. Plant Node (Downstream Risk) */}
+                    <div className="flex flex-col items-center min-w-[64px]">
+                      <div className="w-8 h-8 rounded-full bg-[#16130b] border-2 border-amber-400/70 flex items-center justify-center shadow-md relative">
+                        <div className="w-2.5 h-2.5 rounded-full bg-amber-400 shadow-[0_0_8px_rgba(250,204,21,0.8)]" />
+                      </div>
+                      <span className="text-[9px] font-mono font-medium text-amber-300 mt-1.5 tracking-tight">Plant</span>
+                      <span className="text-[7.5px] font-mono text-amber-400/90 font-medium">At Risk</span>
+                    </div>
                   </div>
                 </div>
               </div>
