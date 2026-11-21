@@ -1,4 +1,4 @@
-﻿"""LINQCHAIN — unified production-ready backend entrypoint.
+"""LINQCHAIN — unified production-ready backend entrypoint.
 
 One command, one process, one API:
     cd backend
