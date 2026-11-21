@@ -150,14 +150,12 @@ export default function AdminDashboardPage() {
           <div className="flex items-center space-x-2">
             <span className="relative flex h-3 w-3">
               <span
-                className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${
-                  stats?.system_health === 'healthy' ? 'bg-emerald-400' : 'bg-rose-400'
-                }`}
+                className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${stats?.system_health === 'healthy' ? 'bg-emerald-400' : 'bg-rose-400'
+                  }`}
               />
               <span
-                className={`relative inline-flex rounded-full h-3 w-3 ${
-                  stats?.system_health === 'healthy' ? 'bg-emerald-500' : 'bg-rose-500'
-                }`}
+                className={`relative inline-flex rounded-full h-3 w-3 ${stats?.system_health === 'healthy' ? 'bg-emerald-500' : 'bg-rose-500'
+                  }`}
               />
             </span>
             <span className="text-xs font-bold uppercase tracking-wider text-slate-800 dark:text-neutral-200">
@@ -202,7 +200,7 @@ export default function AdminDashboardPage() {
         <div className="flex items-center gap-2">
           <button
             onClick={() => setShowAlertModal(true)}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-amber-500 text-white hover:bg-amber-600 transition-colors shadow-xs"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-blue-600 text-white hover:bg-blue-700 transition-colors shadow-xs"
           >
             <Megaphone className="w-3.5 h-3.5" />
             <span>Broadcast Alert</span>
@@ -211,7 +209,7 @@ export default function AdminDashboardPage() {
           <button
             onClick={() => loadData(true)}
             disabled={refreshing || loading}
-            className="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-neutral-800 hover:bg-slate-200 dark:hover:bg-neutral-700 text-slate-700 dark:text-neutral-200 transition-colors cursor-pointer disabled:opacity-50"
+            className="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-white dark:bg-neutral-800 hover:bg-slate-50 dark:hover:bg-neutral-700 text-slate-700 dark:text-neutral-200 border border-slate-200 dark:border-neutral-700 transition-colors cursor-pointer disabled:opacity-50"
           >
             <RefreshCw className={`w-3.5 h-3.5 ${refreshing ? 'animate-spin' : ''}`} />
             <span>Refresh</span>
@@ -225,11 +223,10 @@ export default function AdminDashboardPage() {
           {alerts.filter((a) => a.active).map((al) => (
             <div
               key={al.id}
-              className={`p-3 rounded-xl border flex items-center justify-between gap-3 text-xs ${
-                al.severity === 'CRITICAL_AOG'
+              className={`p-3 rounded-xl border flex items-center justify-between gap-3 text-xs ${al.severity === 'CRITICAL_AOG'
                   ? 'bg-rose-500/10 border-rose-500/30 text-rose-700 dark:text-rose-300'
                   : 'bg-amber-500/10 border-amber-500/30 text-amber-700 dark:text-amber-300'
-              }`}
+                }`}
             >
               <div className="flex items-center gap-2.5">
                 <AlertTriangle className="w-4 h-4 shrink-0 animate-pulse" />
@@ -380,17 +377,17 @@ export default function AdminDashboardPage() {
 
       {/* QUICK COMMAND CENTER SHORTCUTS */}
       <div>
-        <h2 className="text-xs font-bold text-slate-400 dark:text-neutral-500 uppercase tracking-wider mb-3">
+        <h2 className="text-xs font-bold text-slate-500 dark:text-neutral-400 uppercase tracking-wider mb-3">
           Supply Chain Admin Super-Modules
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
           <Link
             href="/admin/supply-chain"
-            className="p-3 rounded-xl border border-slate-200 dark:border-neutral-800 bg-white dark:bg-[#18181b] hover:border-amber-500/40 hover:bg-amber-50/20 dark:hover:bg-amber-950/10 transition-all group"
+            className="p-3.5 rounded-xl border border-slate-200 dark:border-neutral-800 bg-white dark:bg-[#18181b] hover:border-blue-500/40 hover:bg-slate-50/50 dark:hover:bg-neutral-800/40 transition-all group"
           >
             <div className="flex items-center justify-between">
               <Globe className="w-4 h-4 text-blue-500" />
-              <ArrowRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-amber-500 transition-colors" />
+              <ArrowRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-blue-500 transition-colors" />
             </div>
             <p className="text-xs font-bold text-slate-900 dark:text-neutral-100 mt-2">
               Supply Chain Tower
@@ -402,11 +399,11 @@ export default function AdminDashboardPage() {
 
           <Link
             href="/admin/portals"
-            className="p-3 rounded-xl border border-slate-200 dark:border-neutral-800 bg-white dark:bg-[#18181b] hover:border-amber-500/40 hover:bg-amber-50/20 dark:hover:bg-amber-950/10 transition-all group"
+            className="p-3.5 rounded-xl border border-slate-200 dark:border-neutral-800 bg-white dark:bg-[#18181b] hover:border-emerald-500/40 hover:bg-slate-50/50 dark:hover:bg-neutral-800/40 transition-all group"
           >
             <div className="flex items-center justify-between">
               <Building2 className="w-4 h-4 text-emerald-500" />
-              <ArrowRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-amber-500 transition-colors" />
+              <ArrowRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-emerald-500 transition-colors" />
             </div>
             <p className="text-xs font-bold text-slate-900 dark:text-neutral-100 mt-2">
               Portal Governance
@@ -418,11 +415,11 @@ export default function AdminDashboardPage() {
 
           <Link
             href="/admin/chaos"
-            className="p-3 rounded-xl border border-slate-200 dark:border-neutral-800 bg-white dark:bg-[#18181b] hover:border-amber-500/40 hover:bg-amber-50/20 dark:hover:bg-amber-950/10 transition-all group"
+            className="p-3.5 rounded-xl border border-slate-200 dark:border-neutral-800 bg-white dark:bg-[#18181b] hover:border-rose-500/40 hover:bg-slate-50/50 dark:hover:bg-neutral-800/40 transition-all group"
           >
             <div className="flex items-center justify-between">
               <Flame className="w-4 h-4 text-rose-500" />
-              <ArrowRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-amber-500 transition-colors" />
+              <ArrowRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-rose-500 transition-colors" />
             </div>
             <p className="text-xs font-bold text-slate-900 dark:text-neutral-100 mt-2">
               Chaos Switchboard
@@ -434,11 +431,11 @@ export default function AdminDashboardPage() {
 
           <Link
             href="/admin/sap-mesh"
-            className="p-3 rounded-xl border border-slate-200 dark:border-neutral-800 bg-white dark:bg-[#18181b] hover:border-amber-500/40 hover:bg-amber-50/20 dark:hover:bg-amber-950/10 transition-all group"
+            className="p-3.5 rounded-xl border border-slate-200 dark:border-neutral-800 bg-white dark:bg-[#18181b] hover:border-purple-500/40 hover:bg-slate-50/50 dark:hover:bg-neutral-800/40 transition-all group"
           >
             <div className="flex items-center justify-between">
               <Layers className="w-4 h-4 text-purple-500" />
-              <ArrowRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-amber-500 transition-colors" />
+              <ArrowRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-purple-500 transition-colors" />
             </div>
             <p className="text-xs font-bold text-slate-900 dark:text-neutral-100 mt-2">
               SAP Event Mesh
@@ -450,17 +447,17 @@ export default function AdminDashboardPage() {
 
           <Link
             href="/admin/ai-governance"
-            className="p-3 rounded-xl border border-slate-200 dark:border-neutral-800 bg-white dark:bg-[#18181b] hover:border-amber-500/40 hover:bg-amber-50/20 dark:hover:bg-amber-950/10 transition-all group"
+            className="p-3.5 rounded-xl border border-slate-200 dark:border-neutral-800 bg-white dark:bg-[#18181b] hover:border-blue-500/40 hover:bg-slate-50/50 dark:hover:bg-neutral-800/40 transition-all group"
           >
             <div className="flex items-center justify-between">
-              <Brain className="w-4 h-4 text-amber-500" />
-              <ArrowRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-amber-500 transition-colors" />
+              <Brain className="w-4 h-4 text-blue-500" />
+              <ArrowRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-blue-500 transition-colors" />
             </div>
             <p className="text-xs font-bold text-slate-900 dark:text-neutral-100 mt-2">
               AI Guardrails
             </p>
             <p className="text-[11px] text-slate-500 dark:text-neutral-400 mt-0.5">
-              Autonomous spending & lead-time limits
+              Autonomous spending & delay limits
             </p>
           </Link>
         </div>
@@ -583,13 +580,12 @@ export default function AdminDashboardPage() {
             >
               <div className="flex items-center gap-3">
                 <span
-                  className={`px-2 py-0.5 rounded text-[10px] font-bold ${
-                    evt.severity === 'CRITICAL'
+                  className={`px-2 py-0.5 rounded text-[10px] font-bold ${evt.severity === 'CRITICAL'
                       ? 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20'
                       : evt.severity === 'WARNING'
-                      ? 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20'
-                      : 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20'
-                  }`}
+                        ? 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20'
+                        : 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20'
+                    }`}
                 >
                   {evt.source_portal}
                 </span>

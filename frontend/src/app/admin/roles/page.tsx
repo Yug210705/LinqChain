@@ -255,18 +255,18 @@ export default function AdminRolesPage() {
             setNewRoleDesc('');
             setNewRolePerms([]);
           }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold bg-amber-600 hover:bg-amber-500 text-white shadow-md shadow-amber-600/20 transition-all cursor-pointer"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold bg-blue-600 hover:bg-blue-700 text-white shadow-xs transition-all cursor-pointer"
         >
           <Plus className="w-4 h-4" />
           <span>Create Custom Role</span>
         </button>
       </div>
 
-      {/* Role list as expandable cards */}
-      <div className="space-y-4">
+      {/* Role list in a responsive 2-column grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 items-start">
         {loading ? (
-          <div className="p-12 text-center text-slate-400 bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 rounded-xl">
-            <RefreshCw className="w-5 h-5 animate-spin mx-auto text-amber-500 mb-2" />
+          <div className="col-span-full p-12 text-center text-slate-400 bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 rounded-xl">
+            <RefreshCw className="w-5 h-5 animate-spin mx-auto text-blue-500 mb-2" />
             Loading roles and permission tree...
           </div>
         ) : (
@@ -281,41 +281,41 @@ export default function AdminRolesPage() {
             return (
               <div
                 key={role.id}
-                className={`bg-white dark:bg-neutral-900 border rounded-xl overflow-hidden shadow-xs transition-all ${
+                className={`bg-white dark:bg-[#18181b] border rounded-xl overflow-hidden shadow-xs transition-all ${
                   isExpanded
-                    ? 'border-amber-500/40 ring-1 ring-amber-500/20'
-                    : 'border-slate-200 dark:border-neutral-800 hover:border-slate-300 dark:hover:border-slate-700'
+                    ? 'border-blue-500/50 ring-1 ring-blue-500/20'
+                    : 'border-slate-200 dark:border-neutral-800 hover:border-slate-300 dark:hover:border-neutral-700'
                 }`}
               >
                 {/* Role Summary Header */}
                 <div
                   onClick={() => setExpandedRoleId(isExpanded ? null : role.id)}
-                  className="p-5 flex items-center justify-between cursor-pointer select-none bg-slate-50/40 dark:bg-neutral-800/20"
+                  className="p-4 sm:p-5 flex items-center justify-between cursor-pointer select-none bg-slate-50/50 dark:bg-neutral-800/30"
                 >
-                  <div className="flex items-center space-x-3.5">
-                    <div className="w-9 h-9 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-600 dark:text-amber-400 border border-amber-500/20">
-                      <Shield className="w-5 h-5 text-amber-500" />
+                  <div className="flex items-center space-x-3.5 min-w-0">
+                    <div className="w-9 h-9 rounded-lg bg-slate-100 dark:bg-neutral-800 flex items-center justify-center text-slate-700 dark:text-neutral-300 border border-slate-200 dark:border-neutral-700 shrink-0">
+                      <Shield className="w-5 h-5 text-blue-600 dark:text-blue-400" />
                     </div>
-                    <div>
-                      <div className="flex items-center gap-2.5">
-                        <h3 className="text-sm font-black text-slate-900 dark:text-white font-mono">
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <h3 className="text-sm font-bold text-slate-900 dark:text-white font-mono truncate">
                           {role.name}
                         </h3>
                         {role.is_system ? (
-                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-bold bg-slate-200 dark:bg-neutral-800 text-slate-700 dark:text-neutral-300 border border-slate-300 dark:border-neutral-700">
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold bg-slate-100 dark:bg-neutral-800 text-slate-600 dark:text-neutral-400 border border-slate-200 dark:border-neutral-700">
                             <Lock className="w-2.5 h-2.5" />
                             SYSTEM ROLE
                           </span>
                         ) : (
-                          <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/25">
+                          <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">
                             CUSTOM ROLE
                           </span>
                         )}
                         <span className="text-[11px] text-slate-400 font-medium">
-                          {currentPerms.length} of {permissions.length} permissions
+                          {currentPerms.length} of {permissions.length} perms
                         </span>
                       </div>
-                      <p className="text-xs text-slate-500 dark:text-neutral-400 mt-1 max-w-2xl">
+                      <p className="text-xs text-slate-500 dark:text-neutral-400 mt-1 line-clamp-1">
                         {role.description}
                       </p>
                     </div>

@@ -241,7 +241,7 @@ export default function AdminOrganizationsPage() {
 
         <button
           onClick={openCreateModal}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold bg-amber-600 hover:bg-amber-500 text-white shadow-md shadow-amber-600/20 transition-all cursor-pointer"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold bg-blue-600 hover:bg-blue-700 text-white shadow-xs transition-all cursor-pointer"
         >
           <Plus className="w-4 h-4" />
           <span>Create Organization</span>
@@ -249,7 +249,7 @@ export default function AdminOrganizationsPage() {
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="flex items-center justify-between gap-4 bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 p-3.5 rounded-xl">
+      <div className="flex items-center justify-between gap-4 bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 p-3.5 rounded-xl shadow-xs">
         <div className="relative flex-1 max-w-md">
           <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
           <input
@@ -257,14 +257,14 @@ export default function AdminOrganizationsPage() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search organizations by name or slug..."
-            className="w-full pl-9 pr-3 py-1.5 text-xs rounded-lg bg-slate-50 dark:bg-neutral-800 border border-slate-200 dark:border-neutral-700 text-slate-900 dark:text-neutral-100 placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-amber-500"
+            className="w-full pl-9 pr-3 py-1.5 text-xs rounded-lg bg-slate-50 dark:bg-neutral-800 border border-slate-200 dark:border-neutral-700 text-slate-900 dark:text-neutral-100 placeholder:text-slate-400 focus:outline-hidden focus:ring-1 focus:ring-blue-500"
           />
         </div>
 
         <button
           onClick={loadData}
           title="Refresh organizations list"
-          className="p-2 rounded-lg bg-slate-100 dark:bg-neutral-800 text-slate-600 dark:text-neutral-300 hover:text-amber-500 transition-colors cursor-pointer"
+          className="p-2 rounded-lg bg-slate-100 dark:bg-neutral-800 text-slate-600 dark:text-neutral-300 hover:bg-slate-200 dark:hover:bg-neutral-700 transition-colors cursor-pointer"
         >
           <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
         </button>
@@ -288,7 +288,7 @@ export default function AdminOrganizationsPage() {
               {loading ? (
                 <tr>
                   <td colSpan={6} className="py-12 text-center text-slate-400">
-                    <RefreshCw className="w-5 h-5 animate-spin mx-auto text-amber-500 mb-2" />
+                    <RefreshCw className="w-5 h-5 animate-spin mx-auto text-blue-500 mb-2" />
                     Loading enterprise organizations...
                   </td>
                 </tr>
@@ -303,8 +303,8 @@ export default function AdminOrganizationsPage() {
                   <tr key={org.id} className="hover:bg-slate-50/50 dark:hover:bg-neutral-800/30 transition-colors">
                     <td className="py-3.5 px-6">
                       <div className="flex items-center space-x-3">
-                        <div className="w-8 h-8 rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400 font-bold flex items-center justify-center border border-amber-500/20">
-                          <Building2 className="w-4 h-4 text-amber-500" />
+                        <div className="w-8 h-8 rounded-lg bg-slate-100 dark:bg-neutral-800 text-slate-700 dark:text-neutral-300 font-bold flex items-center justify-center border border-slate-200 dark:border-neutral-700">
+                          <Building2 className="w-4 h-4 text-blue-600 dark:text-blue-400" />
                         </div>
                         <div>
                           <p className="font-bold text-slate-900 dark:text-white leading-tight">

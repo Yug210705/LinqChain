@@ -322,30 +322,30 @@ export default function AdminUsersPage() {
     switch (portal) {
       case 'OPERATOR':
         return (
-          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[10px] font-black uppercase tracking-wider bg-cyan-500/10 text-cyan-700 dark:text-cyan-400 border border-cyan-500/30">
-            <span className="w-1.5 h-1.5 rounded-full bg-cyan-500 animate-pulse" />
-            OPERATOR (/command-center)
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md text-[11px] font-semibold bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">
+            <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
+            Operator Portal
           </span>
         );
       case 'SUPPLIER':
         return (
-          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[10px] font-black uppercase tracking-wider bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/30">
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md text-[11px] font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-            SUPPLIER (/supplier)
+            Supplier Hub
           </span>
         );
       case 'MANUFACTURER':
         return (
-          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[10px] font-black uppercase tracking-wider bg-indigo-500/10 text-indigo-700 dark:text-indigo-400 border border-indigo-500/30">
-            <span className="w-1.5 h-1.5 rounded-full bg-indigo-500" />
-            MANUFACTURER (/manufacturer)
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md text-[11px] font-semibold bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20">
+            <span className="w-1.5 h-1.5 rounded-full bg-purple-500" />
+            Manufacturing MES
           </span>
         );
       case 'ADMIN':
         return (
-          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[10px] font-black uppercase tracking-wider bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/30">
-            <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
-            ADMIN CONTROL (/admin)
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md text-[11px] font-semibold bg-slate-100 dark:bg-neutral-800 text-slate-700 dark:text-neutral-300 border border-slate-200 dark:border-neutral-700">
+            <span className="w-1.5 h-1.5 rounded-full bg-slate-400" />
+            Admin Control
           </span>
         );
     }
@@ -573,13 +573,13 @@ export default function AdminUsersPage() {
               setPage(1);
               setPortalFilter('ALL');
             }}
-            className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+            className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
               activeTab === 'authorized'
-                ? 'bg-white dark:bg-neutral-900 text-amber-600 dark:text-amber-400 shadow-xs'
+                ? 'bg-white dark:bg-neutral-900 text-blue-600 dark:text-blue-400 shadow-xs'
                 : 'text-slate-600 dark:text-neutral-400 hover:text-slate-900 dark:hover:text-white'
             }`}
           >
-            <KeyRound className="w-4 h-4 text-amber-500" />
+            <KeyRound className="w-4 h-4 text-blue-500" />
             <span>Authorized Portal Directory ({authorizedUsers.length})</span>
           </button>
 
@@ -590,9 +590,9 @@ export default function AdminUsersPage() {
               setPage(1);
               setRoleFilter('ALL');
             }}
-            className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+            className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
               activeTab === 'admin'
-                ? 'bg-white dark:bg-neutral-900 text-amber-600 dark:text-amber-400 shadow-xs'
+                ? 'bg-white dark:bg-neutral-900 text-blue-600 dark:text-blue-400 shadow-xs'
                 : 'text-slate-600 dark:text-neutral-400 hover:text-slate-900 dark:hover:text-white'
             }`}
           >
@@ -607,9 +607,9 @@ export default function AdminUsersPage() {
               setPage(1);
               setRoleFilter('ALL');
             }}
-            className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+            className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
               activeTab === 'platform'
-                ? 'bg-white dark:bg-neutral-900 text-amber-600 dark:text-amber-400 shadow-xs'
+                ? 'bg-white dark:bg-neutral-900 text-blue-600 dark:text-blue-400 shadow-xs'
                 : 'text-slate-600 dark:text-neutral-400 hover:text-slate-900 dark:hover:text-white'
             }`}
           >
@@ -629,7 +629,7 @@ export default function AdminUsersPage() {
                 }
               }}
               title="Reset default authorizations"
-              className="px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:text-slate-800 dark:text-neutral-400 dark:hover:text-neutral-200 border border-slate-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 transition-colors cursor-pointer"
+              className="px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 dark:text-neutral-400 dark:hover:text-neutral-200 border border-slate-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 transition-colors cursor-pointer"
             >
               Reset Defaults
             </button>
@@ -637,7 +637,7 @@ export default function AdminUsersPage() {
 
           <button
             onClick={openCreateModal}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold bg-amber-600 hover:bg-amber-500 text-white shadow-md shadow-amber-600/20 transition-all cursor-pointer"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold bg-blue-600 hover:bg-blue-700 text-white shadow-xs transition-all cursor-pointer"
           >
             <Plus className="w-4 h-4" />
             <span>
@@ -798,7 +798,7 @@ export default function AdminUsersPage() {
                       <tr key={authUser.id} className="hover:bg-slate-50/50 dark:hover:bg-neutral-800/30 transition-colors">
                         <td className="py-3.5 px-6">
                           <div className="flex items-center space-x-3">
-                            <div className="w-8 h-8 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 font-bold flex items-center justify-center text-xs border border-amber-500/20">
+                            <div className="w-8 h-8 rounded-full bg-slate-100 dark:bg-neutral-800 text-slate-700 dark:text-neutral-300 font-semibold flex items-center justify-center text-xs border border-slate-200 dark:border-neutral-700">
                               {authUser.display_name ? authUser.display_name.charAt(0).toUpperCase() : 'U'}
                             </div>
                             <div>
@@ -896,7 +896,7 @@ export default function AdminUsersPage() {
                     <tr key={user.id} className="hover:bg-slate-50/50 dark:hover:bg-neutral-800/30 transition-colors">
                       <td className="py-3.5 px-6">
                         <div className="flex items-center space-x-3">
-                          <div className="w-7 h-7 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 font-bold flex items-center justify-center text-xs border border-amber-500/20">
+                          <div className="w-8 h-8 rounded-full bg-slate-100 dark:bg-neutral-800 text-slate-700 dark:text-neutral-300 font-semibold flex items-center justify-center text-xs border border-slate-200 dark:border-neutral-700">
                             {name ? name.charAt(0).toUpperCase() : 'U'}
                           </div>
                           <div>

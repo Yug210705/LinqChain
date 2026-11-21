@@ -326,12 +326,12 @@ export default function AdminAuditPage() {
                       <tr
                         onClick={() => setExpandedId(isExpanded ? null : log.id)}
                         className={`hover:bg-slate-50/50 dark:hover:bg-neutral-800/30 transition-colors cursor-pointer select-none ${
-                          isExpanded ? 'bg-amber-50/20 dark:bg-amber-950/10' : ''
+                          isExpanded ? 'bg-slate-50/80 dark:bg-neutral-800/50' : ''
                         }`}
                       >
                         <td className="py-3 px-4 text-center">
                           {isExpanded ? (
-                            <ChevronUp className="w-3.5 h-3.5 text-amber-500" />
+                            <ChevronUp className="w-3.5 h-3.5 text-blue-500" />
                           ) : (
                             <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
                           )}
@@ -345,7 +345,7 @@ export default function AdminAuditPage() {
                           </span>
                         </td>
                         <td className="py-3.5 px-6">
-                          <span className="px-2 py-0.5 rounded font-mono font-bold text-[10px] bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/20">
+                          <span className="px-2 py-0.5 rounded font-mono font-semibold text-[10px] bg-slate-100 dark:bg-neutral-800 text-slate-700 dark:text-neutral-300 border border-slate-200 dark:border-neutral-700">
                             {log.action}
                           </span>
                         </td>

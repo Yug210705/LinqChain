@@ -128,8 +128,8 @@ export default function AdminSystemPage() {
       {/* Top Banner and Refresh Controls */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 p-4 rounded-xl shadow-xs">
         <div className="flex items-center space-x-3">
-          <div className="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-500 border border-amber-500/20">
-            <Activity className="w-4 h-4 text-amber-500" />
+          <div className="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-600 dark:text-blue-400 border border-blue-500/20">
+            <Activity className="w-4 h-4 text-blue-500" />
           </div>
           <div>
             <h2 className="text-sm font-bold text-slate-800 dark:text-neutral-200 uppercase tracking-wider">
@@ -148,7 +148,7 @@ export default function AdminSystemPage() {
               type="checkbox"
               checked={autoRefresh}
               onChange={(e) => setAutoRefresh(e.target.checked)}
-              className="rounded text-amber-500 focus:ring-amber-500"
+              className="rounded text-blue-600 focus:ring-blue-500"
             />
             <span>Auto-poll (15s)</span>
           </label>
@@ -195,7 +195,7 @@ export default function AdminSystemPage() {
             <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">
               SAP Event Mesh & RFC
             </span>
-            <div className="w-8 h-8 rounded-lg bg-amber-500/10 text-amber-500 flex items-center justify-center border border-amber-500/20">
+            <div className="w-8 h-8 rounded-lg bg-blue-500/10 text-blue-500 flex items-center justify-center border border-blue-500/20">
               <Radio className="w-4 h-4" />
             </div>
           </div>
@@ -215,8 +215,8 @@ export default function AdminSystemPage() {
             <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">
               Python Runtime
             </span>
-            <div className="w-8 h-8 rounded-lg bg-amber-500/10 text-amber-500 flex items-center justify-center border border-amber-500/20">
-              <Cpu className="w-4 h-4" />
+            <div className="w-8 h-8 rounded-lg bg-slate-100 dark:bg-neutral-800 text-slate-700 dark:text-neutral-300 flex items-center justify-center border border-slate-200 dark:border-neutral-700">
+              <Cpu className="w-4 h-4 text-slate-600 dark:text-neutral-400" />
             </div>
           </div>
           <div className="flex items-baseline gap-2">
