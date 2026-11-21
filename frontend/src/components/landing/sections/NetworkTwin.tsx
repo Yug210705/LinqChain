@@ -269,149 +269,213 @@ export default function NetworkTwin() {
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className="w-full rounded-2xl border border-white/10 bg-black/70 backdrop-blur-2xl p-4 shadow-2xl relative overflow-hidden"
+        className="w-full rounded-3xl border border-white/15 bg-[#0a0a0f]/95 backdrop-blur-3xl p-4 sm:p-5 shadow-[0_15px_50px_rgba(0,0,0,0.9)] relative overflow-hidden"
       >
-        <div className="flex items-center justify-between pb-3 mb-3 border-b border-white/10">
+        {/* Subtle Ambient Glow */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-24 bg-[#FF9F68]/10 blur-3xl pointer-events-none" />
+
+        {/* Card Header */}
+        <div className="flex items-center justify-between pb-3 mb-3 border-b border-white/10 relative z-10">
           <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+            </span>
             <span className="text-[10px] font-mono tracking-widest text-white/90 uppercase font-semibold">
               Live Network Twin
             </span>
           </div>
-          <span className="text-[9px] font-mono text-[#FF9F68]">4-Stage Topology</span>
+          <span className="text-[9px] font-mono text-[#FF9F68] bg-[#FF9F68]/10 border border-[#FF9F68]/20 px-2 py-0.5 rounded-full font-medium">
+            4-Stage Topology
+          </span>
         </div>
 
         {/* Vertical Mobile Topology Flow */}
-        <div className="relative h-72 w-full my-2 flex flex-col justify-between py-2 px-3">
-          {/* SVG Animated Connecting Lines */}
+        <div className="relative h-80 w-full my-2 flex flex-col justify-between py-2 relative z-10">
+          {/* SVG Animated Connecting Lines (Perfect symmetrical anchor alignment) */}
           <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 100 100" preserveAspectRatio="none">
-            {/* Stage 1 -> Stage 2 (Supplier to Hubs) */}
-            <path d="M 30 12 L 35 38" stroke="rgba(255,255,255,0.15)" strokeWidth="0.8" fill="none" />
+            {/* Stage 1 -> Stage 2 (Supplier Alpha -> Component Hub) */}
+            <path d="M 28 12 L 28 36" stroke="rgba(255,255,255,0.12)" strokeWidth="1" fill="none" />
             <motion.path 
-              d="M 30 12 L 35 38" 
+              d="M 28 12 L 28 36" 
               stroke="#FF9F68" 
-              strokeWidth="1.2" 
-              fill="none" 
-              initial={{ pathLength: 0 }}
-              animate={{ pathLength: 1 }}
-              transition={{ duration: 2.5, repeat: Infinity, ease: "linear" }}
-            />
-            <path d="M 70 12 L 65 38" stroke="rgba(239,68,68,0.25)" strokeWidth="0.8" strokeDasharray="2 2" fill="none" />
-            <motion.path 
-              d="M 70 12 L 65 38" 
-              stroke="#ef4444" 
-              strokeWidth="1.2" 
-              strokeDasharray="2 2"
+              strokeWidth="1.5" 
               fill="none" 
               initial={{ pathLength: 0 }}
               animate={{ pathLength: 1 }}
               transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
             />
 
-            {/* Stage 2 -> Stage 3 (Hubs to Plants) */}
-            <path d="M 35 38 L 50 64" stroke="rgba(255,255,255,0.15)" strokeWidth="0.8" fill="none" />
+            {/* Stage 1 -> Stage 2 (Supplier Beta -> Port Beta - DISRUPTED) */}
+            <path d="M 72 12 L 72 36" stroke="rgba(239,68,68,0.25)" strokeWidth="1" strokeDasharray="2 2" fill="none" />
             <motion.path 
-              d="M 35 38 L 50 64" 
-              stroke="#FF9F68" 
-              strokeWidth="1.2" 
-              fill="none" 
-              initial={{ pathLength: 0 }}
-              animate={{ pathLength: 1 }}
-              transition={{ duration: 2.5, repeat: Infinity, delay: 0.4, ease: "linear" }}
-            />
-            <path d="M 65 38 L 50 64" stroke="rgba(250,204,21,0.25)" strokeWidth="0.8" strokeDasharray="2 2" fill="none" />
-            <motion.path 
-              d="M 65 38 L 50 64" 
-              stroke="#facc15" 
-              strokeWidth="1.2" 
+              d="M 72 12 L 72 36" 
+              stroke="#ef4444" 
+              strokeWidth="1.6" 
               strokeDasharray="2 2"
               fill="none" 
               initial={{ pathLength: 0 }}
               animate={{ pathLength: 1 }}
-              transition={{ duration: 2.5, repeat: Infinity, delay: 0.6, ease: "linear" }}
+              transition={{ duration: 1.8, repeat: Infinity, ease: "linear" }}
             />
 
-            {/* Stage 3 -> Stage 4 (Plants to DCs & Customers) */}
-            <path d="M 50 64 L 25 88" stroke="rgba(255,255,255,0.15)" strokeWidth="0.8" fill="none" />
+            {/* Stage 2 -> Stage 3 (Component Hub -> Assembly Plant Beta) */}
+            <path d="M 28 40 L 50 62" stroke="rgba(255,255,255,0.12)" strokeWidth="1" fill="none" />
             <motion.path 
-              d="M 50 64 L 25 88" 
+              d="M 28 40 L 50 62" 
               stroke="#FF9F68" 
-              strokeWidth="1.2" 
+              strokeWidth="1.5" 
               fill="none" 
               initial={{ pathLength: 0 }}
               animate={{ pathLength: 1 }}
-              transition={{ duration: 2.5, repeat: Infinity, delay: 0.8, ease: "linear" }}
+              transition={{ duration: 2.2, repeat: Infinity, delay: 0.3, ease: "linear" }}
             />
-            <path d="M 50 64 L 75 88" stroke="rgba(255,255,255,0.15)" strokeWidth="0.8" fill="none" />
+
+            {/* Stage 2 -> Stage 3 (Port Beta -> Assembly Plant Beta - CASCADING FAILURE) */}
+            <path d="M 72 40 L 50 62" stroke="rgba(250,204,21,0.25)" strokeWidth="1" strokeDasharray="2 2" fill="none" />
             <motion.path 
-              d="M 50 64 L 75 88" 
-              stroke="#FF9F68" 
-              strokeWidth="1.2" 
+              d="M 72 40 L 50 62" 
+              stroke="#facc15" 
+              strokeWidth="1.6" 
+              strokeDasharray="2 2"
               fill="none" 
               initial={{ pathLength: 0 }}
               animate={{ pathLength: 1 }}
-              transition={{ duration: 2.5, repeat: Infinity, delay: 1, ease: "linear" }}
+              transition={{ duration: 2, repeat: Infinity, delay: 0.5, ease: "linear" }}
+            />
+
+            {/* Stage 3 -> Stage 4 (Assembly Plant -> DC Americas) */}
+            <path d="M 50 66 L 28 90" stroke="rgba(255,255,255,0.12)" strokeWidth="1" fill="none" />
+            <motion.path 
+              d="M 50 66 L 28 90" 
+              stroke="#FF9F68" 
+              strokeWidth="1.5" 
+              fill="none" 
+              initial={{ pathLength: 0 }}
+              animate={{ pathLength: 1 }}
+              transition={{ duration: 2.2, repeat: Infinity, delay: 0.8, ease: "linear" }}
+            />
+
+            {/* Stage 3 -> Stage 4 (Assembly Plant -> Enterprise Retail) */}
+            <path d="M 50 66 L 72 90" stroke="rgba(255,255,255,0.12)" strokeWidth="1" fill="none" />
+            <motion.path 
+              d="M 50 66 L 72 90" 
+              stroke="#FF9F68" 
+              strokeWidth="1.5" 
+              fill="none" 
+              initial={{ pathLength: 0 }}
+              animate={{ pathLength: 1 }}
+              transition={{ duration: 2.2, repeat: Infinity, delay: 1, ease: "linear" }}
             />
           </svg>
 
           {/* Level 1: Tier 2 Suppliers */}
-          <div className="flex items-center justify-around z-10">
-            <div className="flex items-center gap-1.5 bg-black/80 px-2 py-1 rounded-md border border-white/10 shadow-sm">
-              <div className="w-2.5 h-2.5 rounded-full bg-white/40 border border-white" />
-              <span className="text-[9px] text-white/70 font-mono">Supplier Alpha</span>
+          <div className="grid grid-cols-2 gap-3 z-10 px-1">
+            <div className="flex items-center justify-center">
+              <div className="w-full max-w-[155px] flex items-center justify-between px-2.5 py-1.5 rounded-xl bg-[#111218]/90 border border-white/10 shadow-md">
+                <div className="flex items-center gap-1.5 min-w-0">
+                  <div className="w-2 h-2 rounded-full bg-white/70 shadow-[0_0_6px_rgba(255,255,255,0.6)] shrink-0" />
+                  <span className="text-[10px] text-white/90 font-mono font-medium truncate">Supplier Alpha</span>
+                </div>
+                <span className="text-[7.5px] font-mono text-emerald-400 font-semibold uppercase shrink-0 ml-1">Live</span>
+              </div>
             </div>
-            <div className="flex items-center gap-1.5 bg-black/80 px-2 py-1 rounded-md border border-white/10 shadow-sm">
-              <div className="w-2.5 h-2.5 rounded-full bg-white/40 border border-white" />
-              <span className="text-[9px] text-white/70 font-mono">Supplier Beta</span>
+
+            <div className="flex items-center justify-center">
+              <div className="w-full max-w-[155px] flex items-center justify-between px-2.5 py-1.5 rounded-xl bg-[#111218]/90 border border-white/10 shadow-md">
+                <div className="flex items-center gap-1.5 min-w-0">
+                  <div className="w-2 h-2 rounded-full bg-white/70 shadow-[0_0_6px_rgba(255,255,255,0.6)] shrink-0" />
+                  <span className="text-[10px] text-white/90 font-mono font-medium truncate">Supplier Beta</span>
+                </div>
+                <span className="text-[7.5px] font-mono text-white/40 font-semibold uppercase shrink-0 ml-1">Live</span>
+              </div>
             </div>
           </div>
 
-          {/* Level 2: Component Hubs (with Disrupted Port) */}
-          <div className="flex items-center justify-around z-10">
-            <div className="flex items-center gap-1.5 bg-black/80 px-2 py-1 rounded-md border border-white/10 shadow-sm">
-              <div className="w-2.5 h-2.5 rounded-full bg-brand" />
-              <span className="text-[9px] text-white/80 font-mono">Component Hub</span>
+          {/* Level 2: Component Hubs & Disrupted Port */}
+          <div className="grid grid-cols-2 gap-3 z-10 px-1">
+            <div className="flex items-center justify-center">
+              <div className="w-full max-w-[155px] flex items-center justify-between px-2.5 py-1.5 rounded-xl bg-[#14141c]/90 border border-[#FF9F68]/20 shadow-md">
+                <div className="flex items-center gap-1.5 min-w-0">
+                  <div className="w-2 h-2 rounded-full bg-[#FF9F68] shadow-[0_0_8px_rgba(255,159,104,0.8)] shrink-0" />
+                  <span className="text-[10px] text-white/90 font-mono font-medium truncate">Component Hub</span>
+                </div>
+                <span className="text-[7.5px] font-mono text-[#FF9F68] font-semibold uppercase shrink-0 ml-1">Transit</span>
+              </div>
             </div>
-            <div className="flex items-center gap-1.5 bg-red-950/70 px-2 py-1 rounded-md border border-red-500/50 shadow-[0_0_15px_rgba(239,68,68,0.4)] animate-pulse">
-              <div className="w-2.5 h-2.5 rounded-full bg-red-500" />
-              <span className="text-[9px] text-red-400 font-bold font-mono">Port Beta (Halted)</span>
+
+            <div className="flex items-center justify-center">
+              <div className="w-full max-w-[155px] flex items-center justify-between px-2.5 py-1.5 rounded-xl bg-red-950/70 border border-red-500/60 shadow-[0_0_15px_rgba(239,68,68,0.35)] relative overflow-hidden">
+                <div className="flex items-center gap-1.5 min-w-0">
+                  <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse shadow-[0_0_8px_rgba(239,68,68,1)] shrink-0" />
+                  <span className="text-[10px] text-red-300 font-mono font-bold truncate">Port Beta</span>
+                </div>
+                <span className="text-[7.5px] font-mono text-red-400 font-bold uppercase shrink-0 ml-1 bg-red-500/20 px-1 py-0.2 rounded">Halted</span>
+              </div>
             </div>
           </div>
 
-          {/* Level 3: Assembly Plant (Cascading Impact) */}
-          <div className="flex items-center justify-center z-10">
-            <div className="flex items-center gap-2 bg-yellow-950/60 px-3 py-1.5 rounded-md border border-yellow-500/40 shadow-[0_0_15px_rgba(250,204,21,0.25)]">
-              <div className="w-3 h-3 rounded-full bg-yellow-400 animate-pulse" />
-              <span className="text-[10px] text-yellow-300 font-bold font-mono">Assembly Plant Beta (At Risk)</span>
+          {/* Level 3: Assembly Plant (Cascading Impact Focal Point) */}
+          <div className="flex items-center justify-center z-10 px-1">
+            <div className="w-full max-w-[280px] flex items-center justify-between px-3 py-2 rounded-xl bg-amber-950/50 border border-amber-400/50 shadow-[0_0_20px_rgba(250,204,21,0.25)] relative overflow-hidden">
+              <div className="flex items-center gap-2 min-w-0">
+                <div className="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse shadow-[0_0_10px_rgba(250,204,21,1)] shrink-0" />
+                <span className="text-[10.5px] text-amber-200 font-mono font-bold truncate">
+                  Assembly Plant Beta
+                </span>
+              </div>
+              <span className="text-[8px] font-mono font-bold text-amber-300 uppercase shrink-0 ml-1.5 bg-amber-400/20 px-1.5 py-0.5 rounded-md border border-amber-400/30">
+                At-Risk: -4.2d
+              </span>
             </div>
           </div>
 
           {/* Level 4: Distribution & Customer */}
-          <div className="flex items-center justify-around z-10">
-            <div className="flex items-center gap-1.5 bg-black/80 px-2 py-1 rounded-md border border-white/10 shadow-sm">
-              <div className="w-2.5 h-2.5 rounded-full bg-white/40 border border-white" />
-              <span className="text-[9px] text-white/70 font-mono">DC North America</span>
+          <div className="grid grid-cols-2 gap-3 z-10 px-1">
+            <div className="flex items-center justify-center">
+              <div className="w-full max-w-[155px] flex items-center justify-between px-2.5 py-1.5 rounded-xl bg-[#111218]/90 border border-white/10 shadow-md">
+                <div className="flex items-center gap-1.5 min-w-0">
+                  <div className="w-2 h-2 rounded-full bg-white/70 shadow-[0_0_6px_rgba(255,255,255,0.6)] shrink-0" />
+                  <span className="text-[10px] text-white/90 font-mono font-medium truncate">DC Americas</span>
+                </div>
+                <span className="text-[7.5px] font-mono text-emerald-400 font-semibold uppercase shrink-0 ml-1">Active</span>
+              </div>
             </div>
-            <div className="flex items-center gap-1.5 bg-black/80 px-2 py-1 rounded-md border border-white/10 shadow-sm">
-              <div className="w-2.5 h-2.5 rounded-full bg-[#FF9F68]" />
-              <span className="text-[9px] text-[#FF9F68] font-mono">Enterprise Retail</span>
+
+            <div className="flex items-center justify-center">
+              <div className="w-full max-w-[155px] flex items-center justify-between px-2.5 py-1.5 rounded-xl bg-[#14141c]/90 border border-[#FF9F68]/20 shadow-md">
+                <div className="flex items-center gap-1.5 min-w-0">
+                  <div className="w-2 h-2 rounded-full bg-[#FF9F68] shadow-[0_0_8px_rgba(255,159,104,0.8)] shrink-0" />
+                  <span className="text-[10px] text-[#FF9F68] font-mono font-medium truncate">Retail Network</span>
+                </div>
+                <span className="text-[7.5px] font-mono text-white/50 font-semibold uppercase shrink-0 ml-1">Fulfill</span>
+              </div>
             </div>
           </div>
         </div>
 
         {/* Real-Time Health Summary Strip */}
-        <div className="grid grid-cols-3 gap-2 pt-3 border-t border-white/10 text-center">
-          <div className="p-2 rounded-lg bg-white/5 border border-white/5">
-            <p className="text-[11px] font-bold font-mono text-emerald-400">12 Nodes</p>
-            <p className="text-[7px] text-white/50 uppercase tracking-widest">Nominal</p>
+        <div className="grid grid-cols-3 gap-2 pt-3 border-t border-white/10 text-center relative z-10">
+          <div className="p-2 sm:p-2.5 rounded-xl bg-white/[0.03] border border-white/10 hover:border-emerald-500/30 transition-colors">
+            <p className="text-xs font-bold font-mono text-emerald-400 flex items-center justify-center gap-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+              12 Nodes
+            </p>
+            <p className="text-[7.5px] text-white/50 uppercase tracking-widest mt-0.5">Nominal</p>
           </div>
-          <div className="p-2 rounded-lg bg-red-500/10 border border-red-500/20">
-            <p className="text-[11px] font-bold font-mono text-red-400">1 Node</p>
-            <p className="text-[7px] text-red-300 uppercase tracking-widest">Disrupted</p>
+          <div className="p-2 sm:p-2.5 rounded-xl bg-red-500/10 border border-red-500/25 shadow-[0_0_12px_rgba(239,68,68,0.15)]">
+            <p className="text-xs font-bold font-mono text-red-400 flex items-center justify-center gap-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-ping" />
+              1 Node
+            </p>
+            <p className="text-[7.5px] text-red-300 font-semibold uppercase tracking-widest mt-0.5">Disrupted</p>
           </div>
-          <div className="p-2 rounded-lg bg-yellow-500/10 border border-yellow-500/20">
-            <p className="text-[11px] font-bold font-mono text-yellow-400">2 Nodes</p>
-            <p className="text-[7px] text-yellow-300 uppercase tracking-widest">At-Risk</p>
+          <div className="p-2 sm:p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/25 shadow-[0_0_12px_rgba(250,204,21,0.15)]">
+            <p className="text-xs font-bold font-mono text-amber-300 flex items-center justify-center gap-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
+              2 Nodes
+            </p>
+            <p className="text-[7.5px] text-amber-300 font-semibold uppercase tracking-widest mt-0.5">At-Risk</p>
           </div>
         </div>
       </motion.div>
