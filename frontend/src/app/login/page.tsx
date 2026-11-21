@@ -27,7 +27,10 @@ import {
 export default function LoginPage() {
   const router = useRouter();
   const { user, login, loginWithMicrosoft, loginWithSAP, loginGuest } = useAuthStore();
-  const greetingName = user?.display_name?.replace(/\s*\(.*\)/, '').trim().split(' ')[0] || 'Yug';
+  const [mounted, setMounted] = useState(false);
+  const greetingName = (mounted && user?.display_name)
+    ? user.display_name.replace(/\s*\(.*\)/, '').trim().split(' ')[0] || 'Yug'
+    : 'Yug';
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -38,7 +41,6 @@ export default function LoginPage() {
   const [activeSsoModal, setActiveSsoModal] = useState<'microsoft' | 'sap' | null>(null);
   const [selectedLang, setSelectedLang] = useState('English');
   const [showLangMenu, setShowLangMenu] = useState(false);
-  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -197,7 +199,7 @@ export default function LoginPage() {
             <div className="flex items-center gap-2.5">
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-[0_0_12px_rgba(52,211,153,0.9)] shrink-0" />
               <div>
-                <span className="text-sm sm:text-base font-bold text-white tracking-tight flex items-center gap-1.5">
+                <span suppressHydrationWarning className="text-sm sm:text-base font-bold text-white tracking-tight flex items-center gap-1.5">
                   Good morning, {greetingName}! 👋
                 </span>
                 <p className="text-xs text-neutral-400 mt-0.5">
@@ -473,13 +475,15 @@ export default function LoginPage() {
 
             {/* Bottom Links */}
             <div className="mt-8 pt-6 border-t border-neutral-100 flex flex-col items-center gap-2 text-xs text-neutral-500">
-              <div className="flex items-center gap-1.5 text-neutral-500">
+              <div suppressHydrationWarning className="flex items-center gap-1.5 text-neutral-500">
                 <span
-                  className={`w-2 h-2 rounded-full ${isSupabaseConfigured ? 'bg-emerald-500' : 'bg-amber-500'
-                    }`}
+                  suppressHydrationWarning
+                  className={`w-2 h-2 rounded-full ${
+                    mounted && isSupabaseConfigured ? 'bg-emerald-500' : 'bg-amber-500'
+                  }`}
                 />
-                <span>
-                  {isSupabaseConfigured
+                <span suppressHydrationWarning>
+                  {mounted && isSupabaseConfigured
                     ? 'Connected to Supabase Cloud'
                     : 'Enterprise Local Hybrid Engine (Supabase Ready)'}
                 </span>
