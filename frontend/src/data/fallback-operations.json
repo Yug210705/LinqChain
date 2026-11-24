@@ -1,0 +1,284 @@
+{
+  "plans": [
+    {
+      "id": "RP-EXEC-001",
+      "disruption_id": "DISRUPT-PORT-BETA",
+      "scenario_id": "SCN-001-ALPHA",
+      "strategy": "Apex Silicon Accelerated Procurement & Express Air",
+      "supplier_id": "SUP-001",
+      "total_cost": 245000,
+      "max_delay_days": 3.5,
+      "blended_risk": 0.18,
+      "total_sla_exposure": 150000,
+      "final_score": 0.92,
+      "orders_recovered_pct": 98.5,
+      "status": "PENDING_AUDIT",
+      "created_at": "2026-11-24T10:30:00Z",
+      "updated_at": "2026-11-24T11:00:00Z",
+      "details": {
+        "sap_vendor_code": "VEND-10023",
+        "sap_material_code": "MAT-012",
+        "sap_plant": "PLANT-001",
+        "po_suggested": "PO-45009182",
+        "audit_notes": "Awaiting SOC 2 automated audit verification before executive release.",
+        "freight_mode": "EXPRESS_AIR",
+        "compliance_checked": true
+      }
+    },
+    {
+      "id": "RP-EXEC-002",
+      "disruption_id": "DISRUPT-PORT-BETA",
+      "scenario_id": "SCN-002-BETA",
+      "strategy": "Nordic Composite Dual-Sourcing Contingency",
+      "supplier_id": "SUP-002",
+      "total_cost": 310000,
+      "max_delay_days": 5.0,
+      "blended_risk": 0.14,
+      "total_sla_exposure": 120000,
+      "final_score": 0.88,
+      "orders_recovered_pct": 94.0,
+      "status": "PENDING_APPROVAL",
+      "created_at": "2026-11-24T09:15:00Z",
+      "updated_at": "2026-11-24T10:45:00Z",
+      "details": {
+        "sap_vendor_code": "VEND-10088",
+        "sap_material_code": "MAT-002",
+        "sap_plant": "PLANT-002",
+        "po_suggested": "PO-45009244",
+        "audit_notes": "Automated audit PASSED. Pending final director authorization.",
+        "freight_mode": "MULTIMODAL_RAIL",
+        "compliance_checked": true
+      }
+    },
+    {
+      "id": "RP-EXEC-003",
+      "disruption_id": "DISRUPT-MALACCA-01",
+      "scenario_id": "SCN-003-GAMMA",
+      "strategy": "Stuttgart Intra-Company Safety Stock Bridge",
+      "supplier_id": "SUP-004",
+      "total_cost": 98000,
+      "max_delay_days": 7.0,
+      "blended_risk": 0.28,
+      "total_sla_exposure": 280000,
+      "final_score": 0.81,
+      "orders_recovered_pct": 89.2,
+      "status": "APPROVED",
+      "created_at": "2026-11-23T14:20:00Z",
+      "updated_at": "2026-11-24T08:00:00Z",
+      "details": {
+        "sap_vendor_code": "VEND-10045",
+        "sap_material_code": "MAT-001",
+        "sap_plant": "PLANT-001",
+        "po_suggested": "PO-45008910",
+        "audit_notes": "Authorized and actively dispatching in SAP S/4HANA.",
+        "freight_mode": "RAIL_FREIGHT",
+        "compliance_checked": true
+      }
+    },
+    {
+      "id": "RP-EXEC-004",
+      "disruption_id": "DISRUPT-MALACCA-01",
+      "scenario_id": "SCN-004-DELTA",
+      "strategy": "Shenzhen Precision Emergency Rerouting",
+      "supplier_id": "SUP-003",
+      "total_cost": 180000,
+      "max_delay_days": 4.0,
+      "blended_risk": 0.19,
+      "total_sla_exposure": 95000,
+      "final_score": 0.86,
+      "orders_recovered_pct": 96.5,
+      "status": "COMPLETED",
+      "created_at": "2026-11-22T11:00:00Z",
+      "updated_at": "2026-11-23T18:30:00Z",
+      "details": {
+        "sap_vendor_code": "VEND-10091",
+        "sap_material_code": "MAT-003",
+        "sap_plant": "PLANT-003",
+        "po_suggested": "PO-45008711",
+        "audit_notes": "Successfully received at assembly plant. Line starvation averted.",
+        "freight_mode": "AIR_CARGO",
+        "compliance_checked": true
+      }
+    },
+    {
+      "id": "RP-EXEC-005",
+      "disruption_id": "DISRUPT-ROTTERDAM-02",
+      "scenario_id": "SCN-005-EPSILON",
+      "strategy": "Rotterdam Bypass to Antwerp Deepwater Quay",
+      "supplier_id": "SUP-002",
+      "total_cost": 125000,
+      "max_delay_days": 2.5,
+      "blended_risk": 0.12,
+      "total_sla_exposure": 80000,
+      "final_score": 0.94,
+      "orders_recovered_pct": 99.0,
+      "status": "PENDING_AUDIT",
+      "created_at": "2026-11-24T12:00:00Z",
+      "updated_at": "2026-11-24T12:30:00Z",
+      "details": {
+        "sap_vendor_code": "VEND-10088",
+        "sap_material_code": "MAT-005",
+        "sap_plant": "PLANT-002",
+        "po_suggested": "PO-45009301",
+        "audit_notes": "Feeder barge slot confirmed at Antwerp Port; pending risk policy sign-off.",
+        "freight_mode": "FEEDER_BARGE",
+        "compliance_checked": true
+      }
+    },
+    {
+      "id": "RP-EXEC-006",
+      "disruption_id": "DISRUPT-ROTTERDAM-02",
+      "scenario_id": "SCN-006-ZETA",
+      "strategy": "Bavaria Microchips Direct Plant Dispatch",
+      "supplier_id": "SUP-004",
+      "total_cost": 210000,
+      "max_delay_days": 3.0,
+      "blended_risk": 0.16,
+      "total_sla_exposure": 110000,
+      "final_score": 0.89,
+      "orders_recovered_pct": 95.0,
+      "status": "PENDING_APPROVAL",
+      "created_at": "2026-11-24T13:10:00Z",
+      "updated_at": "2026-11-24T13:45:00Z",
+      "details": {
+        "sap_vendor_code": "VEND-10045",
+        "sap_material_code": "MAT-007",
+        "sap_plant": "PLANT-001",
+        "po_suggested": "PO-45009388",
+        "audit_notes": "Expedite fee approved by production manager; awaiting finance approval.",
+        "freight_mode": "ROAD_EXPRESS",
+        "compliance_checked": true
+      }
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "SCN-001-ALPHA",
+      "name": "Emergency Sourcing: Apex Silicon Foundry",
+      "disruption_id": "DISRUPT-PORT-BETA",
+      "strategy": "Primary allocation switch to SUP-001 (Apex Silicon)",
+      "supplier_id": "SUP-001",
+      "total_cost": 245000,
+      "max_delay_days": 3.5,
+      "blended_risk": 0.18,
+      "total_sla_exposure": 150000,
+      "final_score": 0.92,
+      "status": "READY",
+      "created_at": "2026-11-24T08:00:00Z",
+      "updated_at": "2026-11-24T10:00:00Z",
+      "details": {
+        "allocated_units": 5000,
+        "unit_cost": 49.0,
+        "air_freight_expedite": true,
+        "confidence": 0.94,
+        "summary": "Full demand fulfilled via expedited air transit from Taiwan hub with minimal factory downtime."
+      }
+    },
+    {
+      "id": "SCN-002-BETA",
+      "name": "Split Dual-Supplier Routing: Nordic & Bavaria",
+      "disruption_id": "DISRUPT-PORT-BETA",
+      "strategy": "Split 60% SUP-002 (Nordic) + 40% SUP-004 (Bavaria)",
+      "supplier_id": "SUP-002",
+      "total_cost": 310000,
+      "max_delay_days": 5.0,
+      "blended_risk": 0.14,
+      "total_sla_exposure": 120000,
+      "final_score": 0.88,
+      "status": "SIMULATING",
+      "created_at": "2026-11-24T08:30:00Z",
+      "updated_at": "2026-11-24T09:45:00Z",
+      "details": {
+        "allocated_units": 5000,
+        "split_ratio": "60/40",
+        "risk_mitigation": "Reduces dependency on Asian shipping routes during maritime congestion.",
+        "confidence": 0.89
+      }
+    },
+    {
+      "id": "SCN-003-GAMMA",
+      "name": "Inventory Buffer Rebalance: Stuttgart Assembly",
+      "disruption_id": "DISRUPT-MALACCA-01",
+      "strategy": "Internal safety stock transfer from Plant 1 to Plant 2",
+      "supplier_id": "SUP-004",
+      "total_cost": 98000,
+      "max_delay_days": 7.0,
+      "blended_risk": 0.28,
+      "total_sla_exposure": 280000,
+      "final_score": 0.81,
+      "status": "SELECTED",
+      "created_at": "2026-11-23T11:00:00Z",
+      "updated_at": "2026-11-23T15:20:00Z",
+      "details": {
+        "allocated_units": 3500,
+        "transit_mode": "RAIL",
+        "confidence": 0.82,
+        "summary": "Transfers stock between European hubs to maintain production cadence."
+      }
+    },
+    {
+      "id": "SCN-004-DELTA",
+      "name": "Rapid Air Bridge: Shenzhen Express",
+      "disruption_id": "DISRUPT-MALACCA-01",
+      "strategy": "Direct air charter delivery from Shenzhen Precision",
+      "supplier_id": "SUP-003",
+      "total_cost": 420000,
+      "max_delay_days": 2.0,
+      "blended_risk": 0.32,
+      "total_sla_exposure": 50000,
+      "final_score": 0.76,
+      "status": "READY",
+      "created_at": "2026-11-23T09:00:00Z",
+      "updated_at": "2026-11-23T14:10:00Z",
+      "details": {
+        "allocated_units": 5000,
+        "freight_mode": "AIR_CHARTER",
+        "confidence": 0.78,
+        "summary": "Critical AOG emergency air charter bypassing closed straits."
+      }
+    },
+    {
+      "id": "SCN-005-EPSILON",
+      "name": "Alternative Port Diversion: Rotterdam to Antwerp",
+      "disruption_id": "DISRUPT-ROTTERDAM-02",
+      "strategy": "Divert container vessels to Antwerp terminal",
+      "supplier_id": "SUP-002",
+      "total_cost": 125000,
+      "max_delay_days": 2.5,
+      "blended_risk": 0.12,
+      "total_sla_exposure": 80000,
+      "final_score": 0.94,
+      "status": "READY",
+      "created_at": "2026-11-24T11:15:00Z",
+      "updated_at": "2026-11-24T12:00:00Z",
+      "details": {
+        "allocated_units": 6200,
+        "freight_mode": "FEEDER_VESSEL",
+        "confidence": 0.95,
+        "summary": "Avoids 9-day berth congestion at Rotterdam with pre-cleared Antwerp customs."
+      }
+    },
+    {
+      "id": "SCN-006-ZETA",
+      "name": "Secondary Supplier Activation: Bavaria Microchips",
+      "disruption_id": "DISRUPT-ROTTERDAM-02",
+      "strategy": "Contracted backup supplier purchase order release",
+      "supplier_id": "SUP-004",
+      "total_cost": 210000,
+      "max_delay_days": 3.0,
+      "blended_risk": 0.16,
+      "total_sla_exposure": 110000,
+      "final_score": 0.89,
+      "status": "SIMULATING",
+      "created_at": "2026-11-24T12:45:00Z",
+      "updated_at": "2026-11-24T13:30:00Z",
+      "details": {
+        "allocated_units": 4500,
+        "freight_mode": "DEDICATED_TRUCK",
+        "confidence": 0.91,
+        "summary": "Direct road freight from Munich cleanroom facility."
+      }
+    }
+  ]
+}
+
